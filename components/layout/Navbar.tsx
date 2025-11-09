@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
 import { NAVIGATION_LINKS } from '@/lib/constants';
 import { useState, useEffect } from 'react';
 
@@ -55,17 +54,6 @@ export default function Navbar() {
               />
             </Link>
           ))}
-
-          {/* HRMS Login Button */}
-          <a
-            href="https://hrms.infinititechpartners.com/login"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-4 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#FF9966] to-[#FF6B35] text-white text-[15px] font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,153,102,0.5)] relative group overflow-hidden"
-          >
-            <span className="relative z-10">HRMS Login</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FFB088] to-[#FF8547] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </a>
         </div>
       </div>
     </nav>

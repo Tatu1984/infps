@@ -1,12 +1,8 @@
 # Deployment Guide for www.infinititechpartners.com
 
-## HRMS Integration Complete ✓
+## Overview
 
-The website now includes:
-- **HRMS Login Button** in the navigation bar (top right)
-- **Login Page** at `/hrms/login`
-- **Dashboard** at `/hrms/dashboard` (placeholder - needs real HRMS API integration)
-- **Authentication API** at `/api/hrms/auth/login`
+This is a Next.js 14 website with Sanity CMS integration, ready for deployment to Vercel.
 
 ---
 
@@ -41,7 +37,6 @@ The website now includes:
    - Add in Vercel dashboard under Settings → Environment Variables:
      - `NEXT_PUBLIC_SANITY_PROJECT_ID` = nwa9weet
      - `NEXT_PUBLIC_SANITY_DATASET` = production
-     - Add your HRMS API credentials when ready
 
 ---
 
@@ -140,46 +135,10 @@ TTL: 3600
 
 ---
 
-## HRMS API Integration (TODO)
-
-The current implementation uses placeholder authentication. To connect to your real HRMS:
-
-1. **Update API route** (`app/api/hrms/auth/login/route.ts`):
-   ```typescript
-   // Replace the mock authentication with your HRMS API
-   const hrmsResponse = await fetch('YOUR_HRMS_API_URL/auth/login', {
-     method: 'POST',
-     headers: { 'Content-Type': 'application/json' },
-     body: JSON.stringify({ email, password }),
-   });
-   ```
-
-2. **Add environment variables**:
-   ```
-   HRMS_API_URL=https://your-hrms-api.com
-   HRMS_API_KEY=your-api-key
-   JWT_SECRET=your-secret-key
-   ```
-
-3. **Implement proper JWT token handling**:
-   - Generate secure JWT tokens
-   - Store tokens securely (httpOnly cookies recommended)
-   - Implement token refresh mechanism
-   - Add middleware for protected routes
-
-4. **Connect dashboard to real data**:
-   - Fetch employee data from HRMS API
-   - Implement attendance tracking
-   - Connect leave management
-   - Display real payroll information
-
----
-
 ## Pre-Deployment Checklist
 
 - [ ] Update Sanity project ID and dataset if needed
-- [ ] Configure HRMS API credentials
-- [ ] Test HRMS login flow
+- [ ] Test all pages and navigation
 - [ ] Set up proper error handling
 - [ ] Configure security headers
 - [ ] Enable HTTPS
@@ -209,11 +168,6 @@ npm start
 NEXT_PUBLIC_SANITY_PROJECT_ID=nwa9weet
 NEXT_PUBLIC_SANITY_DATASET=production
 
-# HRMS (Add when ready)
-HRMS_API_URL=
-HRMS_API_KEY=
-JWT_SECRET=
-
 # Optional
 NODE_ENV=production
 ```
@@ -226,8 +180,3 @@ For deployment issues, contact:
 - Vercel: https://vercel.com/support
 - Netlify: https://www.netlify.com/support/
 - Next.js: https://nextjs.org/docs
-
-For HRMS integration help, ensure you have:
-- HRMS API documentation
-- Authentication credentials
-- API endpoint URLs

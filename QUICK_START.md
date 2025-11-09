@@ -80,7 +80,7 @@ git push -u origin main
 Visit: `https://www.infinititechpartners.com`
 
 ✅ Website loads
-✅ HRMS Login button works
+✅ All pages work
 ✅ HTTPS is enabled
 
 ---
@@ -96,7 +96,7 @@ Visit: `https://www.infinititechpartners.com`
 ✅ Live website at www.infinititechpartners.com
 ✅ HTTPS/SSL automatically enabled
 ✅ Global CDN for fast loading
-✅ HRMS login portal ready
+✅ Sanity CMS for content management
 ✅ Automatic deployments (push to GitHub = auto-deploy)
 
 ---
@@ -110,7 +110,7 @@ Visit: `https://www.infinititechpartners.com`
 **"Build failed"?**
 ```bash
 rm -rf node_modules package-lock.json
-npm install --legacy-peer-deps
+npm install
 npm run build
 git add .
 git commit -m "Fix build"
@@ -125,9 +125,9 @@ git push
 
 ## Next Steps
 
-1. **Connect Real HRMS:**
-   - Edit: `app/api/hrms/auth/login/route.ts`
-   - Add your HRMS API credentials
+1. **Add Content via Sanity CMS:**
+   - Visit: `/studio` on your deployed site
+   - Add blog posts, portfolio items, etc.
 
 2. **Set Up Monitoring:**
    - https://uptimerobot.com (free)
