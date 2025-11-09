@@ -1,28 +1,23 @@
-# 🚀 Quick Start - Deploy in 15 Minutes
+# 🚀 Quick Start - Deploy in 10 Minutes
 
 ## Fastest Way to Deploy www.infinititechpartners.com
 
 ---
 
-## Step 1: Push to GitHub (5 minutes)
-
-### Option A: Use the Setup Script (Easiest)
+## Step 1: Push to GitHub (3 minutes)
 
 ```bash
-./deploy-setup.sh
+git add .
+git commit -m "Ready for deployment"
+git push
 ```
 
-Follow the prompts!
-
-### Option B: Manual Setup
-
-1. Create repository on GitHub: https://github.com/new
-2. Run these commands:
+If you haven't set up Git yet:
 
 ```bash
 git init
 git add .
-git commit -m "Ready for deployment"
+git commit -m "Initial commit"
 git remote add origin https://github.com/YOUR_USERNAME/infinititech-website.git
 git branch -M main
 git push -u origin main
@@ -40,19 +35,15 @@ git push -u origin main
    - Select your repository
    - Click "Import"
 
-3. **Add Environment Variables:**
-   ```
-   NEXT_PUBLIC_SANITY_PROJECT_ID = nwa9weet
-   NEXT_PUBLIC_SANITY_DATASET = production
-   ```
-
-4. **Click "Deploy"**
+3. **Deploy:**
+   - Click "Deploy"
    - Wait 2-3 minutes
-   - Done! You'll get a URL like: `your-site.vercel.app`
+
+Done! You'll get a URL like: `your-site.vercel.app`
 
 ---
 
-## Step 3: Connect Your Domain (5 minutes)
+## Step 3: Connect Your Domain (2 minutes)
 
 ### In Vercel:
 1. Go to Settings → Domains
@@ -75,19 +66,15 @@ git push -u origin main
 
 ---
 
-## Step 4: Test (1 minute)
+## 🎉 You're Live!
 
 Visit: `https://www.infinititechpartners.com`
 
 ✅ Website loads
 ✅ All pages work
-✅ HTTPS is enabled
-
----
-
-## 🎉 You're Live!
-
-**Need help?** See full guide: `STEP_BY_STEP_DEPLOYMENT.md`
+✅ HTTPS enabled
+✅ Global CDN
+✅ Auto-deployments enabled
 
 ---
 
@@ -95,9 +82,10 @@ Visit: `https://www.infinititechpartners.com`
 
 ✅ Live website at www.infinititechpartners.com
 ✅ HTTPS/SSL automatically enabled
-✅ Global CDN for fast loading
-✅ Sanity CMS for content management
+✅ Global CDN for fast loading worldwide
 ✅ Automatic deployments (push to GitHub = auto-deploy)
+✅ Built-in analytics
+✅ Zero configuration
 
 ---
 
@@ -112,28 +100,27 @@ Visit: `https://www.infinititechpartners.com`
 rm -rf node_modules package-lock.json
 npm install
 npm run build
-git add .
-git commit -m "Fix build"
-git push
 ```
+Then push to GitHub again.
 
 **Other issues?**
-- Check `STEP_BY_STEP_DEPLOYMENT.md` (Troubleshooting section)
+- Check [DEPLOYMENT.md](./DEPLOYMENT.md)
 - Vercel docs: https://vercel.com/docs
 
 ---
 
 ## Next Steps
 
-1. **Add Content via Sanity CMS:**
-   - Visit: `/studio` on your deployed site
-   - Add blog posts, portfolio items, etc.
+1. **Monitor your site:**
+   - https://uptimerobot.com (free uptime monitoring)
 
-2. **Set Up Monitoring:**
-   - https://uptimerobot.com (free)
-
-3. **SEO:**
+2. **SEO:**
    - Submit to Google Search Console
+   - Add sitemap
+
+3. **Analytics:**
+   - Vercel Analytics (built-in)
+   - Google Analytics (optional)
 
 ---
 
