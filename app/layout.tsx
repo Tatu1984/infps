@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import SplashCursor from "@/components/effects/SplashCursor";
 import LiquidEther from "@/components/effects/LiquidEther";
+import SmoothScroll from "@/components/effects/SmoothScroll";
 import FestivePopup from "@/components/cms/FestivePopup";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -33,6 +34,7 @@ export default function RootLayout({
         {/* Custom Cursor Effects */}
         <SplashCursor />
         <LiquidEther />
+        <SmoothScroll />
 
         {/* Content */}
         <div className="relative">

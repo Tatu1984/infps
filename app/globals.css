@@ -53,12 +53,21 @@ body {
   background: linear-gradient(180deg, #FFB088, #FF9966);
 }
 
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+}
+
 html {
-  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  overflow-x: hidden;
 }
 
 body {
   cursor: none;
+  overflow-x: hidden;
 }
 
 a, button {

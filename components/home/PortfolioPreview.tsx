@@ -7,7 +7,7 @@ export default function PortfolioPreview() {
   const featuredProjects = PORTFOLIO_ITEMS.slice(0, 3);
 
   return (
-    <section className="py-32 bg-background relative z-10">
+    <section className="py-32 bg-background/30 relative z-10">
       <div className="max-w-[1400px] mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-16">

@@ -16,8 +16,10 @@ export default function Home() {
       <WorkProcess />
 
       {/* CTA Section */}
-      <section className="py-32 bg-gradient-to-r from-primary to-secondary text-white relative z-10">
-        <div className="max-w-4xl mx-auto text-center px-8">
+      <section className="py-32 bg-gradient-to-r from-primary/40 to-secondary/40 text-white relative z-10">
+        {/* Blackish overlay */}
+        <div className="absolute inset-0 bg-black/20 z-0" />
+        <div className="max-w-4xl mx-auto text-center px-8 relative z-10">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
             Ready to Transform Your Business?
           </h2>

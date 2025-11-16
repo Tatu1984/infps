@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { NAVIGATION_LINKS } from '@/lib/constants';
 import { useState, useEffect } from 'react';
@@ -21,7 +22,7 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-[9998] transition-all duration-300 ${
-        isScrolled ? 'bg-background/95 backdrop-blur-xl border-b border-border' : 'bg-transparent'
+        isScrolled ? 'bg-background/50 backdrop-blur-md border-b border-border/50' : 'bg-transparent'
       }`}
       style={{ marginLeft: '6px' }}
     >

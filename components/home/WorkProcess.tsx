@@ -5,7 +5,7 @@ import { CheckCircle } from 'lucide-react';
 
 export default function WorkProcess() {
   return (
-    <section className="py-32 bg-background relative z-10">
+    <section className="py-32 bg-background/30 relative z-10">
       <div className="max-w-[1400px] mx-auto px-8">
         {/* Section Header */}
         <div className="text-center mb-20">

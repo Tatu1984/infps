@@ -40,17 +40,37 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-3">
-              {NAVIGATION_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-3">
+              <li>
+                <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/team" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Team
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/portfolio" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
 
