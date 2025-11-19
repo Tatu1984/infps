@@ -686,7 +686,7 @@ export default function HRMSDocPage() {
     </tr>
     <tr>
         <td>Developer</td>
-        <td>Claude (Anthropic AI)</td>
+        <td>Sudipto Mitra</td>
     </tr>
     <tr>
         <td>Organization</td>
