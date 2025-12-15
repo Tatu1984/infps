@@ -44,10 +44,12 @@ export default function ParticleLogoCanvas({
 
   /** Build particles for the current canvas size */
   const rebuild = () => {
-    const canvas = canvasRef.current!;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
     const dpr = dprRef.current;
     const W = canvas.width;
     const H = canvas.height;
+    if (W === 0 || H === 0) return;
     logicalSizeRef.current = { w: W / dpr, h: H / dpr };
 
     // Auto scale relative to min dimension
