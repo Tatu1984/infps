@@ -120,9 +120,9 @@ export const TEAM = [
     bio: 'Expert in building scalable web applications'
   },
   {
-    name: 'Soumyadip Chanda',
+    name: 'Mitali Giri',
     role: 'AI/ML Developer',
-    initial: 'SC',
+    initial: 'MG',
     color: '#f59e0b',
     bio: 'Pioneering intelligent solutions with machine learning'
   },
@@ -133,6 +133,20 @@ export const TEAM = [
     color: '#ec4899',
     bio: 'Senior developer specializing in scalable enterprise solutions',
     linkedin: 'https://www.linkedin.com/in/achyutpal21'
+  },
+  {
+    name: 'Tushar Daiya',
+    role: 'Full Stack MERN Developer',
+    initial: 'TD',
+    color: '#3b82f6',
+    bio: 'Building robust and scalable web applications'
+  },
+  {
+    name: 'Balaji Yadav',
+    role: 'Full Stack MERN Developer',
+    initial: 'BY',
+    color: '#10b981',
+    bio: 'Crafting modern web solutions with expertise in MERN stack'
   }
 ];
 

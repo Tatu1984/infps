@@ -31,17 +31,17 @@ export default function Snowfall() {
 
     // Snowflakes array
     const snowflakes: Snowflake[] = [];
-    const snowflakeCount = 100;
+    const snowflakeCount = 70;
 
     // Initialize snowflakes
     for (let i = 0; i < snowflakeCount; i++) {
       snowflakes.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 3 + 1,
-        speed: Math.random() * 1 + 0.5,
-        wind: Math.random() * 0.5 - 0.25,
-        opacity: Math.random() * 0.5 + 0.3,
+        radius: Math.random() * 2 + 0.5, // Smaller flakes (was 3 + 1)
+        speed: Math.random() * 0.5 + 0.2, // Slower fall (was 1 + 0.5)
+        wind: Math.random() * 0.3 - 0.15, // Less wind drift (was 0.5 - 0.25)
+        opacity: Math.random() * 0.3 + 0.15, // More subtle (was 0.5 + 0.3)
       });
     }
 
