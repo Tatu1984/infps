@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Store, Calculator, GraduationCap, Truck } from 'lucide-react';
+import { Store, Calculator, GraduationCap, Truck, Building2 } from 'lucide-react';
 
 export default function ProductsPage() {
   const products = [
@@ -53,6 +53,18 @@ export default function ProductsPage() {
       description: 'Comprehensive fleet tracking solution with real-time GPS, ELD compliance, driver management, incident tracking, geofencing, and advanced analytics.',
       technologies: ['Next.js', 'Prisma', 'Leaflet.js', 'Recharts', 'NextAuth', 'PostgreSQL'],
       highlights: 'DOT compliance, 8 user roles, live GPS tracking',
+    },
+    {
+      title: 'Real Estate',
+      subtitle: 'Property Listing & Management Platform',
+      category: 'Real Estate / Property / Marketplace',
+      slug: 'realestate',
+      icon: Building2,
+      color: '#ec4899',
+      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2073',
+      description: 'Advanced real estate platform with property listings, agent management, membership subscriptions, and comprehensive search similar to leading property portals.',
+      technologies: ['Next.js 16', 'Prisma', 'PostgreSQL', 'NextAuth', 'Stripe', 'Cloudinary'],
+      highlights: 'Multi-role access, membership plans, SMS & email integration',
     },
   ];
 
