@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Store, Calculator, GraduationCap, Truck, Building2, Users } from 'lucide-react';
+import { Store, Calculator, GraduationCap, Truck, Building2, Users, UtensilsCrossed, Car } from 'lucide-react';
 
 export default function ProductsPage() {
   const products = [
@@ -77,6 +77,30 @@ export default function ProductsPage() {
       description: 'Advanced real estate platform with property listings, agent management, membership subscriptions, and comprehensive search similar to leading property portals.',
       technologies: ['Next.js 16', 'Prisma', 'PostgreSQL', 'NextAuth', 'Stripe', 'Cloudinary'],
       highlights: 'Multi-role access, membership plans, SMS & email integration',
+    },
+    {
+      title: 'Drop',
+      subtitle: 'Multi-Sided Delivery & Commerce Platform',
+      category: 'Food Delivery / Marketplace / Logistics',
+      slug: 'drop',
+      icon: UtensilsCrossed,
+      color: '#f97316',
+      image: 'https://images.unsplash.com/photo-1526367790999-0150786686a2?q=80&w=2071',
+      description: 'Comprehensive hyperlocal delivery platform for food, groceries, and services with vendor management, rider logistics, party mode, and restaurant management system.',
+      technologies: ['Next.js 16', 'Prisma', 'PostgreSQL', 'Socket.io', 'Razorpay', 'Leaflet.js'],
+      highlights: '100+ database models, 4 user portals, real-time tracking, RMS built-in',
+    },
+    {
+      title: 'RideOn',
+      subtitle: 'Complete Ride-Hailing Platform',
+      category: 'Transportation / Logistics / Mobility',
+      slug: 'rideon',
+      icon: Car,
+      color: '#14b8a6',
+      image: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070',
+      description: 'Full-featured Uber-like ride-hailing solution with rider/driver mobile apps, admin dashboard, real-time GPS tracking, payments, and driver management.',
+      technologies: ['Next.js', 'React Native', 'Node.js', 'PostgreSQL', 'Socket.io', 'Stripe'],
+      highlights: 'Mobile apps for iOS/Android, real-time tracking, 22 database models',
     },
   ];
 
