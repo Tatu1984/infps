@@ -167,7 +167,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Call Us</h3>
-                    <p className="text-xl font-semibold">+91 XXX XXX XXXX</p>
+                    <p className="text-xl font-semibold">+91 629 103 3969</p>
                     <p className="text-sm text-muted-foreground mt-2">Mon-Fri, 9AM-6PM IST</p>
                   </div>
                 </div>
