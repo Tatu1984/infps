@@ -25,10 +25,12 @@ export default function HRMSProductPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
-                href="/contact"
+                href="https://hrmsdemo-beta.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 bg-white text-primary px-8 py-4 rounded-full text-lg font-bold transition-all hover:scale-105 hover:shadow-2xl"
               >
-                Request Demo
+                Live Demo
                 <ArrowRight size={20} />
               </Link>
               <Link
