@@ -404,6 +404,24 @@ a {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /* ========================================
    MAGNETIC BUTTON
    ======================================== */
@@ -2440,7 +2458,7 @@ a {
 }
 
 .product-detail-hero {
-  padding: 60px 0 100px;
+  padding: 0;
   position: relative;
   z-index: 2;
 }
@@ -2601,7 +2619,7 @@ a.btn-secondary.large {
 
 .product-hero-visual {
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
   aspect-ratio: 1;
   border-radius: 30px;
   display: flex;
@@ -2804,7 +2822,7 @@ a.btn-secondary.large {
   }
 
   .product-hero-visual {
-    max-width: 300px;
+    max-width: 400px;
   }
 
   .product-hero-title {

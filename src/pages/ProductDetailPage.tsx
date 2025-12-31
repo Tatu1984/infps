@@ -1,14 +1,19 @@
 import { useParams, Link } from "react-router-dom";
 import { FloatingConstellation } from "@/components/effects";
 import { MagneticButton, Icon, type IconName } from "@/components/ui";
+import { ImagesSlider } from "@/components/ui/images-slider";
 import { products, productDetails } from "@/data/data";
 import { ArrowLeft, ExternalLink, CheckCircle } from "lucide-react";
+import { getProductScreenshots } from "@/utils/screenshots";
 
 export const ProductDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
 
   const product = products.find((p) => p.slug === slug);
   const details = productDetails.find((d) => d.slug === slug);
+
+  const screenshots = slug ? getProductScreenshots(slug) : [];
+  const showScreenshots = screenshots.length > 0;
 
   if (!product) {
     return (
@@ -52,12 +57,18 @@ export const ProductDetailPage = () => {
                   >
                     <Icon name={product.icon as IconName} size={40} />
                   </div>
-                  <span className="product-hero-category">{product.category}</span>
+                  <span className="product-hero-category">
+                    {product.category}
+                  </span>
                 </div>
 
-                <h1 className="product-hero-title">{details?.heroTitle || product.name}</h1>
+                <h1 className="product-hero-title">
+                  {details?.heroTitle || product.name}
+                </h1>
                 <p className="product-hero-tagline">{product.tagline}</p>
-                <p className="product-hero-desc">{details?.heroDescription || product.desc}</p>
+                <p className="product-hero-desc">
+                  {details?.heroDescription || product.desc}
+                </p>
 
                 {/* Stats */}
                 {details?.stats && (
@@ -92,10 +103,26 @@ export const ProductDetailPage = () => {
 
               <div className="product-hero-right">
                 <div
-                  className="product-hero-visual"
-                  style={{ background: product.gradient }}
+                  className="product-hero-visual overflow-hidden"
+                  style={{
+                    background: showScreenshots
+                      ? "transparent"
+                      : product.gradient,
+                  }}
                 >
-                  <Icon name={product.icon as IconName} size={120} />
+                  {showScreenshots ? (
+                    <ImagesSlider
+                      images={screenshots}
+                      autoplay={true}
+                      interval={2000}
+                      overlay={false}
+                      className="h-full w-full rounded-[30px]"
+                    >
+                      <div />
+                    </ImagesSlider>
+                  ) : (
+                    <Icon name={product.icon as IconName} size={120} />
+                  )}
                 </div>
               </div>
             </div>
@@ -108,7 +135,9 @@ export const ProductDetailPage = () => {
             <h2 className="product-section-title">Technology Stack</h2>
             <div className="product-tech-list">
               {product.technologies.map((tech, i) => (
-                <span key={i} className="product-tech-item">{tech}</span>
+                <span key={i} className="product-tech-item">
+                  {tech}
+                </span>
               ))}
             </div>
           </div>
@@ -139,14 +168,18 @@ export const ProductDetailPage = () => {
           <section className="product-detail-section">
             <div className="section-container">
               <h2 className="product-section-title">
-                {details.portals.some(p => p.description?.includes("Portal")) ? "Role-Based Portals" : "Platform Components"}
+                {details.portals.some((p) => p.description?.includes("Portal"))
+                  ? "Role-Based Portals"
+                  : "Platform Components"}
               </h2>
               <div className="product-portals-grid">
                 {details.portals.map((portal, i) => (
                   <div key={i} className="product-portal-card">
                     <h3 className="product-portal-title">{portal.title}</h3>
                     {portal.description && (
-                      <p className="product-portal-desc">{portal.description}</p>
+                      <p className="product-portal-desc">
+                        {portal.description}
+                      </p>
                     )}
                     <ul className="product-portal-features">
                       {portal.features.map((feature, j) => (
@@ -186,7 +219,8 @@ export const ProductDetailPage = () => {
             <div className="product-cta-content">
               <h2 className="product-cta-title">Ready to Get Started?</h2>
               <p className="product-cta-desc">
-                Get a production-ready solution customized to your specific needs
+                Get a production-ready solution customized to your specific
+                needs
               </p>
               <div className="product-cta-actions">
                 {product.demoUrl && (

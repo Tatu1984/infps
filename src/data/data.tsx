@@ -978,6 +978,7 @@ export const products: Product[] = [
       "Stripe",
     ],
     highlights: "Multi-role access, tokenization, insurance & hedging modules",
+    demoUrl: "https://mplc.infinititechpartners.com",
   },
   {
     slug: "accubooks",
@@ -1062,6 +1063,7 @@ export const products: Product[] = [
       "Cloudinary",
     ],
     highlights: "Multi-role access, membership plans, SMS & email integration",
+    demoUrl: "https://realestate.infinititechpartners.com",
   },
   {
     slug: "drop",
