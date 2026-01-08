@@ -2779,7 +2779,7 @@ export const processSteps: ProcessStep[] = [
   {
     num: "01",
     title: "Discovery",
-    desc: "We get on a Teams call to understand your business module, end users, user personas, and your unique value proposition.",
+    desc: "We get on a Teams call to understand your business model, end users, user personas, and your unique value proposition.",
     points: [
       "Business Analysis",
       "User Research",
@@ -2890,7 +2890,7 @@ export const aboutServicesExpanded: string[] = [
   "AI/ML-powered automation and intelligent decisioning",
   "Blockchain development & secure distributed systems",
   "High-performance websites and mobile applications",
-  "Low Latecy, high throughput systems",
+  "Low Latency, high throughput systems",
 ];
 
 export const aboutOperatingPrinciples: string[] = [
