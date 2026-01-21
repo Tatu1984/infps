@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { footerLinks } from "@/data/data";
+import { MapPin } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -36,6 +37,25 @@ export const Footer = () => {
                     <Link to={link.href}>{link.label}</Link>
                   </li>
                 ))}
+              </ul>
+            </div>
+            <div className="footer-col footer-offices">
+              <h4>Our Offices</h4>
+              <ul>
+                <li className="office-item">
+                  <MapPin size={16} className="office-icon" />
+                  <div>
+                    <span className="office-label">Head Office</span>
+                    <span className="office-location">Atlanta, Georgia</span>
+                  </div>
+                </li>
+                <li className="office-item">
+                  <MapPin size={16} className="office-icon" />
+                  <div>
+                    <span className="office-label">India Office</span>
+                    <span className="office-location">Kolkata, West Bengal</span>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>

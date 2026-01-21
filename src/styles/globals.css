@@ -876,10 +876,31 @@ a {
 .hero-subtitle {
   font-size: 1.1rem;
   color: var(--color-text-muted);
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.proxmox-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  animation: fade-up 1s var(--ease-out-expo) 1.3s both;
+}
+
+.proxmox-logo {
+  height: 28px;
+  width: auto;
+}
+
+.proxmox-badge span {
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.1em;
 }
 
 .hero-ctas {
@@ -1033,8 +1054,21 @@ a {
 
   .hero-subtitle {
     font-size: 1rem;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     padding: 0 10px;
+  }
+
+  .proxmox-badge {
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .proxmox-logo {
+    height: 24px;
+  }
+
+  .proxmox-badge span {
+    font-size: 0.85rem;
   }
 
   .hero-ctas {
@@ -1073,6 +1107,14 @@ a {
 
   .hero-subtitle {
     font-size: 0.9rem;
+  }
+
+  .proxmox-logo {
+    height: 20px;
+  }
+
+  .proxmox-badge span {
+    font-size: 0.8rem;
   }
 
   .hero-badge {
@@ -2414,6 +2456,37 @@ a {
   color: var(--color-primary);
 }
 
+/* Footer Offices */
+.office-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px !important;
+}
+
+.office-icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.office-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.office-label {
+  color: var(--color-text) !important;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.office-location {
+  color: var(--color-text-muted) !important;
+  font-size: 0.85rem;
+}
+
 /* Footer - Mobile Responsive */
 @media (max-width: 768px) {
   .footer {
@@ -2464,6 +2537,10 @@ a {
   .footer-legal {
     gap: 20px;
     flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-offices .office-item {
     justify-content: center;
   }
 }
