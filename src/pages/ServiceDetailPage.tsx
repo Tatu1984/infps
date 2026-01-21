@@ -135,7 +135,10 @@ export const ServiceDetailPage = () => {
                 </h3>
                 <div className="w-full max-w-7xl! flex justify-center flex-wrap gap-6">
                   {details.capabilities.map((capability, i) => (
-                    <div key={i} className="service-capability-item w-[30%]!">
+                    <div
+                      key={i}
+                      className="service-capability-item lg:w-[30%] md:w-[40%] w-full"
+                    >
                       <CheckCircle size={20} className="capability-icon" />
                       <span>{capability}</span>
                     </div>

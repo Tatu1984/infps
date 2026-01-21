@@ -44,7 +44,10 @@ export const AboutSection = () => {
 
           <div className="flex flex-wrap justify-center gap-6">
             {values.map((value, i) => (
-              <TiltCard key={i} className="value-card w-[32%]">
+              <TiltCard
+                key={i}
+                className="value-card lg:w-[32%] md:w-[47%] w-[90%]"
+              >
                 <span className="value-icon">
                   <Icon name={value.icon as IconName} />
                 </span>

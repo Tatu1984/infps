@@ -155,7 +155,10 @@ export const PortfolioDetailPage = () => {
                 <p className="portfolio-mission-intro">{details.mission}</p>
                 <div className="flex flex-wrap justify-center gap-6">
                   {details.missionPoints.map((point, i) => (
-                    <div key={i} className="w-[48%] portfolio-mission-item">
+                    <div
+                      key={i}
+                      className="md:w-[48%] w-full portfolio-mission-item"
+                    >
                       <Target size={20} className="mission-icon" />
                       <span>{point}</span>
                     </div>
@@ -172,7 +175,10 @@ export const PortfolioDetailPage = () => {
               <h2 className="portfolio-section-title">What We Delivered</h2>
               <div className="flex flex-wrap justify-center gap-6">
                 {details.deliverables.map((item, i) => (
-                  <div key={i} className="portfolio-deliverable-item w-[48%]">
+                  <div
+                    key={i}
+                    className="portfolio-deliverable-item md:w-[48%] w-full "
+                  >
                     <CheckCircle size={20} className="deliverable-icon" />
                     <span>{item}</span>
                   </div>
@@ -216,7 +222,10 @@ export const PortfolioDetailPage = () => {
               <h2 className="portfolio-section-title">Results & Impact</h2>
               <div className="flex flex-wrap justify-center gap-6">
                 {details.results.map((result, i) => (
-                  <div key={i} className="portfolio-result-item w-[48%]">
+                  <div
+                    key={i}
+                    className="portfolio-result-item md:w-[48%] w-full "
+                  >
                     <CheckCircle size={22} className="result-icon" />
                     <span>{result}</span>
                   </div>

@@ -18,7 +18,10 @@ export const PortfolioPage = () => {
           <div className="page-section">
             <div className="flex flex-wrap gap-6 justify-center">
               {projects.map((project, i) => (
-                <TiltCard key={i} className="portfolio-card-full w-[32%]">
+                <TiltCard
+                  key={i}
+                  className="portfolio-card-full lg:w-[32%] md:w-[45%] w-full"
+                >
                   <Link to={`/portfolio/${project.slug}`}>
                     <div
                       className="portfolio-image-full"

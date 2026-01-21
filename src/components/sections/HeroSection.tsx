@@ -5,6 +5,7 @@ import {
   BlurText,
   MagneticButton,
 } from "@/components/ui";
+import proxmoxLogo from "@/assets/proxmox.webp";
 
 export const HeroSection = () => (
   <section id="home" className="hero">
@@ -29,6 +30,12 @@ export const HeroSection = () => (
             delay={1}
           />
         </p>
+
+        <div className="proxmox-badge">
+          <span>AUTHORIZED</span>
+          <img src={proxmoxLogo} alt="Proxmox" className="proxmox-logo" />
+          <span>PROXMOX RESELLER</span>
+        </div>
 
         <div className="hero-ctas">
           <MagneticButton href="#contact" className="btn-primary">
