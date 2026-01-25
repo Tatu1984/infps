@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { footerLinks, contactInfo } from "@/data/data";
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -47,6 +47,9 @@ export const Footer = () => {
                   <div>
                     <span className="office-label">Head Office</span>
                     <span className="office-location">Atlanta, Georgia</span>
+                    <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="office-contact">
+                      <Phone size={14} /> {contactInfo.phone}
+                    </a>
                   </div>
                 </li>
                 <li className="office-item">
@@ -54,14 +57,8 @@ export const Footer = () => {
                   <div>
                     <span className="office-label">India Office</span>
                     <span className="office-location">Kolkata, West Bengal</span>
-                  </div>
-                </li>
-                <li className="office-item">
-                  <Phone size={16} className="office-icon" />
-                  <div>
-                    <span className="office-label">Call Us</span>
-                    <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="office-location office-phone">
-                      {contactInfo.phone}
+                    <a href={`mailto:${contactInfo.email}`} className="office-contact">
+                      <Mail size={14} /> {contactInfo.email}
                     </a>
                   </div>
                 </li>

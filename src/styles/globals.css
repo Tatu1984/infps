@@ -2509,11 +2509,17 @@ a {
   font-size: 0.85rem;
 }
 
-a.office-phone {
+a.office-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted) !important;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
   transition: color 0.3s;
 }
 
-a.office-phone:hover {
+a.office-contact:hover {
   color: var(--color-primary) !important;
 }
 
