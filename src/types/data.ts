@@ -136,6 +136,7 @@ export interface TeamMember {
 
 export interface ContactInfo {
   email: string;
+  phone: string;
   location: string;
   hours: string;
 }

@@ -41,9 +41,13 @@ export const ContactSection = () => (
             </MagneticButton>
           </div>
 
-          <div className="contact-email">
-            <a href={`mailto:${contactInfo.email}`}>
+          <div className="contact-info-links">
+            <a href={`mailto:${contactInfo.email}`} className="contact-email">
               {contactInfo.email}
+            </a>
+            <span className="contact-divider">|</span>
+            <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="contact-phone">
+              {contactInfo.phone}
             </a>
           </div>
         </div>

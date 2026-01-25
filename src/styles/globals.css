@@ -2270,14 +2270,27 @@ a {
   margin-bottom: 40px;
 }
 
-.contact-email a {
+.contact-info-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.contact-info-links a {
   font-size: 1.3rem;
   color: var(--color-primary);
   transition: color 0.3s;
 }
 
-.contact-email a:hover {
+.contact-info-links a:hover {
   color: var(--color-secondary);
+}
+
+.contact-divider {
+  color: var(--color-text-muted);
+  opacity: 0.5;
 }
 
 /* Contact Section - Mobile Responsive */
@@ -2316,7 +2329,7 @@ a {
     margin-bottom: 30px;
   }
 
-  .contact-email a {
+  .contact-info-links a {
     font-size: 1rem;
     word-break: break-all;
   }
@@ -2335,8 +2348,17 @@ a {
     font-size: 0.9rem;
   }
 
-  .contact-email a {
+  .contact-info-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .contact-info-links a {
     font-size: 0.9rem;
+  }
+
+  .contact-divider {
+    display: none;
   }
 }
 
@@ -2485,6 +2507,14 @@ a {
 .office-location {
   color: var(--color-text-muted) !important;
   font-size: 0.85rem;
+}
+
+a.office-phone {
+  transition: color 0.3s;
+}
+
+a.office-phone:hover {
+  color: var(--color-primary) !important;
 }
 
 /* Footer - Mobile Responsive */

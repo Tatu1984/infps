@@ -46,6 +46,7 @@ export const footerLinks = {
 // Contact info
 export const contactInfo: ContactInfo = {
   email: "hello@infinititechpartners.com",
+  phone: "+1 404 689 9006",
   location: "Available Worldwide",
   hours: "Mon - Fri: 9AM - 6PM IST",
 };
