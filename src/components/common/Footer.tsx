@@ -46,7 +46,7 @@ export const Footer = () => {
                   <MapPin size={16} className="office-icon" />
                   <div>
                     <span className="office-label">Head Office</span>
-                    <span className="office-location">Atlanta, Georgia</span>
+                    <span className="office-location">459 Hamilton St SE, Atlanta, GA 30316</span>
                     <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="office-contact">
                       <Phone size={14} /> {contactInfo.phone}
                     </a>
