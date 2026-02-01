@@ -15,9 +15,25 @@ export const ParticleField = () => {
     let canvasWidth = window.innerWidth;
     let canvasHeight = window.innerHeight;
 
+    const getCSSVar = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+    const primaryColor = () => getCSSVar('--color-primary') || '#00ffcc';
+    const secondaryColor = () => getCSSVar('--color-secondary') || '#ff6b35';
+    const bgColor = () => getCSSVar('--color-bg') || '#080c15';
+
+    const hexToRgba = (hex: string, alpha = 1) => {
+      const h = hex.replace('#', '');
+      const bigint = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
+
     window.addEventListener("mousemove", handleMouseMove);
 
     const resize = () => {
@@ -47,7 +63,7 @@ export const ParticleField = () => {
         this.z = Math.random() * 1000;
         this.size = Math.random() * 2 + 0.5;
         this.speedZ = Math.random() * 2 + 0.5;
-        this.color = Math.random() > 0.5 ? "#00ffcc" : "#ff6b35";
+        this.color = Math.random() > 0.5 ? primaryColor() : secondaryColor();
       }
 
       update() {
@@ -64,11 +80,7 @@ export const ParticleField = () => {
 
         context.beginPath();
         context.arc(x, y, size, 0, Math.PI * 2);
-        context.fillStyle =
-          this.color +
-          Math.floor(alpha * 255)
-            .toString(16)
-            .padStart(2, "0");
+        context.fillStyle = hexToRgba(this.color, alpha);
         context.fill();
       }
     }
@@ -78,16 +90,8 @@ export const ParticleField = () => {
       particles.push(new Particle());
     }
 
-    const animate = () => {
-      ctx.fillStyle = "rgba(8, 12, 21, 0.15)";
-      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-
-      particles.forEach((p) => {
-        p.update();
-        p.draw(ctx);
-      });
-
-      ctx.strokeStyle = "rgba(0, 255, 204, 0.03)";
+    const drawConnections = (strokeAlpha = 0.03) => {
+      ctx.strokeStyle = hexToRgba(primaryColor(), strokeAlpha);
       ctx.lineWidth = 0.5;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -102,6 +106,18 @@ export const ParticleField = () => {
           }
         }
       }
+    };
+
+    const animate = () => {
+      ctx.fillStyle = hexToRgba(bgColor(), 0.12);
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+      particles.forEach((p) => {
+        p.update();
+        p.draw(ctx);
+      });
+
+      drawConnections(0.03);
 
       const mouse = mouseRef.current;
       if (mouse.x > 0 && mouse.y > 0) {
@@ -111,7 +127,7 @@ export const ParticleField = () => {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 150) {
             const opacity = (1 - dist / 150) * 0.5;
-            ctx.strokeStyle = `rgba(0, 255, 204, ${opacity})`;
+            ctx.strokeStyle = hexToRgba(primaryColor(), opacity);
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(mouse.x, mouse.y);
@@ -126,10 +142,20 @@ export const ParticleField = () => {
 
     animate();
 
+    const handleThemeChange = () => {
+      // regenerate particle colors to reflect theme vars
+      particles.forEach((p) => {
+        p.color = Math.random() > 0.5 ? primaryColor() : secondaryColor();
+      });
+    };
+
+    window.addEventListener('themechange', handleThemeChange);
+
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener('themechange', handleThemeChange);
     };
   }, []);
 

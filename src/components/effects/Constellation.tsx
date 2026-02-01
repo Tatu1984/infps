@@ -23,7 +23,7 @@ export const Constellation = ({
   width = 300,
   height = 300,
   className = "",
-  color = "#00ffcc",
+  color = "currentColor",
   animated = true,
 }: ConstellationProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -119,13 +119,13 @@ export const Constellation = ({
                 filter="url(#star-glow)"
                 className={animated ? "constellation-star" : ""}
               />
-              {/* Bright center */}
+              {/* Bright center (use background color for contrast) */}
               <circle
                 cx={transformX(star.x)}
                 cy={transformY(star.y)}
                 r={r * 0.4}
-                fill="#ffffff"
-                opacity={opacity * 0.8}
+                fill="var(--color-bg)"
+                opacity={opacity * 0.9}
               />
             </g>
           );

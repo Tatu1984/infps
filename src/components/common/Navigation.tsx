@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPortal } from "react-dom";
 import { MagneticButton } from "@/components/ui";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { navItems } from "@/data/data";
 
 export const Navigation = () => {
@@ -53,6 +54,10 @@ export const Navigation = () => {
             >
               Let's Talk
             </Link>
+
+            <div className="nav-mobile-actions">
+              <ThemeToggle />
+            </div>
           </div>
         </div>,
         document.body
@@ -84,15 +89,19 @@ export const Navigation = () => {
             Let's Talk
           </MagneticButton>
 
-          <button
-            className={`nav-mobile-toggle ${mobileOpen ? "open" : ""}`}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+          <div className="nav-actions">
+            <ThemeToggle />
+
+            <button
+              className={`nav-mobile-toggle ${mobileOpen ? "open" : ""}`}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
       </nav>
       {mobileMenu}

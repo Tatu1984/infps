@@ -67,6 +67,21 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Light theme overrides (opt-in via document root attribute: data-theme="light") */
+:root[data-theme='light'] {
+  /* stronger day-mode token overrides for better contrast */
+  --color-bg: #f8fafc;
+  --color-bg-elevated: #ffffff;
+  --color-bg-card: rgba(2, 6, 23, 0.03);
+  --color-primary: #0ea5a4;
+  --color-accent: #4f46e5;
+  --color-text: #071026; /* slightly darker text for day */
+  --color-text-muted: #475569;
+  --color-border: rgba(2, 6, 23, 0.08);
+  --glass-blur: 8px;
+  --glass-border: rgba(2, 6, 23, 0.04);
+}
+
 @font-face {
   font-family: "Clash Display";
   src: url("https://fonts.cdnfonts.com/css/clash-display") format("truetype");
@@ -241,10 +256,22 @@ a {
   gap: 40px;
 }
 
-.nav-link {
-  font-size: 0.95rem;
-  color: var(--color-text-muted);
-  transition: color 0.3s;
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-mobile-actions {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Constellation should follow theme color */
+  .constellation {
+    color: var(--color-primary);
+  }
   position: relative;
 }
 
@@ -280,23 +307,48 @@ a {
   color: var(--color-bg);
 }
 
-.nav-mobile-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-}
+  /* Theme toggle button */
+  .theme-toggle {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.18s, transform 0.12s;
+    cursor: pointer;
+    padding: 0;
+  }
 
-.nav-mobile-toggle span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--color-text);
-  transition: all 0.3s;
-}
+  .theme-toggle:focus-visible {
+    outline: none;
+    box-shadow: 0 8px 24px rgba(11,17,32,0.12), 0 0 0 4px color-mix(in srgb, var(--color-primary) 14%, transparent);
+  }
+
+  .theme-toggle:hover {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* When in light mode the toggle should be visually prominent */
+  :root[data-theme='light'] .theme-toggle.is-light {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: var(--color-bg);
+    border-color: transparent;
+    box-shadow: 0 8px 30px rgba(11,17,32,0.08);
+  }
+
+  /* Restore hamburger span styles (was unintentionally moved earlier) */
+  .nav-mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    transition: all 0.3s;
+  }
 
 /* Mobile Menu Overlay (Portal) */
 .mobile-menu-overlay {
