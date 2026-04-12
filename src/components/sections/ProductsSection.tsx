@@ -17,12 +17,15 @@ export const ProductsSection = () => {
       <div className="section-container">
         <ParallaxLayer speed={-0.2}>
           <div className="section-header">
-            <span className="section-tag">Our Products</span>
+            <span className="section-tag">Ready to Deploy</span>
             <h2 className="section-title">
               <SplitText text="Production-Ready" />
               <br />
-              <SplitText text="Enterprise Solutions" className="accent" />
+              <SplitText text="Enterprise Platforms" className="accent" />
             </h2>
+            <p className="section-subtitle" style={{ maxWidth: '600px', margin: '1rem auto 0', opacity: 0.7 }}>
+              Deploy in weeks, not months. Battle-tested platforms with live demos.
+            </p>
           </div>
         </ParallaxLayer>
 

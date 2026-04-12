@@ -1,45 +1,43 @@
 import { AuroraBackground } from "@/components/effects";
-import {
-  ParallaxLayer,
-  SplitText,
-  BlurText,
-  MagneticButton,
-} from "@/components/ui";
+import { ParallaxLayer, SplitText, BlurText, MagneticButton } from "@/components/ui";
 import proxmoxLogo from "@/assets/proxmox.webp";
+import { heroContent } from "@/data/services-restructured";
 
-export const HeroSection = () => (
+export const HeroSectionNew = () => (
   <section id="home" className="hero">
     <AuroraBackground />
 
     <ParallaxLayer speed={-0.3} className="hero-content-parallax">
       <div className="hero-content">
+        {/* Trust Badge */}
         <div className="hero-badge">
           <span className="badge-dot" />
-          <span>Trusted by 30+ Companies in Healthcare, Logistics & Government</span>
+          <span>{heroContent.badge}</span>
         </div>
 
+        {/* Main Headline - Outcome Driven */}
         <h1 className="hero-title">
-          <SplitText text="Enterprise Tech" className="hero-line" />
-          <SplitText text="Consulting for" className="hero-line accent" />
-          <SplitText text="Growing Companies" className="hero-line" />
+          <SplitText text={heroContent.headline[0]} className="hero-line" />
+          <SplitText text={heroContent.headline[1]} className="hero-line accent" />
+          <SplitText text={heroContent.headline[2]} className="hero-line" />
         </h1>
 
+        {/* Value Proposition */}
         <p className="hero-subtitle">
-          <BlurText
-            text="Ship production-ready systems without building a 20-person engineering team."
-            delay={1}
-          />
+          <BlurText text={heroContent.subheadline} delay={1} />
         </p>
 
+        {/* Proxmox Partnership */}
         <div className="proxmox-badge">
           <span>AUTHORIZED</span>
           <img src={proxmoxLogo} alt="Proxmox" className="proxmox-logo" />
           <span>PROXMOX RESELLER</span>
         </div>
 
+        {/* CTAs - Primary leads to consultation, Secondary to social proof */}
         <div className="hero-ctas">
           <MagneticButton href="/contact" className="btn-primary">
-            Schedule Consultation
+            {heroContent.primaryCTA}
             <svg viewBox="0 0 24 24" className="btn-arrow">
               <path
                 d="M5 12h14M12 5l7 7-7 7"
@@ -49,8 +47,8 @@ export const HeroSection = () => (
               />
             </svg>
           </MagneticButton>
-          <MagneticButton href="/portfolio" className="btn-secondary">
-            View Case Studies
+          <MagneticButton href="/case-studies" className="btn-secondary">
+            {heroContent.secondaryCTA}
           </MagneticButton>
         </div>
       </div>

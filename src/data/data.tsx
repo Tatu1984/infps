@@ -20,25 +20,23 @@ import type {
 // Navigation items (relative paths for React Router)
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Products", href: "/products" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Team", href: "/team" },
-  { label: "Previous Versions", href: "/previous-versions" },
+  { label: "About", href: "/about" },
 ];
 
 // Footer links
 export const footerLinks = {
   main: [
     { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
-    { label: "Portfolio", href: "/portfolio" },
+    { label: "Case Studies", href: "/case-studies" },
+    { label: "Products", href: "/products" },
   ] as NavItem[],
   secondary: [
-    { label: "Products", href: "/products" },
-    { label: "Team", href: "/team" },
+    { label: "About Us", href: "/about" },
+    { label: "Our Team", href: "/team" },
     { label: "Contact", href: "/contact" },
   ] as NavItem[],
 };
@@ -65,51 +63,51 @@ export const socialLinks: SocialLink[] = [
 export const whyChooseUs: Feature[] = [
   {
     icon: "rocket",
-    title: "Fast Delivery",
-    desc: "We deliver projects on time without compromising quality.",
+    title: "Ship Faster",
+    desc: "Launch production-ready systems 2x faster than building in-house.",
   },
   {
     icon: "shield",
-    title: "Secure Solutions",
-    desc: "Security-first approach in all our implementations.",
+    title: "Secure by Design",
+    desc: "Security embedded from day one. Pass audits, prevent breaches.",
   },
   {
-    icon: "lightbulb",
-    title: "Innovation",
-    desc: "Cutting-edge technologies and modern approaches.",
+    icon: "zap",
+    title: "Scale Without Hiring",
+    desc: "Enterprise capabilities without a 20-person engineering team.",
   },
   {
     icon: "handshake",
-    title: "Partnership",
-    desc: "We work as an extension of your team.",
+    title: "End-to-End Ownership",
+    desc: "From architecture to deployment to maintenance—we own it.",
   },
 ];
 
-// Core values
+// Core values - B2B focused differentiators
 export const values: Value[] = [
   {
     icon: "zap",
-    title: "Our Mission",
-    desc: "Empower businesses with cutting-edge technology solutions that drive growth and digital transformation.",
+    title: "Deep Expertise",
+    desc: "Full-stack capability across infrastructure, security, AI, and enterprise applications. No subcontracting.",
   },
   {
-    icon: "telescope",
-    title: "Our Vision",
-    desc: "Be the most trusted technology partner globally, known for excellence and innovation.",
+    icon: "shield",
+    title: "Security-First",
+    desc: "Every system we build is secure by design. Pass audits, meet compliance, protect your customers.",
   },
   {
-    icon: "gem",
-    title: "Our Values",
-    desc: "Integrity, Innovation, Excellence, and Customer-Centricity guide everything we do.",
+    icon: "rocket",
+    title: "Fast Execution",
+    desc: "Ship production-ready systems in weeks, not months. Agile delivery with enterprise-grade quality.",
   },
 ];
 
-// Company stats
+// Company stats - outcome focused
 export const stats: Stat[] = [
   { value: 50, suffix: "+", label: "Projects Delivered" },
-  { value: 30, suffix: "+", label: "Happy Clients" },
-  { value: 7, suffix: "", label: "Team Members" },
-  { value: 10, suffix: "", label: "Services Offered" },
+  { value: 30, suffix: "+", label: "Clients Served" },
+  { value: 99, suffix: "%", label: "Client Retention" },
+  { value: 4, suffix: "", label: "Industries Served" },
 ];
 
 // Services

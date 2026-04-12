@@ -21,11 +21,11 @@ export const AboutSection = () => {
       <div className="section-container">
         <ParallaxLayer speed={-0.2}>
           <div className="section-header">
-            <span className="section-tag">About Us</span>
+            <span className="section-tag">Why Choose Us</span>
             <h2 className="section-title">
-              <SplitText text="Bridging Technology" />
+              <SplitText text="Your Technology" />
               <br />
-              <SplitText text="& Business Needs" className="accent" />
+              <SplitText text="Should Be an Advantage" className="accent" />
             </h2>
           </div>
         </ParallaxLayer>
@@ -34,10 +34,10 @@ export const AboutSection = () => {
           <ParallaxLayer speed={0.1}>
             <div className="about-intro">
               <p className={`about-text ${inView ? "animate" : ""}`}>
-                Founded with a vision to bridge the gap between innovative
-                technology and real-world business needs, we combine technical
-                expertise with business acumen to deliver transformative
-                solutions.
+                We help growth-stage companies ship enterprise-grade systems.
+                Deep technical capability. Fast execution. Production-ready
+                systems that scale with your business—without the overhead
+                of building a large internal team.
               </p>
             </div>
           </ParallaxLayer>

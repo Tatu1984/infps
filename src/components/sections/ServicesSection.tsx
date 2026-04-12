@@ -14,12 +14,15 @@ export const ServicesSection = () => {
       <div className="section-container">
         <ParallaxLayer speed={-0.2}>
           <div className="section-header">
-            <span className="section-tag">What We Do</span>
+            <span className="section-tag">Our Services</span>
             <h2 className="section-title">
-              <SplitText text="Comprehensive" />
+              <SplitText text="End-to-End Technology" />
               <br />
-              <SplitText text="Technology Solutions" className="accent" />
+              <SplitText text="Solutions That Scale" className="accent" />
             </h2>
+            <p className="section-subtitle" style={{ maxWidth: '600px', margin: '1rem auto 0', opacity: 0.7 }}>
+              From custom platforms to secure infrastructure—we deliver production-ready systems.
+            </p>
           </div>
         </ParallaxLayer>
 

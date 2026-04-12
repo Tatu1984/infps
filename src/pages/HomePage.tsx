@@ -1,12 +1,13 @@
 import { FloatingConstellation } from "@/components/effects";
 import {
-  HeroSection,
+  HeroSectionNew,
+  TrustBarSection,
+  ProblemSolutionSection,
+  ServicesBucketsSection,
+  CaseStudiesSection,
   AboutSection,
-  ServicesSection,
   ProductsSection,
-  PortfolioSection,
   ProcessSection,
-  TeamSection,
   ContactSection,
 } from "@/components/sections";
 
@@ -14,13 +15,14 @@ export const HomePage = () => {
   return (
     <>
       <FloatingConstellation name="orion" />
-      <HeroSection />
+      <HeroSectionNew />
+      <TrustBarSection />
+      <ProblemSolutionSection />
+      <ServicesBucketsSection />
+      <CaseStudiesSection />
       <AboutSection />
-      <ServicesSection />
       <ProductsSection />
-      <PortfolioSection />
       <ProcessSection />
-      <TeamSection />
       <ContactSection />
     </>
   );

@@ -18,12 +18,15 @@ export const PortfolioSection = () => {
       <div className="section-container">
         <ParallaxLayer speed={-0.2}>
           <div className="section-header">
-            <span className="section-tag">Our Work</span>
+            <span className="section-tag">Proven Results</span>
             <h2 className="section-title">
-              <SplitText text="Featured" />
+              <SplitText text="Client Success" />
               <br />
-              <SplitText text="Projects" className="accent" />
+              <SplitText text="Stories" className="accent" />
             </h2>
+            <p className="section-subtitle" style={{ maxWidth: '600px', margin: '1rem auto 0', opacity: 0.7 }}>
+              Real projects with measurable outcomes across industries.
+            </p>
           </div>
         </ParallaxLayer>
 
@@ -68,8 +71,8 @@ export const PortfolioSection = () => {
         </Carousel>
 
         <div className="portfolio-cta mt-20">
-          <MagneticButton href="/products" className="btn-primary">
-            View All Projects
+          <MagneticButton href="/portfolio" className="btn-primary">
+            View All Case Studies
           </MagneticButton>
         </div>
       </div>
