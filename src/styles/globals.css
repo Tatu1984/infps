@@ -6522,6 +6522,8 @@ a.btn-secondary.large {
 
 /* --- Trust Bar Section --- */
 .trust-bar {
+  position: relative;
+  z-index: 2;
   background: rgba(0, 0, 0, 0.3);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -6553,9 +6555,17 @@ a.btn-secondary.large {
 }
 
 .trust-metric-value {
+  display: inline-block;
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #00ffcc;
+}
+
+.trust-metric-value > span {
+  display: inline-block;
+  font-size: inherit;
+  font-weight: inherit;
+  background: linear-gradient(135deg, #00ffcc, #667eea);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
