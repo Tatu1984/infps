@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { caseStudies, serviceBuckets } from "@/data/services-restructured";
 import { ArrowRight, Building2, Truck, MapPin, Clock, Users } from "lucide-react";
+import { ParallaxLayer } from "@/components/ui";
 
 const industryIcons: Record<string, React.ReactNode> = {
   Healthcare: <Building2 size={24} />,
@@ -127,16 +128,18 @@ export const CaseStudiesPage = () => {
       {/* CTA Section */}
       <section className="page-cta-section">
         <div className="container">
-          <div className="page-cta-content">
-            <h2>Ready to Build Your Success Story?</h2>
-            <p>
-              Let's discuss your project and how we can deliver similar results for your organization.
-            </p>
-            <Link to="/contact" className="btn-primary-large">
-              Schedule a Consultation
-              <ArrowRight size={20} />
-            </Link>
-          </div>
+          <ParallaxLayer speed={0.1}>
+            <div className="page-cta-content">
+              <h2>Ready to Build Your Success Story?</h2>
+              <p>
+                Let's discuss your project and how we can deliver similar results for your organization.
+              </p>
+              <Link to="/contact" className="btn-primary-large">
+                Schedule a Consultation
+                <ArrowRight size={20} />
+              </Link>
+            </div>
+          </ParallaxLayer>
         </div>
       </section>
     </main>

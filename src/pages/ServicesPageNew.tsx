@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { serviceBuckets, caseStudies, trustMetrics } from "@/data/services-restructured";
 import { ArrowRight, Layers, Server, Shield, Brain, CheckCircle2 } from "lucide-react";
+import { ParallaxLayer } from "@/components/ui";
 
 const iconMap: Record<string, React.ReactNode> = {
   layers: <Layers size={32} />,
@@ -137,17 +138,19 @@ export const ServicesPageNew = () => {
       {/* CTA Section */}
       <section className="page-cta-section">
         <div className="container">
-          <div className="page-cta-content">
-            <h2>Ready to Discuss Your Project?</h2>
-            <p>
-              Let's talk about your technology challenges and how we can help you build
-              systems that scale with your business.
-            </p>
-            <Link to="/contact" className="btn-primary-large">
-              Schedule a Consultation
-              <ArrowRight size={20} />
-            </Link>
-          </div>
+          <ParallaxLayer speed={0.1}>
+            <div className="page-cta-content">
+              <h2>Ready to Discuss Your Project?</h2>
+              <p>
+                Let's talk about your technology challenges and how we can help you build
+                systems that scale with your business.
+              </p>
+              <Link to="/contact" className="btn-primary-large">
+                Schedule a Consultation
+                <ArrowRight size={20} />
+              </Link>
+            </div>
+          </ParallaxLayer>
         </div>
       </section>
     </main>

@@ -20,10 +20,12 @@ import type {
 // Navigation items (relative paths for React Router)
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Team", href: "/team" },
   { label: "Services", href: "/services" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Products", href: "/products" },
-  { label: "About", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 // Footer links

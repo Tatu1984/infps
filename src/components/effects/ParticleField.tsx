@@ -79,8 +79,7 @@ export const ParticleField = () => {
     }
 
     const animate = () => {
-      ctx.fillStyle = "rgba(8, 12, 21, 0.15)";
-      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
       particles.forEach((p) => {
         p.update();
@@ -136,7 +135,7 @@ export const ParticleField = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none"
+      className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none"
     />
   );
 };

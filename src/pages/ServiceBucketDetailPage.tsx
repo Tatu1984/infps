@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { serviceBuckets, caseStudies } from "@/data/services-restructured";
+import { ParallaxLayer } from "@/components/ui";
 import {
   ArrowRight,
   ArrowLeft,
@@ -203,17 +204,19 @@ export const ServiceBucketDetailPage = () => {
       {/* CTA Section */}
       <section className="page-cta-section">
         <div className="container">
-          <div className="page-cta-content">
-            <h2>Ready to Get Started?</h2>
-            <p>
-              Let's discuss your {service.shortTitle.toLowerCase()} needs and how we can help
-              you achieve your business goals.
-            </p>
-            <Link to="/contact" className="btn-primary-large">
-              Schedule a Consultation
-              <ArrowRight size={20} />
-            </Link>
-          </div>
+          <ParallaxLayer speed={0.1}>
+            <div className="page-cta-content">
+              <h2>Ready to Get Started?</h2>
+              <p>
+                Let's discuss your {service.shortTitle.toLowerCase()} needs and how we can help
+                you achieve your business goals.
+              </p>
+              <Link to="/contact" className="btn-primary-large">
+                Schedule a Consultation
+                <ArrowRight size={20} />
+              </Link>
+            </div>
+          </ParallaxLayer>
         </div>
       </section>
     </main>

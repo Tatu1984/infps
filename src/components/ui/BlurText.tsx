@@ -7,7 +7,7 @@ interface BlurTextProps {
 }
 
 export const BlurText = ({ text, className = "", delay = 0 }: BlurTextProps) => {
-  const [ref, inView] = useInView(0.3);
+  const [ref, inView] = useInView(0.1);
 
   return (
     <span
