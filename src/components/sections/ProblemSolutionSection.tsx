@@ -25,7 +25,6 @@ export const ProblemSolutionSection = () => {
               <div
                 key={index}
                 className="problem-item"
-                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="problem-icon">{iconMap[problem.icon]}</div>
                 <p className="problem-text">{problem.text}</p>

@@ -6510,8 +6510,21 @@ a.btn-secondary.large {
   opacity: 0.7;
 }
 
+@keyframes section-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* --- Trust Bar Section --- */
 .trust-bar {
+  position: relative;
+  z-index: 2;
   background: rgba(0, 0, 0, 0.3);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -6543,9 +6556,17 @@ a.btn-secondary.large {
 }
 
 .trust-metric-value {
+  display: inline-block;
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #00ffcc;
+}
+
+.trust-metric-value > span {
+  display: inline-block;
+  font-size: inherit;
+  font-weight: inherit;
+  background: linear-gradient(135deg, #00ffcc, #667eea);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -6592,6 +6613,32 @@ a.btn-secondary.large {
   padding: 6rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.problem-solution-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.problem-solution-section .problem-side {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+
+.problem-solution-section .solution-side {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s;
+}
+
+.problem-solution-section.visible .problem-side,
+.problem-solution-section.visible .solution-side {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .problem-solution-container {
@@ -6695,6 +6742,33 @@ a.btn-secondary.large {
 .services-buckets-section {
   padding: 6rem 2rem;
   background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.services-buckets-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.services-buckets-section .service-bucket-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.services-buckets-section.visible .service-bucket-card:nth-child(1) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.1s;
+}
+.services-buckets-section.visible .service-bucket-card:nth-child(2) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.2s;
+}
+.services-buckets-section.visible .service-bucket-card:nth-child(3) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.3s;
+}
+.services-buckets-section.visible .service-bucket-card:nth-child(4) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.4s;
 }
 
 .services-buckets-container {
@@ -6846,6 +6920,30 @@ a.btn-secondary.large {
 /* --- Case Studies Section --- */
 .case-studies-section {
   padding: 6rem 2rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.case-studies-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-studies-section .case-study-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.case-studies-section.visible .case-study-card:nth-child(1) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.1s;
+}
+.case-studies-section.visible .case-study-card:nth-child(2) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.2s;
+}
+.case-studies-section.visible .case-study-card:nth-child(3) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.3s;
 }
 
 .case-studies-container {
@@ -8450,4 +8548,327 @@ a.btn-secondary.large {
     gap: 1.5rem;
     text-align: center;
   }
+}
+
+/* ========================================
+   ACCESSIBILITY: REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .aurora-layer {
+    animation: none;
+    opacity: 0.3;
+  }
+
+  .split-char {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .blur-text-word {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .magnetic-button {
+    transform: none !important;
+  }
+
+  .tilt-card {
+    transform: none !important;
+  }
+
+  .parallax-layer {
+    transform: none !important;
+  }
+
+  .problem-solution-section,
+  .services-buckets-section,
+  .case-studies-section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .problem-solution-section .problem-side,
+  .problem-solution-section .solution-side,
+  .services-buckets-section .service-bucket-card,
+  .case-studies-section .case-study-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   HOME PAGE — Layout Rhythm & Alignment
+   Unified vertical cadence (120px), container width (1200px), and gutters
+   across every home section for a consistent, polished flow.
+   ========================================================================== */
+
+.trust-bar,
+.problem-solution-section,
+.services-buckets-section,
+.case-studies-section,
+#about.about,
+#products.products,
+#process.process,
+#contact.contact {
+  position: relative;
+  z-index: 2;
+}
+
+#about.about,
+#products.products,
+#process.process {
+  padding: 120px 0;
+}
+
+#contact.contact {
+  padding: 140px 0 120px;
+}
+
+.problem-solution-section,
+.services-buckets-section,
+.case-studies-section {
+  padding: 120px 40px;
+  max-width: none;
+}
+
+.problem-solution-container,
+.services-buckets-container,
+.case-studies-container,
+.trust-bar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#about.about .section-container,
+#products.products .section-container,
+#process.process .section-container,
+#contact.contact .section-container {
+  max-width: 1200px;
+  padding: 0 40px;
+}
+
+/* Section header rhythm — consistent 64px gap above content */
+.services-buckets-section .section-header,
+.case-studies-section .section-header {
+  margin-bottom: 64px;
+}
+
+/* Trust bar — compact band, tightened rhythm */
+.trust-bar {
+  padding: 48px 0;
+}
+
+.trust-bar-container {
+  gap: 24px;
+  padding: 0 40px;
+}
+
+.trust-metrics {
+  gap: 72px;
+}
+
+.trust-metric {
+  gap: 8px;
+}
+
+/* Grid gap normalization — 8px scale */
+.services-buckets-grid {
+  gap: 32px;
+}
+
+.case-studies-grid {
+  gap: 32px;
+}
+
+.problem-solution-container {
+  gap: 48px;
+}
+
+/* Responsive gutters — 40 / 24 / 16 */
+@media (max-width: 1024px) {
+  #about.about,
+  #products.products,
+  #process.process {
+    padding: 96px 0;
+  }
+
+  #contact.contact {
+    padding: 112px 0 96px;
+  }
+
+  .problem-solution-section,
+  .services-buckets-section,
+  .case-studies-section {
+    padding: 96px 32px;
+  }
+
+  #about.about .section-container,
+  #products.products .section-container,
+  #process.process .section-container,
+  #contact.contact .section-container {
+    padding: 0 32px;
+  }
+
+  .trust-bar-container {
+    padding: 0 32px;
+  }
+
+  .trust-metrics {
+    gap: 56px;
+  }
+}
+
+@media (max-width: 768px) {
+  #about.about,
+  #products.products,
+  #process.process {
+    padding: 80px 0;
+  }
+
+  #contact.contact {
+    padding: 96px 0 80px;
+  }
+
+  .problem-solution-section,
+  .services-buckets-section,
+  .case-studies-section {
+    padding: 80px 24px;
+  }
+
+  #about.about .section-container,
+  #products.products .section-container,
+  #process.process .section-container,
+  #contact.contact .section-container {
+    padding: 0 24px;
+  }
+
+  .trust-bar {
+    padding: 32px 0;
+  }
+
+  .trust-bar-container {
+    padding: 0 24px;
+  }
+
+  .services-buckets-section .section-header,
+  .case-studies-section .section-header {
+    margin-bottom: 48px;
+  }
+
+  .services-buckets-grid,
+  .case-studies-grid {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  #about.about,
+  #products.products,
+  #process.process {
+    padding: 64px 0;
+  }
+
+  #contact.contact {
+    padding: 80px 0 64px;
+  }
+
+  .problem-solution-section,
+  .services-buckets-section,
+  .case-studies-section {
+    padding: 64px 16px;
+  }
+
+  #about.about .section-container,
+  #products.products .section-container,
+  #process.process .section-container,
+  #contact.contact .section-container {
+    padding: 0 16px;
+  }
+
+  .trust-bar-container {
+    padding: 0 16px;
+  }
+
+  .trust-metrics {
+    gap: 32px;
+  }
+}
+
+/* ==========================================================================
+   HOME PAGE — Products Carousel: equal-height cards
+   Force the full chain to stretch so every card matches its tallest sibling,
+   and pin .product-features to the bottom so content above flows naturally.
+   ========================================================================== */
+
+.products [data-slot="carousel-content"] > div {
+  align-items: stretch;
+}
+
+.products [data-slot="carousel-item"] {
+  display: flex;
+  height: auto;
+}
+
+.product-card-wrapper {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 0 16px;
+}
+
+.products .tilt-card.product-card {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.products .product-card-link {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.products .product-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 32px;
+  gap: 12px;
+}
+
+.products .product-tagline,
+.products .product-name,
+.products .product-desc {
+  margin-bottom: 0;
+}
+
+.products .product-desc {
+  flex: 1 1 auto;
+}
+
+.products .product-features {
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-top: 4px;
 }

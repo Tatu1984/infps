@@ -1,14 +1,6 @@
-import { useRef, useState, useEffect, ReactNode } from "react";
+import { useRef, useState, useEffect, useCallback, ReactNode } from "react";
 import { Link } from "react-router-dom";
-
-const isTouchDevice = () => {
-  if (typeof window === "undefined") return false;
-  return (
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    window.matchMedia("(hover: none) and (pointer: coarse)").matches
-  );
-};
+import { isTouchDevice, rafThrottle } from "@/utils/device";
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -31,15 +23,20 @@ export const MagneticButton = ({
     setIsTouch(isTouchDevice());
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (isTouch) return;
-    const rect = buttonRef.current!.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    setPosition({ x: x * 0.3, y: y * 0.3 });
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleMouseMove = useCallback(
+    rafThrottle((e: React.MouseEvent) => {
+      if (isTouch) return;
+      const rect = buttonRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      setPosition({ x: x * 0.3, y: y * 0.3 });
+    }),
+    [isTouch]
+  );
 
-  const handleMouseLeave = () => setPosition({ x: 0, y: 0 });
+  const handleMouseLeave = useCallback(() => setPosition({ x: 0, y: 0 }), []);
 
   const isExternal = href.startsWith("http") || href.startsWith("mailto:");
   const isAnchor = href.startsWith("#");
@@ -63,16 +60,8 @@ export const MagneticButton = ({
   );
 
   if (isExternal || isAnchor) {
-    return (
-      <a {...commonProps} href={href}>
-        {content}
-      </a>
-    );
+    return <a {...commonProps} href={href}>{content}</a>;
   }
 
-  return (
-    <Link {...commonProps} to={href}>
-      {content}
-    </Link>
-  );
+  return <Link {...commonProps} to={href}>{content}</Link>;
 };

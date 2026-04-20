@@ -1,4 +1,5 @@
-import { useRef, useState, ReactNode } from "react";
+import { useRef, useState, useCallback, ReactNode } from "react";
+import { rafThrottle } from "@/utils/device";
 
 interface TiltCardProps {
   children: ReactNode;
@@ -10,23 +11,24 @@ export const TiltCard = ({ children, className = "" }: TiltCardProps) => {
   const [transform, setTransform] = useState("");
   const [glare, setGlare] = useState({ x: 50, y: 50 });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = cardRef.current!.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleMouseMove = useCallback(
+    rafThrottle((e: React.MouseEvent) => {
+      const rect = cardRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      setTransform(
+        `perspective(1000px) rotateX(${(y - 0.5) * -20}deg) rotateY(${(x - 0.5) * 20}deg) scale3d(1.02, 1.02, 1.02)`
+      );
+      setGlare({ x: x * 100, y: y * 100 });
+    }),
+    []
+  );
 
-    const rotateX = (y - 0.5) * -20;
-    const rotateY = (x - 0.5) * 20;
-
-    setTransform(
-      `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`
-    );
-    setGlare({ x: x * 100, y: y * 100 });
-  };
-
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setTransform("perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)");
-  };
+  }, []);
 
   return (
     <div

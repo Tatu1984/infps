@@ -1,13 +1,20 @@
 import { useRef, useEffect } from "react";
+import { prefersReducedMotion } from "@/utils/device";
+
+const PARTICLE_COUNT = 150; // reduced from 300; visually similar, half the cost
+const CONNECTION_DIST = 120;
+const MOUSE_DIST = 150;
+const CELL_SIZE = CONNECTION_DIST; // spatial grid cell matches connection distance
 
 export const ParticleField = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -18,7 +25,7 @@ export const ParticleField = () => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     const resize = () => {
       canvasWidth = window.innerWidth;
@@ -27,20 +34,11 @@ export const ParticleField = () => {
       canvas.height = canvasHeight;
     };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
 
     class Particle {
-      x: number = 0;
-      y: number = 0;
-      z: number = 0;
-      size: number = 0;
-      speedZ: number = 0;
-      color: string = "";
-
-      constructor() {
-        this.reset();
-      }
-
+      x = 0; y = 0; z = 0; size = 0; speedZ = 0; color = "";
+      constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * canvasWidth;
         this.y = Math.random() * canvasHeight;
@@ -49,76 +47,95 @@ export const ParticleField = () => {
         this.speedZ = Math.random() * 2 + 0.5;
         this.color = Math.random() > 0.5 ? "#00ffcc" : "#ff6b35";
       }
-
       update() {
         this.z -= this.speedZ;
         if (this.z <= 0) this.reset();
       }
-
       draw(context: CanvasRenderingContext2D) {
         const scale = 1000 / (1000 + this.z);
         const x = (this.x - canvasWidth / 2) * scale + canvasWidth / 2;
         const y = (this.y - canvasHeight / 2) * scale + canvasHeight / 2;
         const size = this.size * scale;
         const alpha = scale * 0.8;
-
         context.beginPath();
         context.arc(x, y, size, 0, Math.PI * 2);
         context.fillStyle =
-          this.color +
-          Math.floor(alpha * 255)
-            .toString(16)
-            .padStart(2, "0");
+          this.color + Math.floor(alpha * 255).toString(16).padStart(2, "0");
         context.fill();
       }
     }
 
-    const particles: Particle[] = [];
-    for (let i = 0; i < 300; i++) {
-      particles.push(new Particle());
-    }
+    const particles: Particle[] = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
+
+    // Spatial grid: O(n) connection detection vs O(n²)
+    const buildGrid = () => {
+      const grid = new Map<string, Particle[]>();
+      for (const p of particles) {
+        const cx = Math.floor(p.x / CELL_SIZE);
+        const cy = Math.floor(p.y / CELL_SIZE);
+        const key = `${cx},${cy}`;
+        const cell = grid.get(key);
+        if (cell) cell.push(p);
+        else grid.set(key, [p]);
+      }
+      return grid;
+    };
+
+    const drawConnections = (grid: Map<string, Particle[]>) => {
+      ctx.strokeStyle = "rgba(0, 255, 204, 0.03)";
+      ctx.lineWidth = 0.5;
+
+      for (const p of particles) {
+        const cx = Math.floor(p.x / CELL_SIZE);
+        const cy = Math.floor(p.y / CELL_SIZE);
+
+        for (let nx = cx - 1; nx <= cx + 1; nx++) {
+          for (let ny = cy - 1; ny <= cy + 1; ny++) {
+            const neighbors = grid.get(`${nx},${ny}`);
+            if (!neighbors) continue;
+            for (const q of neighbors) {
+              if (q === p) continue;
+              const dx = p.x - q.x;
+              const dy = p.y - q.y;
+              if (dx * dx + dy * dy < CONNECTION_DIST * CONNECTION_DIST) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(q.x, q.y);
+                ctx.stroke();
+              }
+            }
+          }
+        }
+      }
+    };
+
+    const drawMouseLines = () => {
+      const { x: mx, y: my } = mouseRef.current;
+      if (mx <= 0 && my <= 0) return;
+      for (const p of particles) {
+        const dx = mx - p.x;
+        const dy = my - p.y;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < MOUSE_DIST * MOUSE_DIST) {
+          const opacity = (1 - Math.sqrt(distSq) / MOUSE_DIST) * 0.5;
+          ctx.strokeStyle = `rgba(0, 255, 204, ${opacity})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(mx, my);
+          ctx.lineTo(p.x, p.y);
+          ctx.stroke();
+        }
+      }
+    };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      particles.forEach((p) => {
-        p.update();
-        p.draw(ctx);
-      });
+      for (const p of particles) { p.update(); p.draw(ctx); }
 
-      ctx.strokeStyle = "rgba(0, 255, 204, 0.03)";
-      ctx.lineWidth = 0.5;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      const mouse = mouseRef.current;
-      if (mouse.x > 0 && mouse.y > 0) {
-        particles.forEach((p) => {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            const opacity = (1 - dist / 150) * 0.5;
-            ctx.strokeStyle = `rgba(0, 255, 204, ${opacity})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(mouse.x, mouse.y);
-            ctx.lineTo(p.x, p.y);
-            ctx.stroke();
-          }
-        });
-      }
+      const grid = buildGrid();
+      drawConnections(grid);
+      drawMouseLines();
 
       animationId = requestAnimationFrame(animate);
     };
