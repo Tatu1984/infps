@@ -8,6 +8,7 @@ beforeEach(() => {
     strokeStyle: "",
     lineWidth: 0,
     fillRect: vi.fn(),
+    clearRect: vi.fn(),
     beginPath: vi.fn(),
     arc: vi.fn(),
     fill: vi.fn(),
