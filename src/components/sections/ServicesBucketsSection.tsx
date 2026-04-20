@@ -38,7 +38,6 @@ export const ServicesBucketsSection = () => {
               key={service.slug}
               to={`/services/${service.slug}`}
               className="service-bucket-card"
-              style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon */}
               <div

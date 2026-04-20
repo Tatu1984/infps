@@ -37,10 +37,7 @@ export const CaseStudiesSection = () => {
               key={study.slug}
               to={`/case-studies/${study.slug}`}
               className="case-study-card"
-              style={{
-                animationDelay: `${index * 0.15}s`,
-                background: study.gradient,
-              }}
+              style={{ background: study.gradient }}
             >
               <div className="case-study-card-inner">
                 {/* Industry Badge */}

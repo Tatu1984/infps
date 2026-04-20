@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
-
-const isTouchDevice = () => {
-  if (typeof window === "undefined") return false;
-  return (
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    window.matchMedia("(hover: none) and (pointer: coarse)").matches
-  );
-};
+import { useState, useEffect, useRef } from "react";
+import { isTouchDevice, rafThrottle } from "@/utils/device";
 
 export const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [hidden, setHidden] = useState(true);
   const [hovered, setHovered] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
+  const hoveredRef = useRef(false);
 
   useEffect(() => {
     setIsTouch(isTouchDevice());
@@ -22,29 +15,43 @@ export const CustomCursor = () => {
   useEffect(() => {
     if (isTouch) return;
 
-    const move = (e: MouseEvent) => {
+    const move = rafThrottle((e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       setHidden(false);
-    };
+    });
     const leave = () => setHidden(true);
 
-    const checkHover = () => {
-      const hoverable = document.querySelectorAll(
-        "a, button, .tilt-card, .magnetic-button"
-      );
-      hoverable.forEach((el) => {
-        el.addEventListener("mouseenter", () => setHovered(true));
-        el.addEventListener("mouseleave", () => setHovered(false));
-      });
+    // Use event delegation on document instead of adding per-element listeners
+    const onEnter = (e: MouseEvent) => {
+      const target = e.target as Element;
+      if (target.closest("a, button, .tilt-card, .magnetic-button")) {
+        if (!hoveredRef.current) {
+          hoveredRef.current = true;
+          setHovered(true);
+        }
+      }
+    };
+    const onLeave = (e: MouseEvent) => {
+      const target = e.target as Element;
+      if (target.closest("a, button, .tilt-card, .magnetic-button")) {
+        const related = e.relatedTarget as Element | null;
+        if (!related?.closest("a, button, .tilt-card, .magnetic-button")) {
+          hoveredRef.current = false;
+          setHovered(false);
+        }
+      }
     };
 
     window.addEventListener("mousemove", move);
     window.addEventListener("mouseleave", leave);
-    setTimeout(checkHover, 100);
+    document.addEventListener("mouseover", onEnter);
+    document.addEventListener("mouseout", onLeave);
 
     return () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseleave", leave);
+      document.removeEventListener("mouseover", onEnter);
+      document.removeEventListener("mouseout", onLeave);
     };
   }, [isTouch]);
 
