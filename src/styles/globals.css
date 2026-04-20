@@ -8609,3 +8609,265 @@ a.btn-secondary.large {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   HOME PAGE — Layout Rhythm & Alignment
+   Unified vertical cadence (120px), container width (1200px), and gutters
+   across every home section for a consistent, polished flow.
+   ========================================================================== */
+
+.trust-bar,
+.problem-solution-section,
+.services-buckets-section,
+.case-studies-section,
+#about.about,
+#products.products,
+#process.process,
+#contact.contact {
+  position: relative;
+  z-index: 2;
+}
+
+#about.about,
+#products.products,
+#process.process {
+  padding: 120px 0;
+}
+
+#contact.contact {
+  padding: 140px 0 120px;
+}
+
+.problem-solution-section,
+.services-buckets-section,
+.case-studies-section {
+  padding: 120px 40px;
+  max-width: none;
+}
+
+.problem-solution-container,
+.services-buckets-container,
+.case-studies-container,
+.trust-bar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#about.about .section-container,
+#products.products .section-container,
+#process.process .section-container,
+#contact.contact .section-container {
+  max-width: 1200px;
+  padding: 0 40px;
+}
+
+/* Section header rhythm — consistent 64px gap above content */
+.services-buckets-section .section-header,
+.case-studies-section .section-header {
+  margin-bottom: 64px;
+}
+
+/* Trust bar — compact band, tightened rhythm */
+.trust-bar {
+  padding: 48px 0;
+}
+
+.trust-bar-container {
+  gap: 24px;
+  padding: 0 40px;
+}
+
+.trust-metrics {
+  gap: 72px;
+}
+
+.trust-metric {
+  gap: 8px;
+}
+
+/* Grid gap normalization — 8px scale */
+.services-buckets-grid {
+  gap: 32px;
+}
+
+.case-studies-grid {
+  gap: 32px;
+}
+
+.problem-solution-container {
+  gap: 48px;
+}
+
+/* Responsive gutters — 40 / 24 / 16 */
+@media (max-width: 1024px) {
+  #about.about,
+  #products.products,
+  #process.process {
+    padding: 96px 0;
+  }
+
+  #contact.contact {
+    padding: 112px 0 96px;
+  }
+
+  .problem-solution-section,
+  .services-buckets-section,
+  .case-studies-section {
+    padding: 96px 32px;
+  }
+
+  #about.about .section-container,
+  #products.products .section-container,
+  #process.process .section-container,
+  #contact.contact .section-container {
+    padding: 0 32px;
+  }
+
+  .trust-bar-container {
+    padding: 0 32px;
+  }
+
+  .trust-metrics {
+    gap: 56px;
+  }
+}
+
+@media (max-width: 768px) {
+  #about.about,
+  #products.products,
+  #process.process {
+    padding: 80px 0;
+  }
+
+  #contact.contact {
+    padding: 96px 0 80px;
+  }
+
+  .problem-solution-section,
+  .services-buckets-section,
+  .case-studies-section {
+    padding: 80px 24px;
+  }
+
+  #about.about .section-container,
+  #products.products .section-container,
+  #process.process .section-container,
+  #contact.contact .section-container {
+    padding: 0 24px;
+  }
+
+  .trust-bar {
+    padding: 32px 0;
+  }
+
+  .trust-bar-container {
+    padding: 0 24px;
+  }
+
+  .services-buckets-section .section-header,
+  .case-studies-section .section-header {
+    margin-bottom: 48px;
+  }
+
+  .services-buckets-grid,
+  .case-studies-grid {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  #about.about,
+  #products.products,
+  #process.process {
+    padding: 64px 0;
+  }
+
+  #contact.contact {
+    padding: 80px 0 64px;
+  }
+
+  .problem-solution-section,
+  .services-buckets-section,
+  .case-studies-section {
+    padding: 64px 16px;
+  }
+
+  #about.about .section-container,
+  #products.products .section-container,
+  #process.process .section-container,
+  #contact.contact .section-container {
+    padding: 0 16px;
+  }
+
+  .trust-bar-container {
+    padding: 0 16px;
+  }
+
+  .trust-metrics {
+    gap: 32px;
+  }
+}
+
+/* ==========================================================================
+   HOME PAGE — Products Carousel: equal-height cards
+   Force the full chain to stretch so every card matches its tallest sibling,
+   and pin .product-features to the bottom so content above flows naturally.
+   ========================================================================== */
+
+.products [data-slot="carousel-content"] > div {
+  align-items: stretch;
+}
+
+.products [data-slot="carousel-item"] {
+  display: flex;
+  height: auto;
+}
+
+.product-card-wrapper {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 0 16px;
+}
+
+.products .tilt-card.product-card {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.products .product-card-link {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.products .product-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 32px;
+  gap: 12px;
+}
+
+.products .product-tagline,
+.products .product-name,
+.products .product-desc {
+  margin-bottom: 0;
+}
+
+.products .product-desc {
+  flex: 1 1 auto;
+}
+
+.products .product-features {
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-top: 4px;
+}
