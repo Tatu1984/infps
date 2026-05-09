@@ -9025,6 +9025,39 @@ a.btn-secondary.large {
   color: var(--color-secondary, #ff6b35);
 }
 
+.payment-status-info {
+  background: rgba(102, 126, 234, 0.08);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  color: var(--color-accent, #667eea);
+}
+
+.payment-status-warning {
+  background: rgba(255, 196, 0, 0.08);
+  border: 1px solid rgba(255, 196, 0, 0.35);
+  color: #ffc400;
+}
+
+.payment-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .payment-form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.payment-bullets {
+  margin: 0 0 18px;
+  padding-left: 20px;
+  list-style: disc;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
 .paynow-block {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 24px;

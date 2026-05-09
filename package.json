@@ -21,9 +21,11 @@
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.562.0",
     "motion": "^12.23.26",
+    "pdf-lib": "^1.17.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.11.0",
+    "resend": "^6.12.3",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

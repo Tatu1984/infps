@@ -17,6 +17,9 @@ import type {
   Version,
 } from "@/types/data";
 
+// Fixed consultation fee (USD). Adjust here to change the default Pay amount on /payment.
+export const CONSULTATION_FEE = 100;
+
 // Navigation items (relative paths for React Router)
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
