@@ -17,8 +17,9 @@ import type {
   Version,
 } from "@/types/data";
 
-// Fixed consultation fee (USD). Adjust here to change the default Pay amount on /payment.
-export const CONSULTATION_FEE = 100;
+// Fixed consultation fee (USD) for a 1-hour session. Adjust here to change.
+export const CONSULTATION_FEE = 500;
+export const CONSULTATION_DURATION_LABEL = "1 hour";
 
 // Navigation items (relative paths for React Router)
 export const navItems: NavItem[] = [

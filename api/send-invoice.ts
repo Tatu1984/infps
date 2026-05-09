@@ -24,11 +24,17 @@ interface ConsultationPayload {
   amount: string;
 }
 
+interface CalendlyPayload {
+  eventUri: string;
+  inviteeUri: string;
+}
+
 interface RequestBody {
   orderID: string;
   currency: string;
   paypalDetails?: unknown;
   consultation: ConsultationPayload;
+  calendly?: CalendlyPayload | null;
 }
 
 const PAYPAL_ENV = process.env.PAYPAL_ENV === "sandbox" ? "sandbox" : "live";
@@ -71,7 +77,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const { orderID, currency, consultation } = body;
+  const { orderID, currency, consultation, calendly } = body;
 
   const verification = await verifyOrderWithPayPal(orderID, consultation.amount, currency);
   if (verification.kind === "error") {
@@ -90,6 +96,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       orderID,
       currency,
       consultation,
+      calendly,
     });
   } catch (err) {
     console.error("PDF generation failed", err);
@@ -116,7 +123,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: consultation.payerEmail,
       bcc: BCC_EMAIL,
       subject,
-      html: htmlBody({ consultation, invoiceNumber, issuedAt, summary, currency }),
+      html: htmlBody({ consultation, invoiceNumber, issuedAt, summary, currency, calendly }),
       attachments: [
         {
           filename: `${invoiceNumber}.pdf`,
@@ -238,10 +245,11 @@ interface BuildPdfArgs {
   orderID: string;
   currency: string;
   consultation: ConsultationPayload;
+  calendly?: CalendlyPayload | null;
 }
 
 async function buildInvoicePdf(args: BuildPdfArgs): Promise<Uint8Array> {
-  const { invoiceNumber, issuedAt, orderID, currency, consultation } = args;
+  const { invoiceNumber, issuedAt, orderID, currency, consultation, calendly } = args;
 
   const doc = await PDFDocument.create();
   const page = doc.addPage([595, 842]); // A4 portrait, points
@@ -351,6 +359,14 @@ async function buildInvoicePdf(args: BuildPdfArgs): Promise<Uint8Array> {
     }
   }
 
+  if (calendly?.eventUri) {
+    y -= 8;
+    page.drawText("Scheduled call:", { x: margin + 10, y, size: 9.5, font: bold, color: dark });
+    y -= 12;
+    page.drawText(calendly.eventUri, { x: margin + 10, y, size: 9, font, color: muted });
+    y -= 12;
+  }
+
   y -= 20;
 
   // Total bar
@@ -429,10 +445,16 @@ interface HtmlArgs {
   issuedAt: Date;
   summary: string;
   currency: string;
+  calendly?: CalendlyPayload | null;
 }
 
-function htmlBody({ consultation, invoiceNumber, issuedAt, summary, currency }: HtmlArgs): string {
+function htmlBody({ consultation, invoiceNumber, issuedAt, summary, currency, calendly }: HtmlArgs): string {
   const safeBrief = consultation.brief ? escapeHtml(consultation.brief) : "";
+  const calendlyBlock = calendly?.eventUri
+    ? `<p style="margin:0 0 16px; font-size:13px; color:#374151;">Scheduled call: <a href="${escapeHtml(
+        calendly.eventUri
+      )}" style="color:#00b894;">${escapeHtml(calendly.eventUri)}</a></p>`
+    : "";
   return `
   <div style="font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; max-width: 560px; margin: 0 auto; color: #1a1f2e;">
     <h2 style="color:#00b894;margin:0 0 8px;">Thank you, ${escapeHtml(consultation.payerName)}</h2>
@@ -444,6 +466,7 @@ function htmlBody({ consultation, invoiceNumber, issuedAt, summary, currency }: 
       <tr><td style="padding:6px 0; color:#6b7280;">Amount</td><td style="padding:6px 0; text-align:right;"><strong>${currency} ${escapeHtml(consultation.amount)}</strong></td></tr>
       <tr><td style="padding:6px 0; color:#6b7280;">Type</td><td style="padding:6px 0; text-align:right;">${consultation.type === "custom" ? "Custom consultation" : "Product consultation"}</td></tr>
     </table>
+    ${calendlyBlock}
     ${safeBrief ? `<h3 style="margin:16px 0 6px; font-size:14px;">Your brief</h3><p style="white-space:pre-wrap; background:#f7f8fa; padding:12px 14px; border-radius:8px; font-size:13px; line-height:1.5;">${safeBrief}</p>` : ""}
     <p style="margin-top:24px; line-height:1.6;">
       We'll be in touch shortly to schedule your call. If you need anything in the meantime,

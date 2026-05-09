@@ -9058,6 +9058,107 @@ a.btn-secondary.large {
   line-height: 1.7;
 }
 
+.payment-step {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 24px 0;
+}
+
+.payment-step:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.payment-step-disabled {
+  opacity: 0.5;
+}
+
+.payment-step-disabled .payment-step-body {
+  pointer-events: none;
+}
+
+.payment-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.payment-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 255, 204, 0.12);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(0, 255, 204, 0.3);
+  flex-shrink: 0;
+}
+
+.payment-step-done .payment-step-num {
+  background: var(--color-primary);
+  color: #001a1a;
+  border-color: var(--color-primary);
+}
+
+.payment-step-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.payment-step-body {
+  padding-left: 40px;
+}
+
+@media (max-width: 600px) {
+  .payment-step-body {
+    padding-left: 0;
+  }
+}
+
+.payment-amount-display {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 22px;
+  background: rgba(0, 255, 204, 0.06);
+  border: 1px solid rgba(0, 255, 204, 0.2);
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.payment-amount-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.payment-amount-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.payment-amount-meta {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.calendly-inline-widget {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
 .paynow-block {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 24px;

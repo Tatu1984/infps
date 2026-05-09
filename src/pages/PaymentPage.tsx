@@ -5,12 +5,24 @@ import {
   type ReactPayPalScriptOptions,
 } from "@paypal/react-paypal-js";
 import { PageLayout } from "@/components/common/PageLayout";
-import { TiltCard, ParallaxLayer, Icon } from "@/components/ui";
+import {
+  TiltCard,
+  ParallaxLayer,
+  Icon,
+  CalendlyEmbed,
+  type CalendlyBooking,
+} from "@/components/ui";
 import { useUserCountry } from "@/hooks";
-import { CONSULTATION_FEE, contactInfo, products } from "@/data/data";
+import {
+  CONSULTATION_DURATION_LABEL,
+  CONSULTATION_FEE,
+  contactInfo,
+  products,
+} from "@/data/data";
 
 const DEFAULT_CURRENCY = "USD";
 const CUSTOM_VALUE = "__custom__";
+const FIXED_AMOUNT = CONSULTATION_FEE.toFixed(2);
 
 const BANK_DETAILS = {
   beneficiary: "Infinititech Partners",
@@ -25,17 +37,13 @@ interface ConsultationDetails {
   productSlug?: string;
   productName?: string;
   brief: string;
-  payerName: string;
-  payerEmail: string;
   amount: string;
 }
 
 export const PaymentPage = () => {
   const [productSlug, setProductSlug] = useState<string>(products[0]?.slug ?? CUSTOM_VALUE);
   const [brief, setBrief] = useState("");
-  const [payerName, setPayerName] = useState("");
-  const [payerEmail, setPayerEmail] = useState("");
-  const [amount, setAmount] = useState(CONSULTATION_FEE.toFixed(2));
+  const [booking, setBooking] = useState<CalendlyBooking | null>(null);
   const [status, setStatus] = useState<
     | { kind: "idle" }
     | { kind: "submitting"; message: string }
@@ -47,6 +55,7 @@ export const PaymentPage = () => {
   const { country, status: geoStatus, isPayNowAllowed } = useUserCountry();
 
   const paypalClientId = import.meta.env.VITE_PAYPAL_CLIENT_ID as string | undefined;
+  const calendlyUrl = import.meta.env.VITE_CALENDLY_URL as string | undefined;
 
   const paypalOptions = useMemo<ReactPayPalScriptOptions>(
     () => ({
@@ -61,12 +70,9 @@ export const PaymentPage = () => {
   const isCustom = productSlug === CUSTOM_VALUE;
   const selectedProduct = isCustom ? null : products.find((p) => p.slug === productSlug) ?? null;
 
-  const validAmount = /^\d+(\.\d{1,2})?$/.test(amount) && Number(amount) > 0;
-  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payerEmail);
-  const validName = payerName.trim().length >= 2;
-  const validBrief = isCustom ? brief.trim().length >= 10 : true;
-
-  const formValid = validAmount && validEmail && validName && validBrief;
+  const briefValid = isCustom ? brief.trim().length >= 10 : true;
+  const stepOneComplete = briefValid;
+  const stepTwoComplete = booking !== null;
 
   const consultationLabel = isCustom
     ? "Custom consultation"
@@ -77,13 +83,15 @@ export const PaymentPage = () => {
     productSlug: isCustom ? undefined : selectedProduct?.slug,
     productName: isCustom ? undefined : selectedProduct?.name,
     brief: brief.trim(),
-    payerName: payerName.trim(),
-    payerEmail: payerEmail.trim(),
-    amount,
+    amount: FIXED_AMOUNT,
   });
 
-  const sendInvoice = async (orderID: string, paypalDetails: unknown) => {
+  const sendInvoice = async (orderID: string, paypalDetails: PayPalCaptureLike) => {
     setStatus({ kind: "submitting", message: "Payment received. Sending invoice..." });
+    const payerEmail = paypalDetails?.payer?.email_address ?? "";
+    const givenName = paypalDetails?.payer?.name?.given_name ?? "";
+    const surname = paypalDetails?.payer?.name?.surname ?? "";
+    const payerName = `${givenName} ${surname}`.trim();
     try {
       const res = await fetch("/api/send-invoice", {
         method: "POST",
@@ -92,7 +100,12 @@ export const PaymentPage = () => {
           orderID,
           currency: DEFAULT_CURRENCY,
           paypalDetails,
-          consultation: buildDetails(),
+          calendly: booking,
+          consultation: {
+            ...buildDetails(),
+            payerEmail,
+            payerName,
+          },
         }),
       });
       if (!res.ok) {
@@ -102,12 +115,12 @@ export const PaymentPage = () => {
       const json = (await res.json()) as { invoiceNumber?: string };
       setStatus({
         kind: "success",
-        message: `Payment received and invoice ${json.invoiceNumber ?? ""} emailed to ${payerEmail}.`.trim(),
+        message: `Payment received and invoice ${json.invoiceNumber ?? ""} emailed to ${payerEmail || "you"}.`.trim(),
       });
-    } catch (err) {
+    } catch {
       setStatus({
         kind: "warning",
-        message: `Payment captured (PayPal txn ${orderID}), but the invoice email failed to send. We'll follow up manually at ${payerEmail}.`,
+        message: `Payment captured (PayPal txn ${orderID}), but the invoice email failed to send. We'll follow up manually${payerEmail ? ` at ${payerEmail}` : ""}.`,
       });
     }
   };
@@ -117,175 +130,187 @@ export const PaymentPage = () => {
       tag="Payment"
       title="Book a"
       titleAccent="Consultation"
-      description={`Pay the consultation fee (${DEFAULT_CURRENCY} ${CONSULTATION_FEE}) and we'll email you a branded invoice and follow up to schedule.`}
+      description={`${CONSULTATION_DURATION_LABEL} consultation, USD ${CONSULTATION_FEE}. Pick a topic, schedule a slot, then pay to confirm.`}
     >
       <div className="section-container">
         <div className="payment-grid">
           <ParallaxLayer speed={0.1}>
             <TiltCard className="payment-card">
-              <h2 className="payment-card-title">Consultation details</h2>
-              <p className="payment-card-desc">
-                Tell us what you'd like to discuss. Pick a product to scope the consultation
-                around an existing offering, or choose <em>Custom</em> and describe your needs.
-              </p>
-
-              <div className="form-group">
-                <label htmlFor="consultation-type">What is this consultation about?</label>
-                <select
-                  id="consultation-type"
-                  value={productSlug}
-                  onChange={(e) => setProductSlug(e.target.value)}
-                >
-                  {products.map((p) => (
-                    <option key={p.slug} value={p.slug}>
-                      {p.name} — {p.tagline}
-                    </option>
-                  ))}
-                  <option value={CUSTOM_VALUE}>Custom consultation</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="brief">
-                  Brief {isCustom ? "(required, min 10 chars)" : "(optional)"}
-                </label>
-                <textarea
-                  id="brief"
-                  rows={4}
-                  value={brief}
-                  onChange={(e) => setBrief(e.target.value)}
-                  placeholder={
-                    isCustom
-                      ? "Describe what you'd like to build, current stack, timeline, budget, anything else useful."
-                      : `Anything specific you'd like to cover about ${selectedProduct?.name ?? "this product"}? (optional)`
-                  }
-                />
-                {isCustom && !validBrief && (
-                  <span className="payment-hint payment-hint-error">
-                    Please add at least 10 characters describing your requirement.
-                  </span>
-                )}
-              </div>
-
-              <div className="payment-form-row">
+              <Step number={1} title="Tell us what you'd like to discuss" done={stepOneComplete}>
                 <div className="form-group">
-                  <label htmlFor="payer-name">Your name</label>
-                  <input
-                    id="payer-name"
-                    type="text"
-                    value={payerName}
-                    onChange={(e) => setPayerName(e.target.value)}
-                    placeholder="Jane Doe"
+                  <label htmlFor="consultation-type">Topic</label>
+                  <select
+                    id="consultation-type"
+                    value={productSlug}
+                    onChange={(e) => setProductSlug(e.target.value)}
+                  >
+                    {products.map((p) => (
+                      <option key={p.slug} value={p.slug}>
+                        {p.name} — {p.tagline}
+                      </option>
+                    ))}
+                    <option value={CUSTOM_VALUE}>Custom consultation</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="brief">
+                    Brief {isCustom ? "(required, min 10 chars)" : "(optional)"}
+                  </label>
+                  <textarea
+                    id="brief"
+                    rows={4}
+                    value={brief}
+                    onChange={(e) => setBrief(e.target.value)}
+                    placeholder={
+                      isCustom
+                        ? "Describe what you'd like to build, current stack, timeline, budget, anything else useful."
+                        : `Anything specific you'd like to cover about ${selectedProduct?.name ?? "this product"}? (optional)`
+                    }
                   />
-                  {!validName && payerName && (
+                  {isCustom && !briefValid && (
                     <span className="payment-hint payment-hint-error">
-                      Enter at least 2 characters.
+                      Please add at least 10 characters describing your requirement.
                     </span>
                   )}
                 </div>
-                <div className="form-group">
-                  <label htmlFor="payer-email">Your email (for invoice)</label>
-                  <input
-                    id="payer-email"
-                    type="email"
-                    value={payerEmail}
-                    onChange={(e) => setPayerEmail(e.target.value)}
-                    placeholder="you@company.com"
-                  />
-                  {payerEmail && !validEmail && (
-                    <span className="payment-hint payment-hint-error">
-                      Enter a valid email.
-                    </span>
-                  )}
-                </div>
-              </div>
+              </Step>
 
-              <div className="form-group">
-                <label htmlFor="amount">Amount ({DEFAULT_CURRENCY})</label>
-                <input
-                  id="amount"
-                  type="text"
-                  inputMode="decimal"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  placeholder={CONSULTATION_FEE.toFixed(2)}
-                />
-                {!validAmount && (
-                  <span className="payment-hint payment-hint-error">
-                    Enter a positive amount with up to 2 decimals.
-                  </span>
-                )}
-              </div>
-
-              <div className="payment-methods">
-                <h3 className="payment-method-title">Pay with PayPal</h3>
-                {!paypalClientId && (
+              <Step
+                number={2}
+                title="Pick a slot"
+                done={stepTwoComplete}
+                disabled={!stepOneComplete}
+              >
+                {!stepOneComplete && (
                   <p className="payment-hint">
-                    PayPal is running in sandbox/test mode. Set
-                    <code> VITE_PAYPAL_CLIENT_ID </code>
-                    in your <code>.env</code> to enable live payments.
+                    Complete step 1 to schedule.
                   </p>
                 )}
-                {!formValid && (
-                  <p className="payment-hint">
-                    Fill in name, email, amount{isCustom ? " and brief" : ""} to enable PayPal.
+                {stepOneComplete && !calendlyUrl && (
+                  <p className="payment-hint payment-hint-error">
+                    Calendly URL is not configured. Set <code>VITE_CALENDLY_URL</code> in
+                    your environment (e.g. <code>https://calendly.com/your-handle/consultation</code>)
+                    to enable scheduling.
                   </p>
                 )}
-                <div className={formValid ? "" : "paypal-disabled"}>
-                  <PayPalScriptProvider options={paypalOptions}>
-                    <PayPalButtons
-                      style={{ layout: "vertical", color: "blue", shape: "rect" }}
-                      disabled={!formValid || status.kind === "submitting"}
-                      forceReRender={[amount, productSlug, isCustom, payerEmail, payerName]}
-                      createOrder={(_data, actions) =>
-                        actions.order.create({
-                          intent: "CAPTURE",
-                          purchase_units: [
-                            {
-                              amount: { value: amount, currency_code: DEFAULT_CURRENCY },
-                              description: consultationLabel.slice(0, 127),
-                              custom_id: isCustom ? "custom" : selectedProduct?.slug,
-                            },
-                          ],
-                        })
-                      }
-                      onApprove={async (_data, actions) => {
-                        const details = await actions.order?.capture();
-                        const txId = details?.id || "unknown";
-                        await sendInvoice(txId, details);
-                      }}
-                      onError={() =>
-                        setStatus({
-                          kind: "error",
-                          message:
-                            "PayPal could not complete the payment. Please try again or contact us.",
-                        })
-                      }
-                      onCancel={() =>
-                        setStatus({ kind: "idle" })
-                      }
-                    />
-                  </PayPalScriptProvider>
-                </div>
-
-                {geoStatus === "ready" && isPayNowAllowed && (
-                  <PayNowSection
-                    amount={validAmount ? amount : CONSULTATION_FEE.toFixed(2)}
-                    consultation={consultationLabel}
-                    payerEmail={payerEmail}
+                {stepOneComplete && calendlyUrl && !booking && (
+                  <CalendlyEmbed
+                    url={calendlyUrl}
+                    height={680}
+                    onBooked={(b) => setBooking(b)}
                   />
                 )}
-                {geoStatus === "loading" && (
-                  <p className="payment-hint">Detecting region for additional options...</p>
+                {booking && (
+                  <div className="payment-status payment-status-success">
+                    <Icon name="check" /> Slot reserved. You'll get a Calendly confirmation
+                    email shortly. Now complete payment to confirm the booking.
+                    <button
+                      type="button"
+                      className="copy-btn"
+                      style={{ marginLeft: "auto" }}
+                      onClick={() => setBooking(null)}
+                    >
+                      Reschedule
+                    </button>
+                  </div>
                 )}
-                {geoStatus === "error" && (
+              </Step>
+
+              <Step
+                number={3}
+                title={`Pay USD ${CONSULTATION_FEE} to confirm`}
+                done={status.kind === "success"}
+                disabled={!stepTwoComplete}
+              >
+                {!stepTwoComplete && (
                   <p className="payment-hint">
-                    Could not detect your region. If you are in the US or UK and would like to
-                    pay by bank transfer, contact us at{" "}
-                    <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>.
+                    Schedule a slot in step 2 to enable payment.
                   </p>
                 )}
-              </div>
+
+                {stepTwoComplete && (
+                  <>
+                    <div className="payment-amount-display">
+                      <span className="payment-amount-label">Amount due</span>
+                      <span className="payment-amount-value">
+                        USD {CONSULTATION_FEE.toFixed(2)}
+                      </span>
+                      <span className="payment-amount-meta">
+                        {CONSULTATION_DURATION_LABEL} • {consultationLabel}
+                      </span>
+                    </div>
+
+                    {!paypalClientId && (
+                      <p className="payment-hint">
+                        PayPal is running in sandbox/test mode. Set
+                        <code> VITE_PAYPAL_CLIENT_ID </code>
+                        in your <code>.env</code> to enable live payments.
+                      </p>
+                    )}
+
+                    <div className="payment-methods">
+                      <h3 className="payment-method-title">Pay with PayPal</h3>
+                      <PayPalScriptProvider options={paypalOptions}>
+                        <PayPalButtons
+                          style={{ layout: "vertical", color: "blue", shape: "rect" }}
+                          disabled={status.kind === "submitting"}
+                          forceReRender={[productSlug, isCustom, booking?.eventUri ?? ""]}
+                          createOrder={(_data, actions) =>
+                            actions.order.create({
+                              intent: "CAPTURE",
+                              purchase_units: [
+                                {
+                                  amount: {
+                                    value: FIXED_AMOUNT,
+                                    currency_code: DEFAULT_CURRENCY,
+                                  },
+                                  description: consultationLabel.slice(0, 127),
+                                  custom_id: isCustom ? "custom" : selectedProduct?.slug,
+                                },
+                              ],
+                            })
+                          }
+                          onApprove={async (_data, actions) => {
+                            const details = (await actions.order?.capture()) as
+                              | PayPalCaptureLike
+                              | undefined;
+                            const txId = details?.id || "unknown";
+                            await sendInvoice(txId, details ?? {});
+                          }}
+                          onError={() =>
+                            setStatus({
+                              kind: "error",
+                              message:
+                                "PayPal could not complete the payment. Please try again or contact us.",
+                            })
+                          }
+                          onCancel={() => setStatus({ kind: "idle" })}
+                        />
+                      </PayPalScriptProvider>
+
+                      {geoStatus === "ready" && isPayNowAllowed && (
+                        <PayNowSection
+                          consultation={consultationLabel}
+                          eventUri={booking?.eventUri ?? ""}
+                        />
+                      )}
+                      {geoStatus === "loading" && (
+                        <p className="payment-hint">
+                          Detecting region for additional options...
+                        </p>
+                      )}
+                      {geoStatus === "error" && (
+                        <p className="payment-hint">
+                          Could not detect your region. If you are in the US or UK and would
+                          like to pay by bank transfer, contact us at{" "}
+                          <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>.
+                        </p>
+                      )}
+                    </div>
+                  </>
+                )}
+              </Step>
 
               {status.kind === "submitting" && (
                 <div className="payment-status payment-status-info">
@@ -314,7 +339,7 @@ export const PaymentPage = () => {
             <TiltCard className="payment-side-card">
               <h3 className="payment-side-title">What you get</h3>
               <ul className="payment-bullets">
-                <li>A 1-hour discovery / scoping call with our team.</li>
+                <li>A {CONSULTATION_DURATION_LABEL} discovery / scoping call with our team.</li>
                 <li>A written summary and a recommended next-step proposal.</li>
                 <li>The fee is credited toward the engagement if we proceed together.</li>
               </ul>
@@ -324,17 +349,17 @@ export const PaymentPage = () => {
               </h3>
               <div className="payment-faq">
                 <div>
-                  <h4>Is my payment secure?</h4>
+                  <h4>Why book before paying?</h4>
                   <p>
-                    PayPal handles all card data on its own PCI-compliant infrastructure. We
-                    never receive or store your full card number.
+                    Scheduling first makes sure we have a time that works for you. Payment
+                    confirms the booking — if we can't honor the slot, we refund in full.
                   </p>
                 </div>
                 <div>
                   <h4>What does the invoice look like?</h4>
                   <p>
                     A branded PDF invoice from Infinititech Partners is emailed to the address
-                    you enter, immediately after payment.
+                    PayPal has on file, immediately after payment.
                   </p>
                 </div>
                 <div>
@@ -357,13 +382,38 @@ export const PaymentPage = () => {
   );
 };
 
-interface PayNowSectionProps {
-  amount: string;
-  consultation: string;
-  payerEmail: string;
+interface PayPalCaptureLike {
+  id?: string;
+  payer?: {
+    email_address?: string;
+    name?: { given_name?: string; surname?: string };
+  };
 }
 
-const PayNowSection = ({ amount, consultation, payerEmail }: PayNowSectionProps) => {
+interface StepProps {
+  number: number;
+  title: string;
+  done?: boolean;
+  disabled?: boolean;
+  children: React.ReactNode;
+}
+
+const Step = ({ number, title, done, disabled, children }: StepProps) => (
+  <section className={`payment-step${done ? " payment-step-done" : ""}${disabled ? " payment-step-disabled" : ""}`}>
+    <header className="payment-step-header">
+      <span className="payment-step-num">{done ? "✓" : number}</span>
+      <h2 className="payment-step-title">{title}</h2>
+    </header>
+    <div className="payment-step-body">{children}</div>
+  </section>
+);
+
+interface PayNowSectionProps {
+  consultation: string;
+  eventUri: string;
+}
+
+const PayNowSection = ({ consultation, eventUri }: PayNowSectionProps) => {
   const [copied, setCopied] = useState<string | null>(null);
 
   const copy = (label: string, value: string) => {
@@ -378,13 +428,15 @@ const PayNowSection = ({ amount, consultation, payerEmail }: PayNowSectionProps)
       });
   };
 
+  const reference = `${consultation}${eventUri ? ` • ${eventUri.split("/").pop()}` : ""}`;
+
   return (
     <div className="paynow-block">
       <h3 className="payment-method-title">Pay Now (Bank Transfer)</h3>
       <p className="payment-hint">
-        Available in the US and UK. Send {amount} USD via your bank using the details below,
-        then email us the remittance advice and we'll confirm receipt and email your invoice
-        within 1 business day.
+        Available in the US and UK. Send USD {CONSULTATION_FEE.toFixed(2)} via your bank using
+        the details below, then email us the remittance advice and we'll confirm the
+        booking and email your invoice within 1 business day.
       </p>
       <dl className="bank-details">
         {(
@@ -394,7 +446,7 @@ const PayNowSection = ({ amount, consultation, payerEmail }: PayNowSectionProps)
             ["Account Number", BANK_DETAILS.accountNumber],
             ["Routing / Sort Code", BANK_DETAILS.routingNumber],
             ["SWIFT / BIC", BANK_DETAILS.swift],
-            ["Payment Reference", consultation],
+            ["Payment Reference", reference],
           ] as const
         ).map(([label, value]) => (
           <div key={label} className="bank-detail-row">
@@ -415,9 +467,8 @@ const PayNowSection = ({ amount, consultation, payerEmail }: PayNowSectionProps)
       </dl>
       <p className="payment-hint">
         Once your transfer is initiated, email{" "}
-        <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a> from{" "}
-        {payerEmail || "your email"} with the reference and amount so we can match it to your
-        consultation and send the invoice.
+        <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a> with the reference and
+        amount so we can match it to your booking and send the invoice.
       </p>
     </div>
   );
