@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 prev/
+
+# Local env (real PayPal credentials live here)
+.env
+.env.local
+.env.*.local

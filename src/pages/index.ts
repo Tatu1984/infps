@@ -16,3 +16,9 @@ export { CaseStudiesPage } from "./CaseStudiesPage";
 export { CaseStudyDetailPage } from "./CaseStudyDetailPage";
 export { ServicesPageNew } from "./ServicesPageNew";
 export { ServiceBucketDetailPage } from "./ServiceBucketDetailPage";
+
+// Payment + legal
+export { PaymentPage } from "./PaymentPage";
+export { PrivacyPolicyPage } from "./PrivacyPolicyPage";
+export { TermsAndConditionsPage } from "./TermsAndConditionsPage";
+export { RefundPolicyPage } from "./RefundPolicyPage";

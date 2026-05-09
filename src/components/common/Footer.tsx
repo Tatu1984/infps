@@ -70,8 +70,10 @@ export const Footer = () => {
         <div className="footer-bottom">
           <p>&copy; 2025 Infinititech Partners. All rights reserved.</p>
           <div className="footer-legal">
-            <Link to="/privacy">Privacy Policy</Link>
-            <Link to="/terms">Terms of Service</Link>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/terms">Terms &amp; Conditions</Link>
+            <Link to="/refund-policy">Refund Policy</Link>
+            <Link to="/payment">Payment</Link>
           </div>
         </div>
       </div>

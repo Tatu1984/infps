@@ -16,6 +16,10 @@ const CaseStudyDetailPage = lazy(() => import("@/pages/CaseStudyDetailPage").the
 const TeamPage = lazy(() => import("@/pages/TeamPage").then((m) => ({ default: m.TeamPage })));
 const ContactPage = lazy(() => import("@/pages/ContactPage").then((m) => ({ default: m.ContactPage })));
 const PreviousVersionsPage = lazy(() => import("@/pages/PreviousVersionsPage").then((m) => ({ default: m.PreviousVersionsPage })));
+const PaymentPage = lazy(() => import("@/pages/PaymentPage").then((m) => ({ default: m.PaymentPage })));
+const PrivacyPolicyPage = lazy(() => import("@/pages/PrivacyPolicyPage").then((m) => ({ default: m.PrivacyPolicyPage })));
+const TermsAndConditionsPage = lazy(() => import("@/pages/TermsAndConditionsPage").then((m) => ({ default: m.TermsAndConditionsPage })));
+const RefundPolicyPage = lazy(() => import("@/pages/RefundPolicyPage").then((m) => ({ default: m.RefundPolicyPage })));
 
 const PageFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -48,6 +52,10 @@ const App = () => {
               <Route path="/team" element={<TeamPage />} />
               <Route path="/previous-versions" element={<PreviousVersionsPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/payment" element={<PaymentPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsAndConditionsPage />} />
+              <Route path="/refund-policy" element={<RefundPolicyPage />} />
             </Routes>
           </Suspense>
         </main>

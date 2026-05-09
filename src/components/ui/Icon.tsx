@@ -45,6 +45,7 @@ import {
   ClipboardList,
   Cpu,
   ShieldCheck,
+  AlertCircle,
   type LucideProps,
 } from "lucide-react";
 
@@ -95,6 +96,7 @@ const iconMap = {
   "clipboard-list": ClipboardList,
   cpu: Cpu,
   "shield-check": ShieldCheck,
+  "alert-circle": AlertCircle,
 } as const;
 
 export type IconName = keyof typeof iconMap;
