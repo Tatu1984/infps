@@ -47,6 +47,13 @@ export const Navigation = () => {
               </Link>
             ))}
             <Link
+              to="/payment"
+              className="nav-cta-secondary-mobile"
+              onClick={() => setMobileOpen(false)}
+            >
+              Pay Now
+            </Link>
+            <Link
               to="/contact"
               className="nav-cta-mobile"
               onClick={() => setMobileOpen(false)}
@@ -80,9 +87,14 @@ export const Navigation = () => {
             ))}
           </div>
 
-          <MagneticButton href="/contact" className="nav-cta">
-            Let's Talk
-          </MagneticButton>
+          <div className="nav-cta-group">
+            <Link to="/payment" className="nav-cta-secondary">
+              Pay Now
+            </Link>
+            <MagneticButton href="/contact" className="nav-cta">
+              Let's Talk
+            </MagneticButton>
+          </div>
 
           <button
             className={`nav-mobile-toggle ${mobileOpen ? "open" : ""}`}
