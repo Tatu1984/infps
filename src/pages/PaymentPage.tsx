@@ -52,7 +52,7 @@ export const PaymentPage = () => {
     | { kind: "error"; message: string }
   >({ kind: "idle" });
 
-  const { country, status: geoStatus, isPayNowAllowed } = useUserCountry();
+  const { country, ip, status: geoStatus, isPayNowAllowed } = useUserCountry();
 
   const paypalClientId = import.meta.env.VITE_PAYPAL_CLIENT_ID as string | undefined;
   const calendlyUrl = import.meta.env.VITE_CALENDLY_URL as string | undefined;
@@ -369,9 +369,14 @@ export const PaymentPage = () => {
                   </p>
                 </div>
               </div>
-              {country && geoStatus === "ready" && (
+              {geoStatus === "ready" && (country || ip) && (
                 <p className="payment-region-note">
-                  Detected region: <strong>{country}</strong>
+                  Detected region: <strong>{country ?? "—"}</strong>
+                  {ip && (
+                    <>
+                      {" • "}IP: <code>{ip}</code>
+                    </>
+                  )}
                 </p>
               )}
             </TiltCard>
@@ -415,6 +420,7 @@ interface PayNowSectionProps {
 
 const PayNowSection = ({ consultation, eventUri }: PayNowSectionProps) => {
   const [copied, setCopied] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   const copy = (label: string, value: string) => {
     navigator.clipboard
@@ -432,12 +438,26 @@ const PayNowSection = ({ consultation, eventUri }: PayNowSectionProps) => {
 
   return (
     <div className="paynow-block">
-      <h3 className="payment-method-title">Pay Now (Bank Transfer)</h3>
-      <p className="payment-hint">
-        Available in the US and UK. Send USD {CONSULTATION_FEE.toFixed(2)} via your bank using
-        the details below, then email us the remittance advice and we'll confirm the
-        booking and email your invoice within 1 business day.
-      </p>
+      <button
+        type="button"
+        className={`paynow-toggle-btn${expanded ? " paynow-toggle-btn-open" : ""}`}
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+      >
+        <span className="paynow-toggle-label">
+          <Icon name="wallet" />
+          Pay Now — Bank Transfer (US / UK)
+        </span>
+        <span className="paynow-toggle-chevron">{expanded ? "−" : "+"}</span>
+      </button>
+
+      {!expanded ? null : (
+        <>
+          <p className="payment-hint" style={{ marginTop: 12 }}>
+            Send USD {CONSULTATION_FEE.toFixed(2)} via your bank using the details below, then
+            email us the remittance advice and we'll confirm the booking and email your invoice
+            within 1 business day.
+          </p>
       <dl className="bank-details">
         {(
           [
@@ -465,11 +485,13 @@ const PayNowSection = ({ consultation, eventUri }: PayNowSectionProps) => {
           </div>
         ))}
       </dl>
-      <p className="payment-hint">
-        Once your transfer is initiated, email{" "}
-        <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a> with the reference and
-        amount so we can match it to your booking and send the invoice.
-      </p>
+          <p className="payment-hint">
+            Once your transfer is initiated, email{" "}
+            <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a> with the reference
+            and amount so we can match it to your booking and send the invoice.
+          </p>
+        </>
+      )}
     </div>
   );
 };

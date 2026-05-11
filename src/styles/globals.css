@@ -9164,6 +9164,50 @@ a.btn-secondary.large {
   padding-top: 24px;
 }
 
+.paynow-toggle-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  background: rgba(0, 255, 204, 0.08);
+  border: 1px solid rgba(0, 255, 204, 0.35);
+  color: var(--color-primary);
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.paynow-toggle-btn:hover {
+  background: rgba(0, 255, 204, 0.14);
+}
+
+.paynow-toggle-btn:active {
+  transform: scale(0.997);
+}
+
+.paynow-toggle-btn-open {
+  background: rgba(0, 255, 204, 0.16);
+}
+
+.paynow-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.paynow-toggle-chevron {
+  font-size: 1.4rem;
+  line-height: 1;
+  width: 22px;
+  text-align: center;
+  color: var(--color-primary);
+}
+
 .bank-details {
   margin: 12px 0 16px;
   display: flex;
