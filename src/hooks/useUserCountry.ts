@@ -65,7 +65,7 @@ export const useUserCountry = (): UserCountry & { isPayNowAllowed: boolean } => 
     (typeof window !== "undefined" &&
       new URLSearchParams(window.location.search).get("paynow") === "1");
 
-  const ipAllowed = ip !== null && allowedIps.includes(ip);
+  const ipAllowed = ip !== null && allowedIps.some((entry) => matchesIp(ip, entry));
   const countryAllowed = country !== null && ALLOWED_PAYNOW_COUNTRIES.has(country);
 
   return {
@@ -81,6 +81,16 @@ const parseList = (raw: string | undefined): string[] =>
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
+
+// Match an IP against an allowlist entry. Entries ending in "*" are prefix matches
+// (useful for IPv6 since residential /64 prefixes rotate the last 64 bits).
+// Otherwise the entry must match the IP exactly.
+const matchesIp = (ip: string, entry: string): boolean => {
+  if (entry.endsWith("*")) {
+    return ip.startsWith(entry.slice(0, -1));
+  }
+  return ip === entry;
+};
 
 const readCache = (): Cached | null => {
   try {

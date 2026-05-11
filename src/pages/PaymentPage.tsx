@@ -6,8 +6,6 @@ import {
 } from "@paypal/react-paypal-js";
 import { PageLayout } from "@/components/common/PageLayout";
 import {
-  TiltCard,
-  ParallaxLayer,
   Icon,
   CalendlyEmbed,
   type CalendlyBooking,
@@ -134,8 +132,7 @@ export const PaymentPage = () => {
     >
       <div className="section-container">
         <div className="payment-grid">
-          <ParallaxLayer speed={0.1}>
-            <TiltCard className="payment-card">
+          <div className="payment-card">
               <Step number={1} title="Tell us what you'd like to discuss" done={stepOneComplete}>
                 <div className="form-group">
                   <label htmlFor="consultation-type">Topic</label>
@@ -332,11 +329,9 @@ export const PaymentPage = () => {
                   <Icon name="alert-circle" /> {status.message}
                 </div>
               )}
-            </TiltCard>
-          </ParallaxLayer>
+            </div>
 
-          <ParallaxLayer speed={0.15}>
-            <TiltCard className="payment-side-card">
+          <div className="payment-side-card">
               <h3 className="payment-side-title">What you get</h3>
               <ul className="payment-bullets">
                 <li>A {CONSULTATION_DURATION_LABEL} discovery / scoping call with our team.</li>
@@ -379,8 +374,7 @@ export const PaymentPage = () => {
                   )}
                 </p>
               )}
-            </TiltCard>
-          </ParallaxLayer>
+            </div>
         </div>
       </div>
     </PageLayout>
