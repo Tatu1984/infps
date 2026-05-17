@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ParticleField, ScrollProgress, CustomCursor } from "@/components/effects";
+import { ParticleField, ScrollProgress } from "@/components/effects";
 import { Navigation, Footer } from "@/components/common";
 
 const HomePage = lazy(() => import("@/pages/HomePage").then((m) => ({ default: m.HomePage })));
@@ -33,7 +33,6 @@ const App = () => {
       <div className="app">
         <ParticleField />
         <ScrollProgress />
-        <CustomCursor />
         <Navigation />
 
         <main>

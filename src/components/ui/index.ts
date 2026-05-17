@@ -7,6 +7,7 @@ export { AnimatedCounter } from "./AnimatedCounter";
 export { Icon } from "./Icon";
 export type { IconName } from "./Icon";
 export { CalendlyEmbed, type CalendlyBooking } from "./CalendlyEmbed";
+export { DemoAccessModal } from "./DemoAccessModal";
 export {
   Carousel,
   CarouselContent,

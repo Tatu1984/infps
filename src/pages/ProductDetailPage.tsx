@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FloatingConstellation } from "@/components/effects";
-import { MagneticButton, Icon, type IconName } from "@/components/ui";
+import {
+  MagneticButton,
+  Icon,
+  DemoAccessModal,
+  type IconName,
+} from "@/components/ui";
 import { ImagesSlider } from "@/components/ui/images-slider";
 import { products, productDetails } from "@/data/data";
 import { ArrowLeft, ExternalLink, CheckCircle } from "lucide-react";
@@ -14,6 +20,8 @@ export const ProductDetailPage = () => {
 
   const screenshots = slug ? getProductScreenshots(slug) : [];
   const showScreenshots = screenshots.length > 0;
+
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
 
   if (!product) {
     return (
@@ -85,15 +93,14 @@ export const ProductDetailPage = () => {
                 {/* CTA Buttons */}
                 <div className="product-hero-actions">
                   {product.demoUrl && (
-                    <a
-                      href={product.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      type="button"
+                      onClick={() => setDemoModalOpen(true)}
                       className="btn-primary"
                     >
                       <ExternalLink size={20} />
                       View Live Demo
-                    </a>
+                    </button>
                   )}
                   <MagneticButton href="/contact" className="btn-secondary">
                     Request Quote
@@ -213,6 +220,17 @@ export const ProductDetailPage = () => {
           </section>
         )}
 
+        {/* Demo Access Modal — shared by both Live Demo CTAs */}
+        {product.demoUrl && (
+          <DemoAccessModal
+            open={demoModalOpen}
+            onClose={() => setDemoModalOpen(false)}
+            productName={product.name}
+            productSlug={product.slug}
+            demoUrl={product.demoUrl}
+          />
+        )}
+
         {/* CTA Section */}
         <section className="product-detail-cta">
           <div className="section-container">
@@ -224,15 +242,14 @@ export const ProductDetailPage = () => {
               </p>
               <div className="product-cta-actions">
                 {product.demoUrl && (
-                  <a
-                    href={product.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    onClick={() => setDemoModalOpen(true)}
                     className="btn-primary large"
                   >
                     <ExternalLink size={20} />
                     Try Live Demo
-                  </a>
+                  </button>
                 )}
                 <MagneticButton href="/contact" className="btn-secondary large">
                   Contact Sales
