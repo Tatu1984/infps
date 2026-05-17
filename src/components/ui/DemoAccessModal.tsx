@@ -14,6 +14,7 @@ interface FormState {
   name: string;
   email: string;
   company: string;
+  countryCode: string;
   mobile: string;
 }
 
@@ -24,9 +25,72 @@ interface FieldErrors {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MOBILE_RE = /^\+?[0-9\s\-()]{7,20}$/;
+// Local part only (country code is selected separately). Allow digits, spaces, dashes, parens.
+const MOBILE_LOCAL_RE = /^[0-9][0-9\s\-()]{4,18}[0-9]$/;
 
-const initialForm: FormState = { name: "", email: "", company: "", mobile: "" };
+// Curated list — common ITU dial codes. Sorted alphabetically by country name,
+// with US, India, UK pinned to the top for quick access.
+const COUNTRY_CODES: { code: string; name: string; flag: string }[] = [
+  { code: "+1", name: "United States", flag: "🇺🇸" },
+  { code: "+91", name: "India", flag: "🇮🇳" },
+  { code: "+44", name: "United Kingdom", flag: "🇬🇧" },
+  { code: "+61", name: "Australia", flag: "🇦🇺" },
+  { code: "+880", name: "Bangladesh", flag: "🇧🇩" },
+  { code: "+32", name: "Belgium", flag: "🇧🇪" },
+  { code: "+55", name: "Brazil", flag: "🇧🇷" },
+  { code: "+1", name: "Canada", flag: "🇨🇦" },
+  { code: "+86", name: "China", flag: "🇨🇳" },
+  { code: "+57", name: "Colombia", flag: "🇨🇴" },
+  { code: "+45", name: "Denmark", flag: "🇩🇰" },
+  { code: "+20", name: "Egypt", flag: "🇪🇬" },
+  { code: "+358", name: "Finland", flag: "🇫🇮" },
+  { code: "+33", name: "France", flag: "🇫🇷" },
+  { code: "+49", name: "Germany", flag: "🇩🇪" },
+  { code: "+30", name: "Greece", flag: "🇬🇷" },
+  { code: "+852", name: "Hong Kong", flag: "🇭🇰" },
+  { code: "+36", name: "Hungary", flag: "🇭🇺" },
+  { code: "+62", name: "Indonesia", flag: "🇮🇩" },
+  { code: "+98", name: "Iran", flag: "🇮🇷" },
+  { code: "+353", name: "Ireland", flag: "🇮🇪" },
+  { code: "+972", name: "Israel", flag: "🇮🇱" },
+  { code: "+39", name: "Italy", flag: "🇮🇹" },
+  { code: "+81", name: "Japan", flag: "🇯🇵" },
+  { code: "+254", name: "Kenya", flag: "🇰🇪" },
+  { code: "+60", name: "Malaysia", flag: "🇲🇾" },
+  { code: "+52", name: "Mexico", flag: "🇲🇽" },
+  { code: "+31", name: "Netherlands", flag: "🇳🇱" },
+  { code: "+64", name: "New Zealand", flag: "🇳🇿" },
+  { code: "+234", name: "Nigeria", flag: "🇳🇬" },
+  { code: "+47", name: "Norway", flag: "🇳🇴" },
+  { code: "+92", name: "Pakistan", flag: "🇵🇰" },
+  { code: "+63", name: "Philippines", flag: "🇵🇭" },
+  { code: "+48", name: "Poland", flag: "🇵🇱" },
+  { code: "+351", name: "Portugal", flag: "🇵🇹" },
+  { code: "+974", name: "Qatar", flag: "🇶🇦" },
+  { code: "+7", name: "Russia", flag: "🇷🇺" },
+  { code: "+966", name: "Saudi Arabia", flag: "🇸🇦" },
+  { code: "+65", name: "Singapore", flag: "🇸🇬" },
+  { code: "+27", name: "South Africa", flag: "🇿🇦" },
+  { code: "+82", name: "South Korea", flag: "🇰🇷" },
+  { code: "+34", name: "Spain", flag: "🇪🇸" },
+  { code: "+94", name: "Sri Lanka", flag: "🇱🇰" },
+  { code: "+46", name: "Sweden", flag: "🇸🇪" },
+  { code: "+41", name: "Switzerland", flag: "🇨🇭" },
+  { code: "+886", name: "Taiwan", flag: "🇹🇼" },
+  { code: "+66", name: "Thailand", flag: "🇹🇭" },
+  { code: "+90", name: "Turkey", flag: "🇹🇷" },
+  { code: "+971", name: "UAE", flag: "🇦🇪" },
+  { code: "+380", name: "Ukraine", flag: "🇺🇦" },
+  { code: "+84", name: "Vietnam", flag: "🇻🇳" },
+];
+
+const initialForm: FormState = {
+  name: "",
+  email: "",
+  company: "",
+  countryCode: "+1",
+  mobile: "",
+};
 
 export const DemoAccessModal = ({
   open,
@@ -78,7 +142,7 @@ export const DemoAccessModal = ({
     const next: FieldErrors = {};
     if (form.name.trim().length < 2) next.name = "Please enter your full name";
     if (!EMAIL_RE.test(form.email.trim())) next.email = "Please enter a valid email";
-    if (!MOBILE_RE.test(form.mobile.trim()))
+    if (!MOBILE_LOCAL_RE.test(form.mobile.trim()))
       next.mobile = "Please enter a valid mobile number";
     return next;
   };
@@ -110,7 +174,8 @@ export const DemoAccessModal = ({
           name: form.name.trim(),
           email: form.email.trim(),
           company: form.company.trim() || null,
-          mobile: form.mobile.trim(),
+          mobile: `${form.countryCode} ${form.mobile.trim()}`,
+          countryCode: form.countryCode,
           productName,
           productSlug,
           demoUrl: demoUrl || null,
@@ -228,15 +293,35 @@ export const DemoAccessModal = ({
                 <label htmlFor="da-mobile">
                   Mobile number <span className="req">*</span>
                 </label>
-                <input
-                  id="da-mobile"
-                  type="tel"
-                  value={form.mobile}
-                  onChange={handleChange("mobile")}
-                  placeholder="+1 555 123 4567"
-                  autoComplete="tel"
-                  aria-invalid={!!errors.mobile}
-                />
+                <div className="demo-access-phone-row">
+                  <select
+                    className="demo-access-country"
+                    aria-label="Country code"
+                    value={form.countryCode}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        countryCode: e.target.value,
+                      }))
+                    }
+                  >
+                    {COUNTRY_CODES.map((c, i) => (
+                      <option key={`${c.code}-${c.name}-${i}`} value={c.code}>
+                        {c.flag} {c.name} ({c.code})
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    id="da-mobile"
+                    type="tel"
+                    inputMode="tel"
+                    value={form.mobile}
+                    onChange={handleChange("mobile")}
+                    placeholder="555 123 4567"
+                    autoComplete="tel-national"
+                    aria-invalid={!!errors.mobile}
+                  />
+                </div>
                 {errors.mobile && (
                   <span className="demo-access-error">{errors.mobile}</span>
                 )}

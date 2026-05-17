@@ -9546,6 +9546,58 @@ button.btn-secondary.large {
   color: rgba(139, 148, 158, 0.6);
 }
 
+.demo-access-phone-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.demo-access-phone-row .demo-access-country {
+  flex: 0 0 130px;
+  min-width: 0;
+  box-sizing: border-box;
+  background: rgba(8, 12, 21, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 30px 12px 12px;
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-size: 16px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease,
+    box-shadow 160ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='none' stroke='%238b949e' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5l5 5 5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.demo-access-phone-row .demo-access-country:focus {
+  outline: none;
+  border-color: rgba(0, 255, 204, 0.5);
+  background-color: rgba(8, 12, 21, 0.95);
+  box-shadow: 0 0 0 3px rgba(0, 255, 204, 0.12);
+}
+
+.demo-access-phone-row .demo-access-country option {
+  background: #0d1117;
+  color: var(--color-text);
+}
+
+.demo-access-phone-row input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: 400px) {
+  .demo-access-phone-row .demo-access-country {
+    flex: 0 0 110px;
+    padding: 12px 26px 12px 10px;
+    background-position: right 8px center;
+  }
+}
+
 .demo-access-field input:focus {
   outline: none;
   border-color: rgba(0, 255, 204, 0.5);
