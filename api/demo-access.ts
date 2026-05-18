@@ -61,12 +61,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const submittedAt = new Date();
+  const mobileTrimmed = body.mobile.trim();
   const payload = {
     submittedAt: submittedAt.toISOString(),
     name: body.name.trim(),
     email: body.email.trim(),
     company: body.company?.trim() || "",
-    mobile: body.mobile.trim(),
+    // Wrap mobile in double quotes so the sheet preserves the leading "+"
+    // and renders the value verbatim instead of treating it as a number.
+    mobile: `"${mobileTrimmed}"`,
     countryCode: body.countryCode?.trim() || "",
     productName: body.productName.trim(),
     productSlug: body.productSlug.trim(),
