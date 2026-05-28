@@ -21,6 +21,8 @@ const PrivacyPolicyPage = lazy(() => import("@/pages/PrivacyPolicyPage").then((m
 const TermsAndConditionsPage = lazy(() => import("@/pages/TermsAndConditionsPage").then((m) => ({ default: m.TermsAndConditionsPage })));
 const RefundPolicyPage = lazy(() => import("@/pages/RefundPolicyPage").then((m) => ({ default: m.RefundPolicyPage })));
 const LocationPage = lazy(() => import("@/pages/LocationPage").then((m) => ({ default: m.LocationPage })));
+const InsightsPage = lazy(() => import("@/pages/InsightsPage").then((m) => ({ default: m.InsightsPage })));
+const InsightDetailPage = lazy(() => import("@/pages/InsightDetailPage").then((m) => ({ default: m.InsightDetailPage })));
 
 const PageFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -57,6 +59,8 @@ const App = () => {
               <Route path="/terms" element={<TermsAndConditionsPage />} />
               <Route path="/refund-policy" element={<RefundPolicyPage />} />
               <Route path="/locations/:slug" element={<LocationPage />} />
+              <Route path="/insights" element={<InsightsPage />} />
+              <Route path="/insights/:slug" element={<InsightDetailPage />} />
             </Routes>
           </Suspense>
         </main>

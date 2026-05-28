@@ -51,6 +51,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.infinititechpartners.com/insights</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/fractional-engineering-teams-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/soc-2-in-90-days</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.infinititechpartners.com/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

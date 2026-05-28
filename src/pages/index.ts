@@ -25,3 +25,7 @@ export { RefundPolicyPage } from "./RefundPolicyPage";
 
 // Geo landing pages
 export { LocationPage } from "./LocationPage";
+
+// Insights (blog)
+export { InsightsPage } from "./InsightsPage";
+export { InsightDetailPage } from "./InsightDetailPage";

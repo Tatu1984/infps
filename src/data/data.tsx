@@ -43,6 +43,7 @@ export const footerLinks = {
   secondary: [
     { label: "About Us", href: "/about" },
     { label: "Our Team", href: "/team" },
+    { label: "Insights", href: "/insights" },
     { label: "Contact", href: "/contact" },
   ] as NavItem[],
 };

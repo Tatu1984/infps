@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { serviceBuckets, caseStudies } from "@/data/services-restructured";
 import { ParallaxLayer } from "@/components/ui";
+import { usePageMeta } from "@/hooks";
 import {
   ArrowRight,
   ArrowLeft,
@@ -18,9 +20,101 @@ const iconMap: Record<string, React.ReactNode> = {
   brain: <Brain size={40} />,
 };
 
+const SERVICE_KEYWORDS: Record<string, string> = {
+  "enterprise-platforms":
+    "custom enterprise software development, application modernization services, SaaS development for growth-stage startups, web application development B2B SaaS, product engineering services for scaleups",
+  "infrastructure-cloud":
+    "cloud engineering consulting services, AWS migration consulting, multi-cloud DevOps consulting, Kubernetes platform engineering, site reliability engineering as a service, cloud cost optimization consulting",
+  "security-compliance":
+    "SOC 2 compliance consulting services, HIPAA compliance software development, ISO 27001 readiness consulting, penetration testing services for fintech, cloud security posture management",
+  "ai-automation":
+    "enterprise AI consulting services, LLM application development, RAG implementation consulting, AI agent development for enterprise workflows, intelligent process automation, generative AI integration",
+};
+
+const SCHEMA_NODE_ID = "service-jsonld";
+
 export const ServiceBucketDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const service = serviceBuckets.find((s) => s.slug === slug);
+
+  usePageMeta({
+    title: service
+      ? `${service.title} | Infiniti Tech Partners`
+      : "Services | Infiniti Tech Partners",
+    description: service
+      ? service.description.length <= 155
+        ? service.description
+        : service.description.slice(0, 152).replace(/\s+\S*$/, "") + "..."
+      : "Enterprise technology consulting services for growth-stage US and UK companies.",
+    canonical: service ? `/services/${service.slug}` : "/services",
+    keywords: service ? SERVICE_KEYWORDS[service.slug] : undefined,
+  });
+
+  // Inject Service + FAQPage schema for this specific pillar. The FAQ block
+  // gives Google rich-result real-estate even for niche B2B queries.
+  useEffect(() => {
+    if (!service) return;
+    const url = `https://www.infinititechpartners.com/services/${service.slug}`;
+    const faq = [
+      {
+        q: `Who is ${service.title} for?`,
+        a: service.targetCustomer,
+      },
+      {
+        q: `What problems does ${service.title} solve?`,
+        a: service.problemsSolved.join(" "),
+      },
+      {
+        q: `What outcomes can we expect?`,
+        a: service.businessOutcomes.join(" "),
+      },
+      {
+        q: `What technologies do you use for ${service.title}?`,
+        a: service.technologies.join(", "),
+      },
+    ];
+    const node = document.createElement("script");
+    node.type = "application/ld+json";
+    node.id = SCHEMA_NODE_ID;
+    node.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          "@id": url,
+          "name": service.title,
+          "url": url,
+          "description": service.description,
+          "serviceType": service.title,
+          "provider": { "@id": "https://www.infinititechpartners.com/#organization" },
+          "areaServed": [
+            { "@type": "Country", "name": "United States" },
+            { "@type": "Country", "name": "United Kingdom" },
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": `${service.title} capabilities`,
+            "itemListElement": service.capabilities.map((capability) => ({
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": capability },
+            })),
+          },
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": faq.map((entry) => ({
+            "@type": "Question",
+            "name": entry.q,
+            "acceptedAnswer": { "@type": "Answer", "text": entry.a },
+          })),
+        },
+      ],
+    });
+    document.head.appendChild(node);
+    return () => {
+      document.getElementById(SCHEMA_NODE_ID)?.remove();
+    };
+  }, [service]);
 
   if (!service) {
     return <Navigate to="/services" replace />;
