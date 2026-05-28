@@ -5,10 +5,27 @@
     <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts — loaded async so they don't block first paint.
+         The stylesheet is preloaded as a resource, then promoted to a real
+         stylesheet via onload. The <noscript> branch keeps the page styled
+         for crawlers and JS-disabled browsers. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    </noscript>
+    <!-- Minimal critical CSS so the page background and hero text render
+         immediately, before the main bundle is parsed. Keeps LCP from
+         waiting on the full stylesheet to download. -->
+    <style>
+      html,body{margin:0;padding:0;background:#080c15;color:#fff;font-family:"Space Grotesk","SF Pro Display",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+      #root{min-height:100vh}
+    </style>
 
     <!-- Primary Meta Tags -->
     <title>Enterprise Technology Consulting | Infiniti Tech Partners</title>
