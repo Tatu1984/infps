@@ -19,12 +19,23 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap">
     </noscript>
-    <!-- Minimal critical CSS so the page background and hero text render
-         immediately, before the main bundle is parsed. Keeps LCP from
-         waiting on the full stylesheet to download. -->
+    <!-- Critical CSS so the page background, hero text and CTA paint
+         immediately, before the main bundle is parsed. The <div id="ssr-hero">
+         below is a static fallback for the React hero — it gets removed once
+         React mounts (see src/main.tsx). This drops LCP dramatically on
+         slow networks because the largest text is in the initial HTML. -->
     <style>
       html,body{margin:0;padding:0;background:#080c15;color:#fff;font-family:"Space Grotesk","SF Pro Display",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
       #root{min-height:100vh}
+      #ssr-hero{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#080c15;z-index:1;padding:24px;box-sizing:border-box}
+      #ssr-hero .ssr-inner{max-width:1100px;text-align:center}
+      #ssr-hero .ssr-badge{display:inline-block;padding:8px 16px;border:1px solid rgba(0,255,204,0.25);border-radius:999px;background:rgba(0,255,204,0.06);color:#00ffcc;font-size:13px;font-weight:500;margin-bottom:28px;letter-spacing:0.3px}
+      #ssr-hero .ssr-title{font-size:clamp(2.25rem,7vw,4.75rem);font-weight:700;line-height:1.05;letter-spacing:-0.02em;margin:0 0 24px}
+      #ssr-hero .ssr-title .accent{background:linear-gradient(135deg,#00ffcc 0%,#667eea 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+      #ssr-hero .ssr-subtitle{font-size:clamp(1rem,2.2vw,1.25rem);line-height:1.6;color:rgba(255,255,255,0.78);max-width:720px;margin:0 auto}
+      /* Once React mounts, main.tsx flips this attribute and the fallback
+         fades out without yanking layout. */
+      html[data-react-mounted="true"] #ssr-hero{opacity:0;pointer-events:none;transition:opacity 220ms ease}
     </style>
 
     <!-- Primary Meta Tags -->
@@ -156,6 +167,23 @@
     </script>
   </head>
   <body>
+    <!-- Static hero fallback. Painted by the browser as soon as the HTML
+         arrives, before the React bundle is downloaded or parsed. React
+         renders the real hero inside #root, then main.tsx flips the
+         data-react-mounted attribute to fade this layer out. -->
+    <div id="ssr-hero">
+      <div class="ssr-inner">
+        <span class="ssr-badge">Trusted by 30+ Companies Across Healthcare, Logistics &amp; Government</span>
+        <h1 class="ssr-title">
+          Enterprise Technology<br>
+          <span class="accent">Consulting for</span><br>
+          Growth-Stage Companies
+        </h1>
+        <p class="ssr-subtitle">
+          We help companies ship production-ready systems&mdash;from custom platforms to secure infrastructure&mdash;without building a 20-person engineering team.
+        </p>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

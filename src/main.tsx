@@ -16,3 +16,15 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </StrictMode>
 );
+
+// Hand off from the static hero (#ssr-hero in index.html) to the React app.
+// We wait for the next animation frame so React has at least pushed its first
+// paint to the DOM, then fade the fallback out via the CSS rule keyed on
+// data-react-mounted, then remove it from the DOM entirely.
+requestAnimationFrame(() => {
+  document.documentElement.dataset.reactMounted = "true";
+  const fallback = document.getElementById("ssr-hero");
+  if (fallback) {
+    setTimeout(() => fallback.remove(), 260);
+  }
+});
