@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { serviceBuckets, caseStudies, trustMetrics } from "@/data/services-restructured";
 import { ArrowRight, Layers, Server, Shield, Brain, CheckCircle2 } from "lucide-react";
 import { ParallaxLayer } from "@/components/ui";
+import { usePageMeta } from "@/hooks";
 
 const iconMap: Record<string, React.ReactNode> = {
   layers: <Layers size={32} />,
@@ -11,6 +12,15 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export const ServicesPageNew = () => {
+  usePageMeta({
+    title: "Software, Cloud, Security & AI Consulting Services | Infiniti",
+    description:
+      "Custom software, AWS/Azure/GCP cloud, SOC 2 security and LLM/AI engineering — delivered as one fractional team. Explore Infiniti Tech Partners' services.",
+    canonical: "/services",
+    keywords:
+      "custom software development services, cloud engineering consulting, AWS migration consulting, DevOps consulting, SOC 2 compliance consulting, HIPAA compliance software, enterprise AI consulting, LLM application development, RAG implementation, application modernization services",
+  });
+
   return (
     <main className="services-page-new">
       {/* Hero Section */}

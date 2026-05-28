@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { footerLinks, contactInfo } from "@/data/data";
+import { locations } from "@/data/locations";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 export const Footer = () => {
@@ -35,6 +36,18 @@ export const Footer = () => {
                 {footerLinks.secondary.map((link, i) => (
                   <li key={i}>
                     <Link to={link.href}>{link.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="footer-col">
+              <h4>Where we work</h4>
+              <ul>
+                {locations.map((l) => (
+                  <li key={l.slug}>
+                    <Link to={`/locations/${l.slug}`}>
+                      {l.city}, {l.country}
+                    </Link>
                   </li>
                 ))}
               </ul>

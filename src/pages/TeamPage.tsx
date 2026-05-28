@@ -2,8 +2,18 @@ import { PageLayout } from "@/components/common/PageLayout";
 import { FloatingConstellation } from "@/components/effects";
 import { ParallaxLayer, TiltCard, MagneticButton } from "@/components/ui";
 import { team } from "@/data/data";
+import { usePageMeta } from "@/hooks";
 
 export const TeamPage = () => {
+  usePageMeta({
+    title: "Our Team | Senior Engineers Behind Infiniti Tech Partners",
+    description:
+      "Meet the senior engineers and architects building cloud, security and AI systems for growth-stage US and UK companies at Infiniti Tech Partners.",
+    canonical: "/team",
+    keywords:
+      "engineering consultancy team, senior software engineers, cloud architects, AI engineers, technology consulting team",
+  });
+
   return (
     <>
       <FloatingConstellation name="gemini" />

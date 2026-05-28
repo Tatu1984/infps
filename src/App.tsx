@@ -20,6 +20,7 @@ const PaymentPage = lazy(() => import("@/pages/PaymentPage").then((m) => ({ defa
 const PrivacyPolicyPage = lazy(() => import("@/pages/PrivacyPolicyPage").then((m) => ({ default: m.PrivacyPolicyPage })));
 const TermsAndConditionsPage = lazy(() => import("@/pages/TermsAndConditionsPage").then((m) => ({ default: m.TermsAndConditionsPage })));
 const RefundPolicyPage = lazy(() => import("@/pages/RefundPolicyPage").then((m) => ({ default: m.RefundPolicyPage })));
+const LocationPage = lazy(() => import("@/pages/LocationPage").then((m) => ({ default: m.LocationPage })));
 
 const PageFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -55,6 +56,7 @@ const App = () => {
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route path="/terms" element={<TermsAndConditionsPage />} />
               <Route path="/refund-policy" element={<RefundPolicyPage />} />
+              <Route path="/locations/:slug" element={<LocationPage />} />
             </Routes>
           </Suspense>
         </main>

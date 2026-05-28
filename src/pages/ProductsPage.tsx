@@ -3,8 +3,18 @@ import { PageLayout } from "@/components/common/PageLayout";
 import { FloatingConstellation } from "@/components/effects";
 import { TiltCard, MagneticButton, Icon, ParallaxLayer, type IconName } from "@/components/ui";
 import { products } from "@/data/data";
+import { usePageMeta } from "@/hooks";
 
 export const ProductsPage = () => {
+  usePageMeta({
+    title: "SaaS Products by Infiniti Tech Partners",
+    description:
+      "Production-ready SaaS tools built by our engineering team — AI automation, compliance, and enterprise platform accelerators for growth-stage companies.",
+    canonical: "/products",
+    keywords:
+      "enterprise SaaS products, HRMS software, accounting software platform, fleet management software, school ERP, B2B marketplace platform, healthcare ERP software",
+  });
+
   return (
     <>
       <FloatingConstellation name="cygnus" />

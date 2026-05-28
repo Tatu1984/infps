@@ -1,8 +1,18 @@
 import { PageLayout } from "@/components/common/PageLayout";
 import { ParallaxLayer, TiltCard, MagneticButton, Icon } from "@/components/ui";
 import { contactInfo, socialLinks } from "@/data/data";
+import { usePageMeta } from "@/hooks";
 
 export const ContactPage = () => {
+  usePageMeta({
+    title: "Contact Infiniti Tech Partners | US & UK Technology Consulting",
+    description:
+      "Talk to an enterprise technology consultant about software, cloud, security or AI engineering. Response within one business day, US and UK time zones.",
+    canonical: "/contact",
+    keywords:
+      "contact IT consulting firm, enterprise technology consultant, hire software development partner, custom software development quote, AI consulting contact",
+  });
+
   return (
     <PageLayout
       tag="Contact Us"

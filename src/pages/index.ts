@@ -22,3 +22,6 @@ export { PaymentPage } from "./PaymentPage";
 export { PrivacyPolicyPage } from "./PrivacyPolicyPage";
 export { TermsAndConditionsPage } from "./TermsAndConditionsPage";
 export { RefundPolicyPage } from "./RefundPolicyPage";
+
+// Geo landing pages
+export { LocationPage } from "./LocationPage";

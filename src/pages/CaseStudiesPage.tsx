@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { caseStudies, serviceBuckets } from "@/data/services-restructured";
 import { ArrowRight, Building2, Truck, MapPin, Clock, Users } from "lucide-react";
 import { ParallaxLayer } from "@/components/ui";
+import { usePageMeta } from "@/hooks";
 
 const industryIcons: Record<string, React.ReactNode> = {
   Healthcare: <Building2 size={24} />,
@@ -10,6 +11,15 @@ const industryIcons: Record<string, React.ReactNode> = {
 };
 
 export const CaseStudiesPage = () => {
+  usePageMeta({
+    title: "Case Studies: Enterprise Software & AI Delivery",
+    description:
+      "See how growth-stage US and UK companies shipped production software, cloud platforms and AI agents with Infiniti Tech Partners. Real outcomes, real metrics.",
+    canonical: "/case-studies",
+    keywords:
+      "enterprise software case studies, cloud migration case study, AI implementation case study, custom software development success stories, SOC 2 compliance case study",
+  });
+
   return (
     <main className="case-studies-page">
       {/* Hero Section */}

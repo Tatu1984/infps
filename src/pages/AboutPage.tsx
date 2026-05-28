@@ -19,6 +19,7 @@ import {
   aboutClosingStatement,
   stats,
 } from "@/data/data";
+import { usePageMeta } from "@/hooks";
 
 const journeyMilestones = [
   {
@@ -52,6 +53,15 @@ const journeyMilestones = [
 ];
 
 export const AboutPage = () => {
+  usePageMeta({
+    title: "About Infiniti Tech Partners | Engineering-Led Consultancy",
+    description:
+      "An engineering-led technology consultancy serving growth-stage US and UK companies. Custom software, cloud, security and AI — built by senior engineers, not pitch decks.",
+    canonical: "/about",
+    keywords:
+      "engineering-led consultancy, enterprise technology consulting firm, senior engineering team, growth-stage technology partner, technology consultancy US UK",
+  });
+
   return (
     <>
       <FloatingConstellation name="cassiopeia" />

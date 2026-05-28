@@ -3,8 +3,18 @@ import { PageLayout } from "@/components/common/PageLayout";
 import { FloatingConstellation } from "@/components/effects";
 import { ParallaxLayer, TiltCard, MagneticButton } from "@/components/ui";
 import { projects } from "@/data/data";
+import { usePageMeta } from "@/hooks";
 
 export const PortfolioPage = () => {
+  usePageMeta({
+    title: "Portfolio | Custom Software & Platform Engineering Projects",
+    description:
+      "Explore enterprise software, cloud platforms and AI systems Infiniti Tech Partners has shipped across fintech, healthtech, logistics and proptech for US and UK clients.",
+    canonical: "/portfolio",
+    keywords:
+      "custom software portfolio, enterprise platform engineering examples, fintech software development, healthtech software portfolio, logistics platform case studies",
+  });
+
   return (
     <>
       <FloatingConstellation name="gemini" />
