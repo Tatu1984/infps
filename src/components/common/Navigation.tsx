@@ -10,9 +10,24 @@ export const Navigation = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    let rafId: number | null = null;
+    const update = () => {
+      rafId = null;
+      setScrolled((prev) => {
+        const next = window.scrollY > 50;
+        return next === prev ? prev : next;
+      });
+    };
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    update();
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   useEffect(() => {

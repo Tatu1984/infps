@@ -10,7 +10,7 @@ export const ImagesSlider = ({
   overlayClassName,
   className,
   autoplay = true,
-  direction = "up",
+  direction: _direction = "up",
   interval = 5000,
 }: {
   images: string[];
@@ -22,95 +22,57 @@ export const ImagesSlider = ({
   direction?: "up" | "down";
   interval?: number;
 }) => {
+  void _direction;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [loadedImages, setLoadedImages] = useState<string[]>([]);
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex + 1 === images.length ? 0 : prevIndex + 1
-    );
-  };
-
-  const handlePrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    loadImages();
-  }, []);
+    if (images.length === 0) return;
+    // Only preload the FIRST image — defer the rest until they're about to be
+    // shown. The old behaviour decoded every screenshot into a bitmap upfront,
+    // which spiked memory on product pages with 5+ full-resolution PNGs.
+    let cancelled = false;
+    const img = new Image();
+    img.src = images[0];
+    img.onload = () => { if (!cancelled) setReady(true); };
+    img.onerror = () => { if (!cancelled) setReady(true); };
+    return () => { cancelled = true; };
+  }, [images]);
 
-  const loadImages = () => {
-    setLoading(true);
-    const loadPromises = images.map((image) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = image;
-        img.onload = () => resolve(image);
-        img.onerror = reject;
-      });
-    });
-
-    Promise.all(loadPromises)
-      .then((loadedImages) => {
-        setLoadedImages(loadedImages as string[]);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Failed to load images", error);
-        // Fallback: use images anyway even if preload failed
-        setLoadedImages(images);
-        setLoading(false);
-      });
-  };
   useEffect(() => {
+    if (!ready || images.length <= 1) return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
-        handleNext();
+        setCurrentIndex((i) => (i + 1) % images.length);
       } else if (event.key === "ArrowLeft") {
-        handlePrevious();
+        setCurrentIndex((i) => (i - 1 + images.length) % images.length);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
 
-    // autoplay
-    let autoplayInterval: any;
+    let autoplayInterval: ReturnType<typeof setInterval> | undefined;
     if (autoplay) {
       autoplayInterval = setInterval(() => {
-        handleNext();
+        // Skip advancing when the tab is hidden — saves the next image's decode cost
+        // and stops React state churn on backgrounded tabs.
+        if (document.hidden) return;
+        setCurrentIndex((i) => (i + 1) % images.length);
       }, interval);
     }
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      clearInterval(autoplayInterval);
+      if (autoplayInterval) clearInterval(autoplayInterval);
     };
-  }, [interval]);
+  }, [ready, autoplay, interval, images.length]);
 
   const slideVariants = {
-    initial: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeInOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeInOut",
-      },
-    },
+    initial: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8, ease: "easeInOut" } },
+    exit: { opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } },
   };
-
-  const areImagesLoaded = loadedImages.length > 0;
 
   return (
     <div
@@ -118,22 +80,20 @@ export const ImagesSlider = ({
         "overflow-hidden h-full w-full relative flex items-center justify-center",
         className
       )}
-      style={{
-        perspective: "1000px",
-      }}
+      style={{ perspective: "1000px" }}
     >
-      {areImagesLoaded && children}
-      {areImagesLoaded && overlay && (
-        <div
-          className={cn("absolute inset-0 bg-black/60 z-40", overlayClassName)}
-        />
+      {ready && children}
+      {ready && overlay && (
+        <div className={cn("absolute inset-0 bg-black/60 z-40", overlayClassName)} />
       )}
 
-      {areImagesLoaded && (
+      {ready && (
         <AnimatePresence mode="wait">
           <motion.img
             key={currentIndex}
-            src={loadedImages[currentIndex]}
+            src={images[currentIndex]}
+            loading="lazy"
+            decoding="async"
             initial="initial"
             animate="visible"
             exit="exit"

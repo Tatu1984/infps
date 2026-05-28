@@ -42,7 +42,9 @@ export const getProductScreenshots = (slug: string): string[] => {
   const screenshots = SCREENSHOTS_DATA[dir];
   if (!screenshots || screenshots.length === 0) return [];
 
-  return screenshots.map(filename => `/${dir}/${filename}`);
+  // Serve WebP variants generated alongside the PNGs (~85% smaller, identical
+  // dimensions). The original PNGs are no longer shipped — see /public.
+  return screenshots.map(filename => `/${dir}/${filename.replace(/\.png$/i, ".webp")}`);
 };
 
 /**

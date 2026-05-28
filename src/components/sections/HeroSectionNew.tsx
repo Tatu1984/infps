@@ -30,7 +30,7 @@ export const HeroSectionNew = () => (
         {/* Proxmox Partnership */}
         <div className="proxmox-badge">
           <span>AUTHORIZED</span>
-          <img src={proxmoxLogo} alt="Proxmox" className="proxmox-logo" />
+          <img src={proxmoxLogo} alt="Proxmox" className="proxmox-logo" loading="lazy" decoding="async" />
           <span>PROXMOX RESELLER</span>
         </div>
 

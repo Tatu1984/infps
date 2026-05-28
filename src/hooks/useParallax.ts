@@ -1,13 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-
-const isTouchDevice = () => {
-  if (typeof window === "undefined") return false;
-  return (
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    window.matchMedia("(hover: none) and (pointer: coarse)").matches
-  );
-};
+import { isTouchDevice } from "@/utils/device";
 
 export const useParallax = (speed = 0.5) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -17,16 +9,41 @@ export const useParallax = (speed = 0.5) => {
     // Disable parallax on touch devices for better performance
     if (isTouchDevice()) return;
 
-    const handleScroll = () => {
-      if (!ref.current) return;
+    let rafId: number | null = null;
+    let isVisible = true;
+    let lastOffset = 0;
+
+    const compute = () => {
+      rafId = null;
+      if (!ref.current || !isVisible) return;
       const rect = ref.current.getBoundingClientRect();
+      // Skip offscreen elements — no point recomputing transforms the user can't see.
+      if (rect.bottom < -200 || rect.top > window.innerHeight + 200) return;
       const scrolled = window.innerHeight - rect.top;
-      setOffset(scrolled * speed * 0.1);
+      const next = scrolled * speed * 0.1;
+      if (Math.abs(next - lastOffset) < 0.5) return;
+      lastOffset = next;
+      setOffset(next);
+    };
+
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(compute);
+    };
+
+    const handleVisibility = () => {
+      isVisible = !document.hidden;
+      if (isVisible) handleScroll();
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    document.addEventListener("visibilitychange", handleVisibility);
+    compute();
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
   }, [speed]);
 
   return [ref, offset] as const;

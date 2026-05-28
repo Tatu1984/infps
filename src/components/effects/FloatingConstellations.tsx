@@ -27,15 +27,23 @@ export const FloatingConstellation = ({
   }));
 
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId: number | null = null;
+    const update = () => {
+      rafId = null;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollProgress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
       setProgress(Math.min(1, Math.max(0, scrollProgress)));
     };
-
+    const handleScroll = () => {
+      if (rafId !== null || document.hidden) return;
+      rafId = requestAnimationFrame(update);
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    update();
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const constellation = CONSTELLATIONS[name];

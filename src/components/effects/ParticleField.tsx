@@ -1,10 +1,17 @@
 import { useRef, useEffect } from "react";
 import { prefersReducedMotion } from "@/utils/device";
 
-const PARTICLE_COUNT = 150; // reduced from 300; visually similar, half the cost
 const CONNECTION_DIST = 120;
 const MOUSE_DIST = 150;
-const CELL_SIZE = CONNECTION_DIST; // spatial grid cell matches connection distance
+const CELL_SIZE = CONNECTION_DIST;
+
+// Scale particle count by viewport area so phones and small laptops don't
+// pay the full desktop cost. Capped to avoid runaway counts on huge monitors.
+const computeParticleCount = (width: number, height: number) => {
+  const area = width * height;
+  const base = Math.round(area / 14000);
+  return Math.max(40, Math.min(120, base));
+};
 
 export const ParticleField = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -15,12 +22,13 @@ export const ParticleField = () => {
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let animationId: number;
+    let animationId: number | null = null;
     let canvasWidth = window.innerWidth;
     let canvasHeight = window.innerHeight;
+    let particleCount = computeParticleCount(canvasWidth, canvasHeight);
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
@@ -32,9 +40,11 @@ export const ParticleField = () => {
       canvasHeight = window.innerHeight;
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
+      particleCount = computeParticleCount(canvasWidth, canvasHeight);
+      // Trim or grow particle pool to match new viewport size
+      if (particles.length > particleCount) particles.length = particleCount;
+      while (particles.length < particleCount) particles.push(new Particle());
     };
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
 
     class Particle {
       x = 0; y = 0; z = 0; size = 0; speedZ = 0; color = "";
@@ -65,11 +75,16 @@ export const ParticleField = () => {
       }
     }
 
-    const particles: Particle[] = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
+    const particles: Particle[] = Array.from({ length: particleCount }, () => new Particle());
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    window.addEventListener("resize", resize, { passive: true });
 
-    // Spatial grid: O(n) connection detection vs O(n²)
-    const buildGrid = () => {
-      const grid = new Map<string, Particle[]>();
+    // Reused across frames — avoids ~60 Map allocations per second
+    const grid = new Map<string, Particle[]>();
+
+    const rebuildGrid = () => {
+      grid.clear();
       for (const p of particles) {
         const cx = Math.floor(p.x / CELL_SIZE);
         const cy = Math.floor(p.y / CELL_SIZE);
@@ -78,10 +93,9 @@ export const ParticleField = () => {
         if (cell) cell.push(p);
         else grid.set(key, [p]);
       }
-      return grid;
     };
 
-    const drawConnections = (grid: Map<string, Particle[]>) => {
+    const drawConnections = () => {
       ctx.strokeStyle = "rgba(0, 255, 204, 0.03)";
       ctx.lineWidth = 0.5;
 
@@ -130,22 +144,46 @@ export const ParticleField = () => {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
       for (const p of particles) { p.update(); p.draw(ctx); }
-
-      const grid = buildGrid();
-      drawConnections(grid);
+      rebuildGrid();
+      drawConnections();
       drawMouseLines();
-
       animationId = requestAnimationFrame(animate);
     };
 
-    animate();
+    const start = () => {
+      if (animationId === null) animationId = requestAnimationFrame(animate);
+    };
+    const stop = () => {
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    };
+
+    // Pause the loop entirely when the tab is backgrounded. Browsers throttle
+    // rAF in hidden tabs but don't stop it, so the canvas bitmap and particle
+    // updates stay in memory. Stopping reclaims CPU + lets the GC drain.
+    const onVisibility = () => {
+      if (document.hidden) {
+        stop();
+        // Also free the canvas backing store while hidden — recreated on resume.
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      } else {
+        start();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    if (!document.hidden) start();
 
     return () => {
-      cancelAnimationFrame(animationId);
+      stop();
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("visibilitychange", onVisibility);
+      grid.clear();
+      particles.length = 0;
     };
   }, []);
 

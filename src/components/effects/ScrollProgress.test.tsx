@@ -9,6 +9,13 @@ beforeEach(() => {
   });
   Object.defineProperty(window, "innerHeight", { value: 800, configurable: true });
   Object.defineProperty(window, "scrollY", { value: 0, configurable: true });
+  // The component schedules DOM writes with requestAnimationFrame; in tests we
+  // run them synchronously so we can assert on the resulting width.
+  vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => {
+    cb(0);
+    return 0;
+  });
+  vi.stubGlobal("cancelAnimationFrame", () => {});
 });
 
 afterEach(() => vi.restoreAllMocks());

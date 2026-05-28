@@ -6,6 +6,12 @@ beforeEach(() => {
   try { delete (window as unknown as Record<string, unknown>).ontouchstart; } catch { /* ok */ }
   Object.defineProperty(navigator, "maxTouchPoints", { value: 0, configurable: true });
   Object.defineProperty(window, "innerHeight", { value: 800, configurable: true });
+  // Run scheduled rAF callbacks synchronously so offset updates are observable.
+  vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => {
+    cb(0);
+    return 0;
+  });
+  vi.stubGlobal("cancelAnimationFrame", () => {});
 });
 
 afterEach(() => {

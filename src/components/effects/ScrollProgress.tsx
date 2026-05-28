@@ -1,20 +1,37 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const ScrollProgress = () => {
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId: number | null = null;
+
+    const update = () => {
+      rafId = null;
+      const bar = barRef.current;
+      if (!bar) return;
       const height = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress((window.scrollY / height) * 100);
+      const progress = height > 0 ? (window.scrollY / height) * 100 : 0;
+      // Mutate the DOM directly — avoids a React re-render on every scroll event.
+      bar.style.width = `${progress}%`;
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    update();
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
     <div className="scroll-progress">
-      <div className="scroll-progress-bar" style={{ width: `${progress}%` }} />
+      <div ref={barRef} className="scroll-progress-bar" style={{ width: "0%" }} />
     </div>
   );
 };
