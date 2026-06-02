@@ -182,6 +182,115 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "build-vs-buy-software-2026",
+    title: "The 2026 Build vs Buy Decision Framework for Growth-Stage CTOs",
+    description:
+      "A practical framework for deciding when to build custom software, when to buy off-the-shelf, and when to do both — with the hidden costs most teams miss on each side.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-02",
+    category: "Engineering",
+    readMinutes: 9,
+    keywords:
+      "build vs buy software, build vs buy decision framework, custom software vs off the shelf, when to build custom software, software build vs buy 2026, build buy partner",
+    sections: [
+      {
+        body: "\"Build or buy?\" is the wrong question in 2026. The real question is a three-way split — build, buy, or partner — and the right answer is usually different for each component of your stack on the same day. The teams that get this wrong either rebuild commodity infrastructure that a $40/month SaaS would have solved, or they buy a rigid platform for the one workflow that is actually their competitive edge. Here is the framework we use with growth-stage CTOs to decide, component by component.",
+      },
+      {
+        heading: "The one question that settles most of it",
+        body: "For any given capability, ask: is this a source of competitive differentiation, or is it table stakes? Differentiators are the things customers choose you for — your matching algorithm, your underwriting model, your clinical workflow. Table stakes are everything customers expect but never praise — auth, billing, email, logging, CRM. Build your differentiators. Buy your table stakes. The expensive mistakes almost always come from inverting this: custom-building a billing system, or buying a generic platform for the workflow that is your moat.",
+      },
+      {
+        heading: "The four-factor scoring rubric",
+        body: [
+          "Differentiation: does owning this change why customers pick you? High → lean build.",
+          "Fit: does an off-the-shelf option cover 80%+ of your need without contortion? High → lean buy.",
+          "Time-to-value: how badly do you need this live this quarter? Urgent → lean buy or partner.",
+          "Total cost of ownership: include not just license or build cost but maintenance, integration, and the opportunity cost of your engineers' attention over 3 years.",
+        ],
+      },
+      {
+        heading: "The hidden costs of 'buy'",
+        body: "Buying looks cheaper because the price is on the pricing page. The costs that are not on the page: integration engineering (often 2–5x the first-year license), data lock-in, per-seat pricing that scales against you, feature gaps you discover in month four, and the slow tax of bending your process to fit someone else's product. Buy is still usually right for table stakes — just budget for integration, not just licenses.",
+      },
+      {
+        heading: "The hidden costs of 'build'",
+        body: "Building looks more controllable because you own it. The costs that surface later: you now maintain it forever, you carry the on-call burden, every adjacent feature becomes your job, and the engineers maintaining commodity infrastructure are not building your differentiators. Build is right for your moat — and a trap for everything else. A good test: if a capable competitor could buy the same outcome off the shelf, you probably should too.",
+      },
+      {
+        heading: "When 'partner' beats both",
+        body: "There is a third option growth-stage teams underuse: partner. When a capability is differentiating enough to need custom work, but you do not want to hire a permanent team to build and own it, a senior engineering partner builds it to your spec and hands it over — or runs it as a fractional pod. This is the right call when the work is too strategic to buy generic, but the timeline or hiring cost of doing it fully in-house does not pencil out. We break the economics of that model down in our guide to fractional engineering teams.",
+      },
+      {
+        heading: "A worked example",
+        body: "A Series B fintech we advised wanted to 'build everything' for control. Applying the rubric: auth → buy (Auth0), billing → buy (Stripe), logging/observability → buy, internal admin tooling → buy a low-code option, and the risk-scoring engine → build, because that was the actual product. They cut their roadmap by an estimated five months by refusing to build the four table-stakes systems, and put their senior engineers entirely on the one thing customers were paying for.",
+      },
+      {
+        heading: "How Infiniti Tech Partners helps",
+        body: "We will run this rubric across your stack with you in a single working session — flag what to buy, what to build, and the one or two components worth a custom partner build — then scope only the parts that genuinely need engineering. The goal is fewer things built, better. Start a conversation and we will map your build-buy-partner split.",
+      },
+    ],
+  },
+  {
+    slug: "how-to-hire-ai-consulting-partner",
+    title: "How to Hire an AI Consulting Partner: A Buyer's Guide for 2026",
+    description:
+      "What to look for, what to ask, and the red flags to avoid when choosing an enterprise AI consulting partner — from a team that ships LLM and agent systems to production.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-02",
+    category: "AI",
+    readMinutes: 8,
+    keywords:
+      "how to hire AI consulting firm, AI consulting partner, enterprise AI consultant, choosing AI development company, AI consulting RFP, LLM development partner",
+    sections: [
+      {
+        body: "The market is flooded with firms that rebranded as 'AI consultancies' in the last 18 months. Some ship production systems; many ship slide decks and a thin wrapper around an API. For an enterprise buyer, the cost of choosing wrong is not just wasted budget — it is a stalled initiative, a security incident, or a proof-of-concept that never survives contact with real users. Here is how to tell the builders from the storytellers.",
+      },
+      {
+        heading: "Why most enterprise AI engagements stall",
+        body: "It is rarely the model. Engagements stall on the unglamorous parts: data that is messier than the demo assumed, no evaluation harness so nobody can tell if the system is getting better or worse, latency and cost that are fine in a demo and ruinous at scale, and no plan for the day the model is wrong in front of a customer. A good partner spends most of its time on these problems, not on prompt-tuning.",
+      },
+      {
+        heading: "What to look for",
+        body: [
+          "Production references, not demos. Ask to see something live, with real users, that has been running for months.",
+          "An evaluation-first mindset. They should talk about how they will measure quality before they talk about which model.",
+          "Engineering depth, not just prompting. RAG, agents, and fine-tuning are software systems — they need real engineering around them.",
+          "Security and data handling answers that are specific: where your data goes, what is logged, how PII is handled, whether your data trains anyone's model.",
+          "A bias toward the smallest thing that works — not the most impressive architecture.",
+        ],
+      },
+      {
+        heading: "Questions to put in your RFP",
+        body: [
+          "How will you measure whether this system is good enough to ship — and who decides?",
+          "What happens when the model is confidently wrong? Show me the fallback.",
+          "What is the expected per-request cost and latency at our real volume, not the demo's?",
+          "Which parts will be RAG, which fine-tuning, which a deterministic system — and why?",
+          "What does handover look like? Can our team run and improve this without you?",
+        ],
+      },
+      {
+        heading: "Red flags",
+        body: [
+          "They lead with the model (\"we use the latest frontier model\") instead of your problem.",
+          "No evaluation strategy, or they treat 'it looks good in testing' as a metric.",
+          "Vague data-handling answers, or reluctance to put data terms in writing.",
+          "A proposal that is all proof-of-concept and no path to production.",
+          "Pricing that rewards complexity — more agents, more infrastructure — rather than outcomes.",
+        ],
+      },
+      {
+        heading: "Pricing models, and which to prefer",
+        body: "Fixed-scope POCs are fine for de-risking a single question, but insist on a defined success metric up front or you will pay for a demo. Time-and-materials suits genuinely exploratory work with a trusted partner. Be wary of pure outcome-based pricing in AI — outcomes depend heavily on your data, which the partner does not control, so it tends to get priced defensively. The healthiest structure is usually a short paid discovery to scope honestly, then a milestone-based build with a clear production definition.",
+      },
+      {
+        heading: "How Infiniti Tech Partners approaches AI work",
+        body: "We start with the metric, not the model: define what 'good enough to ship' means, build the evaluation harness first, then choose the simplest architecture — RAG, agent, fine-tune, or plain software — that clears the bar at acceptable cost and latency. We hand over systems your team can run, with the data and security terms in writing. If you are scoping an AI initiative and want a partner who will tell you when the answer is 'you do not need AI for this,' start a conversation.",
+      },
+    ],
+  },
 ];
 
 export const getInsight = (slug: string): Insight | undefined =>
