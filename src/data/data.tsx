@@ -30,7 +30,6 @@ export const navItems: NavItem[] = [
   { label: "Case Studies", href: "/case-studies" },
   { label: "Products", href: "/products" },
   { label: "News Letter", href: "/insights" },
-  { label: "Contact Us", href: "/contact" },
 ];
 
 // Footer links
@@ -65,7 +64,6 @@ export const socialLinks: SocialLink[] = [
     href: "https://www.linkedin.com/company/infinititech-partners",
     icon: "linkedin",
   },
-  { name: "GitHub", href: "https://github.com/infps", icon: "github" },
 ];
 
 // Why Choose Us features
