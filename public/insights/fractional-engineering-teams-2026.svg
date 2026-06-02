@@ -1,41 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#080c15"/>
-      <stop offset="1" stop-color="#0d1524"/>
+      <stop stop-color="#080c15"/><stop offset="1" stop-color="#0d1524"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#00ffcc"/>
-      <stop offset="1" stop-color="#667eea"/>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#00ffcc"/><stop offset="1" stop-color="#667eea"/>
     </linearGradient>
-    <radialGradient id="glow" cx="0.78" cy="0.28" r="0.6">
-      <stop stop-color="#00ffcc" stop-opacity="0.22"/>
-      <stop offset="1" stop-color="#00ffcc" stop-opacity="0"/>
+    <radialGradient id="glow" cx="0.82" cy="0.30" r="0.55">
+      <stop stop-color="#00ffcc" stop-opacity="0.22"/><stop offset="1" stop-color="#00ffcc" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#ffffff" stroke-opacity="0.04"/>
     </pattern>
   </defs>
-
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect width="1200" height="630" fill="url(#grid)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
-  <!-- emblem chip -->
-  <g transform="translate(440 150)">
-    <rect x="0" y="0" width="320" height="320" rx="56" fill="#0b1320" stroke="url(#accent)" stroke-width="2" stroke-opacity="0.6"/>
-    <rect x="0" y="0" width="320" height="320" rx="56" fill="url(#accent)" fill-opacity="0.05"/>
-    <g transform="translate(80 80) scale(1.6)" stroke="url(#accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <circle cx="32" cy="30" r="14"/>
-<circle cx="72" cy="30" r="14"/>
-<path d="M10 80c0-15 10-24 22-24s22 9 22 24"/>
-<path d="M50 80c0-15 10-24 22-24s22 9 22 24"/>
+  <!-- themed icon chip, right side -->
+  <g transform="translate(872 188)">
+    <rect x="0" y="0" width="248" height="248" rx="44" fill="#0b1320" stroke="url(#acc)" stroke-width="2" stroke-opacity="0.55"/>
+    <rect x="0" y="0" width="248" height="248" rx="44" fill="url(#acc)" fill-opacity="0.05"/>
+    <g transform="translate(64 64) scale(1.2)" stroke="url(#acc)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <circle cx="32" cy="30" r="13"/>
+      <circle cx="72" cy="30" r="13"/>
+      <path d="M10 80c0-15 10-23 22-23s22 8 22 23"/>
+      <path d="M50 80c0-15 10-23 22-23s22 8 22 23"/>
     </g>
   </g>
 
-  <!-- category label -->
-  <g transform="translate(600 540)" text-anchor="middle" font-family="'Space Grotesk','Segoe UI',sans-serif">
-    <text fill="#00ffcc" font-size="30" font-weight="700" letter-spacing="3">HIRING</text>
-    <text y="42" fill="#ffffff" fill-opacity="0.55" font-size="22" font-weight="500" letter-spacing="2">INFINITI TECH PARTNERS</text>
-  </g>
+  <!-- kicker -->
+  <rect x="80" y="104" width="56" height="6" rx="3" fill="url(#acc)"/>
+  <text x="80" y="160" fill="#00ffcc" font-size="26" font-weight="700" letter-spacing="3" font-family="Space Grotesk, Segoe UI, sans-serif">HIRING</text>
+
+  <!-- title -->
+  <text x="80" y="232" fill="#ffffff" font-size="50" font-weight="700" font-family="Space Grotesk, Segoe UI, sans-serif">Fractional Engineering</text>
+  <text x="80" y="294" fill="#ffffff" font-size="50" font-weight="700" font-family="Space Grotesk, Segoe UI, sans-serif">Teams: A CTO's Guide</text>
+  <text x="80" y="356" fill="#ffffff" font-size="50" font-weight="700" font-family="Space Grotesk, Segoe UI, sans-serif">for 2026</text>
+  
+  <!-- takeaway -->
+  <rect x="80" y="438" width="8" height="34" rx="4" fill="url(#acc)"/>
+  <text x="104" y="464" fill="#ffffff" fill-opacity="0.72" font-size="28" font-weight="500" font-family="Space Grotesk, Segoe UI, sans-serif">Same throughput at 40–60% of in-house cost.</text>
+
+  <!-- wordmark -->
+  <text x="80" y="588" fill="#ffffff" fill-opacity="0.45" font-size="22" font-weight="600" letter-spacing="2" font-family="Space Grotesk, Segoe UI, sans-serif">INFINITI TECH PARTNERS</text>
+  <text x="1120" y="588" text-anchor="end" fill="#00ffcc" fill-opacity="0.6" font-size="20" font-weight="500" font-family="Space Grotesk, Segoe UI, sans-serif">infinititechpartners.com</text>
 </svg>
