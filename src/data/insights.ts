@@ -128,6 +128,60 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "cost-of-in-house-engineering-team-us-uk",
+    title: "The Real Cost of an In-House Engineering Team: US vs UK",
+    description:
+      "What a 6-person engineering team actually costs in New York and London once you add recruiting, ramp-up, management and attrition — and when that spend is worth it.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-02",
+    category: "Hiring",
+    readMinutes: 9,
+    keywords:
+      "cost to build engineering team, in-house vs outsourced engineering cost, software engineer salary US vs UK, true cost of hiring engineers, engineering team budget, build vs buy engineering",
+    sections: [
+      {
+        body: "The salary figure a recruiter quotes you is the smallest number in the whole calculation. When a growth-stage CTO budgets for an in-house engineering team, the base-salary line is usually 55–65% of what the team actually costs in year one. The rest — recruiting fees, payroll taxes, benefits, equipment, software, office or remote stipends, management overhead, and the months each hire spends ramping before they ship anything useful — is the part that quietly doubles the bill. Here is what a six-engineer team really costs in the US and UK, line by line.",
+      },
+      {
+        heading: "Start with fully-loaded salary, not base",
+        body: "A senior full-stack engineer's base in New York is roughly $200–260K; in San Francisco add 10–15%; in Austin subtract 15–20%. In London the equivalent base is £120–160K, Manchester or Edinburgh 20–30% less. But 'fully loaded' — employer payroll taxes, healthcare, pension/401k match, equipment, SaaS seats, and a share of facilities — adds 25–35% in the US and 20–30% in the UK on top of base. So one senior engineer is closer to $270–340K in New York and £150–200K in London before they have written a line of code that ships.",
+      },
+      {
+        heading: "The six-person team, year one",
+        body: [
+          "New York: 6 senior engineers fully loaded ≈ $1.7M–2.0M. Add a $200–260K engineering manager and you are at roughly $1.9M–2.3M.",
+          "London: 6 senior engineers fully loaded ≈ £950K–1.2M. Add a £150–190K manager and you are near £1.1M–1.4M (about $1.4M–1.8M).",
+          "These figures assume you can fill all six seats. In practice, hiring six senior engineers takes most teams 6–11 months.",
+        ],
+      },
+      {
+        heading: "The costs that never make the budget deck",
+        body: [
+          "Recruiting: 20–25% of first-year salary per agency hire, or a $120–180K in-house recruiter plus tooling. For six hires, $250–400K is realistic in the US.",
+          "Time-to-productivity: a senior engineer takes 2–4 months to reach full output in an unfamiliar codebase. Six hires staggered over the year means you pay for far more chair-time than shipped work in months 1–12.",
+          "Management overhead: every five engineers needs roughly one manager's worth of coordination. That is salary you spend on throughput you do not directly get.",
+          "Attrition: average tech tenure is under two years. One departure mid-year means a backfill cycle, lost context, and a 2–4 month productivity dip on top of new recruiting fees.",
+        ],
+      },
+      {
+        heading: "The 18-month reality",
+        body: "The number that matters is not annual cost — it is cost-to-first-meaningful-delivery. A from-scratch in-house team typically needs 6–11 months to assemble and another 2–4 months to ramp, so you are often 9–15 months and $1.5M+ in before the team is shipping at the velocity you budgeted for. For a Series B company with a board-committed roadmap, that lag is frequently the real constraint — not the money.",
+      },
+      {
+        heading: "When in-house is clearly worth it",
+        body: "If engineering is your strategic moat, if you are building IP you must own and staff for five years, or if you have regulated workloads requiring single-tenant employees, hire — the long-run economics favor it and the institutional knowledge compounds. The cost is high but the asset is real. In-house is the right answer when retention and ownership matter more than time-to-market.",
+      },
+      {
+        heading: "When the math favors a fractional team instead",
+        body: "When the bottleneck is throughput on a defined roadmap — not building a permanent org — a senior fractional team delivers comparable output at 40–60% of fully-loaded in-house cost, with no recruiting cycle, no ramp lag, and contract terms that flex on 30–60 day notice. We break that operating model down in our guide to fractional engineering teams. The honest decision is rarely 'in-house vs outsourced' in the abstract; it is 'do I need a permanent asset, or do I need this roadmap shipped this year?'",
+      },
+      {
+        heading: "How Infiniti Tech Partners helps you decide",
+        body: "We will model your specific build-vs-partner numbers with you — your stack, your roadmap, your US or UK hiring market — and tell you honestly when hiring is the better call. If the answer is a fractional pod, we can have senior engineers in your codebase in weeks, not the better part of a year. If the answer is hire, we will tell you that too. Start a conversation and we will run the numbers for your situation.",
+      },
+    ],
+  },
 ];
 
 export const getInsight = (slug: string): Insight | undefined =>
