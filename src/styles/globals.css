@@ -3926,6 +3926,60 @@ button.btn-secondary.large {
   margin-top: 10px;
 }
 
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submit-btn .btn-arrow {
+  width: 18px;
+  height: 18px;
+}
+
+/* Book-a-call CTA inside the contact info card */
+.contact-book-call {
+  display: inline-flex;
+  width: 100%;
+  margin: 0 0 30px;
+  text-align: center;
+}
+
+/* Submission feedback */
+.contact-form-error {
+  color: var(--color-secondary);
+  font-size: 0.9rem;
+  margin: -10px 0 0;
+}
+
+.contact-form-success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.contact-form-success .contact-icon {
+  color: var(--color-primary);
+}
+
+.contact-form-success h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.contact-form-success p {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.contact-form-success a {
+  color: var(--color-primary);
+}
+
 /* ========================================
    PAGE CTA SECTION
    ======================================== */

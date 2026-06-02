@@ -1,7 +1,19 @@
+import { useState, FormEvent } from "react";
 import { PageLayout } from "@/components/common/PageLayout";
-import { ParallaxLayer, TiltCard, MagneticButton, Icon } from "@/components/ui";
+import { ParallaxLayer, TiltCard, Icon } from "@/components/ui";
 import { contactInfo, socialLinks } from "@/data/data";
 import { usePageMeta } from "@/hooks";
+
+// Web3Forms access key — free, no backend. Get yours at https://web3forms.com
+// (enter the email you want leads delivered to, copy the key, drop it in .env).
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+
+// Where "Book a call" sends people — reuses the existing Calendly link.
+const BOOKING_URL =
+  (import.meta.env.VITE_CALENDLY_URL as string | undefined) ||
+  "https://calendly.com/sudipto-mitra-infinititechpartners/30min";
+
+type Status = "idle" | "submitting" | "success" | "error";
 
 export const ContactPage = () => {
   usePageMeta({
@@ -12,6 +24,61 @@ export const ContactPage = () => {
     keywords:
       "contact IT consulting firm, enterprise technology consultant, hire software development partner, custom software development quote, AI consulting contact",
   });
+
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    // Honeypot: real users never fill this hidden field; bots do.
+    if (data.get("botcheck")) return;
+
+    if (!WEB3FORMS_KEY) {
+      setStatus("error");
+      setErrorMsg(
+        "Form isn't configured yet. Set VITE_WEB3FORMS_KEY in your environment."
+      );
+      return;
+    }
+
+    setStatus("submitting");
+    setErrorMsg("");
+
+    data.append("access_key", WEB3FORMS_KEY);
+    data.append("subject", `New enquiry: ${data.get("subject") || "Contact form"}`);
+    data.append("from_name", "Infiniti Tech Partners Website");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data,
+      });
+      const json = await res.json();
+
+      if (json.success) {
+        setStatus("success");
+        form.reset();
+        // Fire conversion events if analytics are present.
+        if (typeof window !== "undefined") {
+          // GA4
+          (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag?.(
+            "event",
+            "generate_lead",
+            { event_category: "contact", event_label: "contact_form" }
+          );
+        }
+      } else {
+        setStatus("error");
+        setErrorMsg(json.message || "Something went wrong. Please email us directly.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg("Network error. Please email us directly at " + contactInfo.email);
+    }
+  };
 
   return (
     <PageLayout
@@ -26,6 +93,24 @@ export const ContactPage = () => {
             <ParallaxLayer speed={0.1}>
               <TiltCard className="contact-info-card">
                 <h3 className="contact-info-title">Get in Touch</h3>
+
+                {/* Primary CTA for B2B: booking a call converts better than a form. */}
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary contact-book-call"
+                  onClick={() =>
+                    (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag?.(
+                      "event",
+                      "book_call_click",
+                      { event_category: "contact" }
+                    )
+                  }
+                >
+                  Book a 30-min strategy call
+                </a>
+
                 <div className="contact-info-items">
                   <div className="contact-info-item">
                     <span className="contact-icon"><Icon name="mail" /></span>
@@ -81,39 +166,78 @@ export const ContactPage = () => {
             <ParallaxLayer speed={0.15}>
               <TiltCard className="contact-form-card">
                 <h3 className="contact-form-title">Send us a Message</h3>
-                <form className="contact-form">
-                  <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id="name" placeholder="Your name" />
+
+                {status === "success" ? (
+                  <div className="contact-form-success" role="status">
+                    <span className="contact-icon"><Icon name="check" /></span>
+                    <h4>Thanks — we've got your message.</h4>
+                    <p>
+                      A consultant will reply within one business day. Prefer to
+                      talk sooner?{" "}
+                      <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                        Book a call here.
+                      </a>
+                    </p>
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="your@email.com" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="subject">Subject</label>
-                    <input type="text" id="subject" placeholder="How can we help?" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="message">Message</label>
-                    <textarea
-                      id="message"
-                      rows={5}
-                      placeholder="Tell us about your project..."
+                ) : (
+                  <form className="contact-form" onSubmit={handleSubmit}>
+                    {/* Honeypot — hidden from humans, catches bots. */}
+                    <input
+                      type="checkbox"
+                      name="botcheck"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      style={{ display: "none" }}
+                      aria-hidden="true"
                     />
-                  </div>
-                  <MagneticButton href="#" className="btn-primary submit-btn">
-                    Send Message
-                    <svg viewBox="0 0 24 24" className="btn-arrow">
-                      <path
-                        d="M5 12h14M12 5l7 7-7 7"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        fill="none"
+                    <div className="form-group">
+                      <label htmlFor="name">Name</label>
+                      <input type="text" id="name" name="name" placeholder="Your name" required />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="email">Work email</label>
+                      <input type="email" id="email" name="email" placeholder="you@company.com" required />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="company">Company</label>
+                      <input type="text" id="company" name="company" placeholder="Company name" />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="subject">Subject</label>
+                      <input type="text" id="subject" name="subject" placeholder="How can we help?" />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="message">Message</label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows={5}
+                        placeholder="Tell us about your project..."
+                        required
                       />
-                    </svg>
-                  </MagneticButton>
-                </form>
+                    </div>
+
+                    {status === "error" && (
+                      <p className="contact-form-error" role="alert">{errorMsg}</p>
+                    )}
+
+                    <button
+                      type="submit"
+                      className="btn-primary submit-btn"
+                      disabled={status === "submitting"}
+                    >
+                      {status === "submitting" ? "Sending..." : "Send Message"}
+                      <svg viewBox="0 0 24 24" className="btn-arrow">
+                        <path
+                          d="M5 12h14M12 5l7 7-7 7"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          fill="none"
+                        />
+                      </svg>
+                    </button>
+                  </form>
+                )}
               </TiltCard>
             </ParallaxLayer>
           </div>

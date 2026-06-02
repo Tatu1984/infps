@@ -2,6 +2,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "@/styles/globals.css";
 import App from "./App";
+import { initAnalytics } from "@/utils/analytics";
+
+// Load GA4 + Microsoft Clarity if their IDs are configured (see utils/analytics).
+initAnalytics();
 
 // Mirror document visibility onto the <html> element so CSS can pause
 // infinite animations (aurora, sphere pulse, ring rotate, ...) on hidden tabs.
