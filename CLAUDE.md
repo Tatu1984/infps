@@ -69,3 +69,9 @@ npm run preview  # Preview prod build
 - All static content in `data/data.tsx` with TypeScript interfaces
 - Exports: navItems, footerLinks, contactInfo, socialLinks, whyChooseUs, values, stats, services, products, projects, processSteps, team, about* exports
 - No state management lib - direct imports where needed
+
+### Newsletter / Insights posts
+
+- Blog posts ("News Letter" in the nav → `/insights`) live in `data/insights.ts` as `Insight` objects; the list + detail pages are fully data-driven.
+- **Every post MUST have a supporting image.** `Insight.image` is a required field (path under `/public`, e.g. `/insights/<slug>.svg`) — the build fails without it. Add a 1200x630 on-brand hero image per post; existing ones are themed SVGs in `public/insights/`.
+- Each post auto-gets BlogPosting + BreadcrumbList schema and a contact CTA. Add new posts to `public/sitemap.xml` too.

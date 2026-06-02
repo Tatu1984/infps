@@ -29,3 +29,8 @@ prev/
 .env
 .env.local
 .env.*.local
+
+# Personal marketing assets (regenerable, not part of the site build)
+/linkedin-assets/
+/LinkedIn-Posts-Infiniti.docx
+/prompt.md
