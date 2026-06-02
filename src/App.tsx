@@ -23,6 +23,7 @@ const RefundPolicyPage = lazy(() => import("@/pages/RefundPolicyPage").then((m) 
 const LocationPage = lazy(() => import("@/pages/LocationPage").then((m) => ({ default: m.LocationPage })));
 const InsightsPage = lazy(() => import("@/pages/InsightsPage").then((m) => ({ default: m.InsightsPage })));
 const InsightDetailPage = lazy(() => import("@/pages/InsightDetailPage").then((m) => ({ default: m.InsightDetailPage })));
+const Soc2ChecklistPage = lazy(() => import("@/pages/Soc2ChecklistPage").then((m) => ({ default: m.Soc2ChecklistPage })));
 
 const PageFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -61,6 +62,7 @@ const App = () => {
               <Route path="/locations/:slug" element={<LocationPage />} />
               <Route path="/insights" element={<InsightsPage />} />
               <Route path="/insights/:slug" element={<InsightDetailPage />} />
+              <Route path="/resources/soc-2-readiness-checklist" element={<Soc2ChecklistPage />} />
             </Routes>
           </Suspense>
         </main>

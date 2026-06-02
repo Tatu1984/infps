@@ -29,3 +29,6 @@ export { LocationPage } from "./LocationPage";
 // Insights (blog)
 export { InsightsPage } from "./InsightsPage";
 export { InsightDetailPage } from "./InsightDetailPage";
+
+// Lead-magnet resources
+export { Soc2ChecklistPage } from "./Soc2ChecklistPage";

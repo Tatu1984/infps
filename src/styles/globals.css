@@ -3980,6 +3980,28 @@ button.btn-secondary.large {
   color: var(--color-primary);
 }
 
+/* Lead-magnet resource page */
+.resource-privacy {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+
+.resource-unlocked {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.resource-unlocked .btn-secondary {
+  align-self: flex-start;
+}
+
+.resource-checklist .insight-section-heading {
+  color: var(--color-primary);
+}
+
 /* ========================================
    PAGE CTA SECTION
    ======================================== */

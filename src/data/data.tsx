@@ -44,6 +44,7 @@ export const footerLinks = {
     { label: "About Us", href: "/about" },
     { label: "Our Team", href: "/team" },
     { label: "Insights", href: "/insights" },
+    { label: "SOC 2 Checklist", href: "/resources/soc-2-readiness-checklist" },
     { label: "Contact", href: "/contact" },
   ] as NavItem[],
 };
