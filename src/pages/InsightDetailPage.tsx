@@ -37,7 +37,7 @@ export const InsightDetailPage = () => {
     insight
       ? [
           { name: "Home", href: "/" },
-          { name: "Insights", href: "/insights" },
+          { name: "News Letter", href: "/insights" },
           { name: insight.title, href: `/insights/${insight.slug}` },
         ]
       : []

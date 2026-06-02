@@ -13,20 +13,20 @@ const formatDate = (iso: string) =>
 
 export const InsightsPage = () => {
   usePageMeta({
-    title: "Insights | Infiniti Tech Partners",
+    title: "News Letter | Infiniti Tech Partners",
     description:
-      "Engineering-led perspectives on software, cloud, security and AI for growth-stage US and UK companies. Practical playbooks, not opinions.",
+      "The Infiniti Tech Partners newsletter — engineering-led writing on software, cloud, security and AI for growth-stage US and UK leaders. New editions added regularly.",
     canonical: "/insights",
     keywords:
-      "engineering insights, technology consulting blog, software development best practices, cloud engineering playbooks, SOC 2 guide, fractional engineering team guide",
+      "Infiniti Tech Partners newsletter, engineering newsletter, technology consulting newsletter, software cloud security AI newsletter, CTO newsletter",
   });
 
   return (
     <PageLayout
-      tag="Insights"
-      title="Playbooks for"
-      titleAccent="Growth-Stage Engineering"
-      description="Practical writing on building production-grade software, cloud, security and AI systems. By engineers, for engineering leaders."
+      tag="News Letter"
+      title="The Infiniti Tech"
+      titleAccent="News Letter"
+      description="Engineering-led writing on software, cloud, security and AI for growth-stage US and UK leaders. New editions added regularly — read the latest below."
     >
       <div className="section-container">
         <div className="page-section">
