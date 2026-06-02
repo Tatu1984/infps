@@ -34,6 +34,14 @@ export const InsightsPage = () => {
             {insights.map((insight) => (
               <TiltCard key={insight.slug} className="insight-card">
                 <Link to={`/insights/${insight.slug}`} className="insight-card-link">
+                  <img
+                    src={insight.image}
+                    alt={insight.title}
+                    className="insight-card-image"
+                    loading="lazy"
+                    width={1200}
+                    height={630}
+                  />
                   <div className="insight-card-meta">
                     <span className="insight-category">{insight.category}</span>
                     <span className="insight-read-time">{insight.readMinutes} min read</span>

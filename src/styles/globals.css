@@ -9931,6 +9931,27 @@ html[data-visibility="hidden"] *::after {
   height: 100%;
 }
 
+/* Hero image bleeds to the card edges, above the padded text. */
+.insight-card-image {
+  display: block;
+  width: calc(100% + 3.5rem);
+  margin: -1.75rem -1.75rem 1.25rem;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Article hero image at the top of an insight detail page. */
+.insight-detail-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  margin: 1.5rem 0 2.5rem;
+}
+
 .insight-card-meta {
   display: flex;
   justify-content: space-between;

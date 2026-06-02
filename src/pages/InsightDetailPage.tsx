@@ -97,6 +97,14 @@ export const InsightDetailPage = () => {
               <span>By {insight.author}</span>
             </div>
 
+            <img
+              src={insight.image}
+              alt={insight.title}
+              className="insight-detail-image"
+              width={1200}
+              height={630}
+            />
+
             <article className="insight-article">
               {insight.sections.map((section, i) => (
                 <section key={i} className="insight-section">

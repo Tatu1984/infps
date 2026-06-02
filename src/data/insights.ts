@@ -8,6 +8,12 @@ export interface InsightSection {
 export interface Insight {
   slug: string;
   title: string;
+  /**
+   * REQUIRED supporting hero image (path under /public, e.g.
+   * "/insights/my-post.svg"). Every post must ship with an image — the build
+   * fails without one. Shown on the listing card and at the top of the article.
+   */
+  image: string;
   /** ≤155 chars — used as the meta description and OG description. */
   description: string;
   /** Author display name. Schema uses `Organization` as publisher. */
@@ -28,6 +34,7 @@ export const insights: Insight[] = [
   {
     slug: "fractional-engineering-teams-2026",
     title: "Fractional Engineering Teams: A CTO's Guide for 2026",
+    image: "/insights/fractional-engineering-teams-2026.svg",
     description:
       "When growth-stage CTOs in the US and UK choose a fractional engineering team over hiring, what they actually gain — and what tradeoffs to negotiate up front.",
     author: "Infiniti Tech Partners",
@@ -80,6 +87,7 @@ export const insights: Insight[] = [
   {
     slug: "soc-2-in-90-days",
     title: "SOC 2 in 90 Days: The Engineering-Led Playbook",
+    image: "/insights/soc-2-in-90-days.svg",
     description:
       "How a senior engineering team can take a growth-stage SaaS company from zero SOC 2 controls to a Type I attestation in 90 days — without buying a compliance platform.",
     author: "Infiniti Tech Partners",
@@ -131,6 +139,7 @@ export const insights: Insight[] = [
   {
     slug: "cost-of-in-house-engineering-team-us-uk",
     title: "The Real Cost of an In-House Engineering Team: US vs UK",
+    image: "/insights/cost-of-in-house-engineering-team-us-uk.svg",
     description:
       "What a 6-person engineering team actually costs in New York and London once you add recruiting, ramp-up, management and attrition — and when that spend is worth it.",
     author: "Infiniti Tech Partners",
@@ -185,6 +194,7 @@ export const insights: Insight[] = [
   {
     slug: "build-vs-buy-software-2026",
     title: "The 2026 Build vs Buy Decision Framework for Growth-Stage CTOs",
+    image: "/insights/build-vs-buy-software-2026.svg",
     description:
       "A practical framework for deciding when to build custom software, when to buy off-the-shelf, and when to do both — with the hidden costs most teams miss on each side.",
     author: "Infiniti Tech Partners",
@@ -235,6 +245,7 @@ export const insights: Insight[] = [
   {
     slug: "how-to-hire-ai-consulting-partner",
     title: "How to Hire an AI Consulting Partner: A Buyer's Guide for 2026",
+    image: "/insights/how-to-hire-ai-consulting-partner.svg",
     description:
       "What to look for, what to ask, and the red flags to avoid when choosing an enterprise AI consulting partner — from a team that ships LLM and agent systems to production.",
     author: "Infiniti Tech Partners",
