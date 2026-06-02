@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { PageLayout } from "@/components/common/PageLayout";
-import { ParallaxLayer, TiltCard, Icon } from "@/components/ui";
+import { ParallaxLayer, Icon } from "@/components/ui";
 import { contactInfo, socialLinks } from "@/data/data";
 import { usePageMeta } from "@/hooks";
 
@@ -91,7 +91,7 @@ export const ContactPage = () => {
         <div className="page-section">
           <div className="contact-grid">
             <ParallaxLayer speed={0.1}>
-              <TiltCard className="contact-info-card">
+              <div className="contact-info-card">
                 <h3 className="contact-info-title">Get in Touch</h3>
 
                 {/* Primary CTA for B2B: booking a call converts better than a form. */}
@@ -160,11 +160,11 @@ export const ContactPage = () => {
                     ))}
                   </div>
                 </div>
-              </TiltCard>
+              </div>
             </ParallaxLayer>
 
             <ParallaxLayer speed={0.15}>
-              <TiltCard className="contact-form-card">
+              <div className="contact-form-card">
                 <h3 className="contact-form-title">Send us a Message</h3>
 
                 {status === "success" ? (
@@ -238,7 +238,7 @@ export const ContactPage = () => {
                     </button>
                   </form>
                 )}
-              </TiltCard>
+              </div>
             </ParallaxLayer>
           </div>
         </div>
