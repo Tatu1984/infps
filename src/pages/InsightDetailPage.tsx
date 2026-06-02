@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { PageLayout } from "@/components/common/PageLayout";
 import { MagneticButton, ParallaxLayer } from "@/components/ui";
-import { usePageMeta } from "@/hooks";
+import { usePageMeta, useBreadcrumb } from "@/hooks";
 import { getInsight, insights } from "@/data/insights";
 
 const SCHEMA_NODE_ID = "insight-jsonld";
@@ -31,6 +31,16 @@ export const InsightDetailPage = () => {
           description: "We couldn't find that article.",
           canonical: "/insights",
         }
+  );
+
+  useBreadcrumb(
+    insight
+      ? [
+          { name: "Home", href: "/" },
+          { name: "Insights", href: "/insights" },
+          { name: insight.title, href: `/insights/${insight.slug}` },
+        ]
+      : []
   );
 
   useEffect(() => {

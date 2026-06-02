@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { serviceBuckets, caseStudies } from "@/data/services-restructured";
 import { ParallaxLayer } from "@/components/ui";
-import { usePageMeta } from "@/hooks";
+import { usePageMeta, useBreadcrumb } from "@/hooks";
 import {
   ArrowRight,
   ArrowLeft,
@@ -49,6 +49,16 @@ export const ServiceBucketDetailPage = () => {
     canonical: service ? `/services/${service.slug}` : "/services",
     keywords: service ? SERVICE_KEYWORDS[service.slug] : undefined,
   });
+
+  useBreadcrumb(
+    service
+      ? [
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: service.title, href: `/services/${service.slug}` },
+        ]
+      : []
+  );
 
   // Inject Service + FAQPage schema for this specific pillar. The FAQ block
   // gives Google rich-result real-estate even for niche B2B queries.

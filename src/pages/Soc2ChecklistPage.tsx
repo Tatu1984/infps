@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
 import { PageLayout } from "@/components/common/PageLayout";
 import { ParallaxLayer, TiltCard, MagneticButton, Icon } from "@/components/ui";
-import { usePageMeta } from "@/hooks";
+import { usePageMeta, useBreadcrumb } from "@/hooks";
 
 // Reuses the same Web3Forms inbox as the contact form; submissions are tagged
 // with lead_source so you can tell magnet leads from contact-form leads.
@@ -79,6 +79,12 @@ export const Soc2ChecklistPage = () => {
     keywords:
       "SOC 2 readiness checklist, SOC 2 checklist, SOC 2 controls list, SOC 2 for SaaS, SOC 2 Type I requirements, SOC 2 compliance checklist 2026",
   });
+
+  useBreadcrumb([
+    { name: "Home", href: "/" },
+    { name: "Resources", href: "/resources/soc-2-readiness-checklist" },
+    { name: "SOC 2 Readiness Checklist", href: "/resources/soc-2-readiness-checklist" },
+  ]);
 
   const [status, setStatus] = useState<Status>("idle");
   const [unlocked, setUnlocked] = useState(false);
