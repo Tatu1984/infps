@@ -481,6 +481,43 @@ export const caseStudies: CaseStudy[] = [
     relatedServices: ["infrastructure-cloud", "enterprise-platforms"],
     gradient: "linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%)",
   },
+  {
+    slug: "tribe-private-ai-assistant",
+    industry: "AI Assistant",
+    title: "Tribe: A Private AI Assistant on Your Own Infrastructure",
+    subtitle:
+      "A self-hosted conversational AI agent, pre-installed on a VM and reachable from Telegram or WhatsApp",
+    clientType: "Privacy-conscious teams & professionals",
+    challenge:
+      "Teams wanted the power of a capable AI assistant but couldn't send sensitive conversations and data to third-party cloud AI services. Self-hosting an AI agent meant wrestling with infrastructure, models, and messaging integrations most teams had neither the time nor the specialists to build.",
+    solution:
+      "We built Tribe, a private conversational AI agent that runs entirely on the client's own infrastructure. We deliver it pre-installed on a dedicated VM within TS Edge Nest — running on Ten Sparrows' MicroDataCluster (MDC) infrastructure — so it works out of the box with zero setup. Users simply chat with it from their phone over Telegram or WhatsApp, while every conversation and all data stay on hardware they control.",
+    outcomes: [
+      { metric: "100%", description: "Conversations and data stay on the client's own infrastructure" },
+      { metric: "Zero", description: "Setup — delivered pre-installed and ready to use" },
+      { metric: "2", description: "Channels out of the box: Telegram and WhatsApp" },
+      { metric: "Minutes", description: "From provisioned VM to chatting on your phone" },
+    ],
+    technologies: [
+      "TS Edge Nest",
+      "MicroDataCluster",
+      "KVM/QEMU",
+      "LLM",
+      "Telegram Bot API",
+      "WhatsApp Business API",
+      "Go",
+      "Docker",
+    ],
+    timeline: "4 months",
+    testimonial: {
+      quote:
+        "It's our own private AI — as easy to talk to as texting a friend, but everything stays on our infrastructure. Nothing leaves the building.",
+      author: "Founder",
+      role: "Privacy-conscious professional services firm",
+    },
+    relatedServices: ["ai-automation", "infrastructure-cloud"],
+    gradient: "linear-gradient(135deg, #f59e0b 0%, #ec4899 100%)",
+  },
 ];
 
 // Homepage content
