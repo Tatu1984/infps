@@ -371,6 +371,116 @@ export const caseStudies: CaseStudy[] = [
     relatedServices: ["enterprise-platforms", "ai-automation", "infrastructure-cloud"],
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
   },
+  {
+    slug: "ten-sparrows-edge-computing",
+    industry: "Manufacturing",
+    title: "Ten Sparrows: Edge Computing for Critical Operations",
+    subtitle:
+      "On-site micro data centers with embedded AI for operations that can't tolerate latency or downtime",
+    clientType: "Multi-site industrial operator",
+    challenge:
+      "The client ran latency-sensitive, safety-critical processes across multiple facilities where cloud round-trips added unacceptable delay, and any loss of connectivity halted production. They needed real-time inference and control at the source — without shipping sensitive operational data to a distant cloud.",
+    solution:
+      "We designed and deployed Ten Sparrows: ruggedized on-site micro data centers that run AI models and control logic locally, integrated into the client's existing infrastructure and security constraints. Each node processes sensor data and runs inference at the edge, syncing to the cloud only for aggregate analytics. High-availability clustering and local failover keep operations running even when the uplink drops.",
+    outcomes: [
+      { metric: "<10 ms", description: "Local inference latency, down from ~400 ms via cloud" },
+      { metric: "Zero", description: "Production stoppages from connectivity loss" },
+      { metric: "70%", description: "Reduction in data egress to the cloud" },
+      { metric: "24/7", description: "Autonomous operation during network outages" },
+    ],
+    technologies: [
+      "Edge Kubernetes",
+      "NVIDIA Jetson",
+      "Docker",
+      "Go",
+      "MQTT",
+      "TensorRT",
+      "Prometheus",
+      "Grafana",
+    ],
+    timeline: "6 months",
+    testimonial: {
+      quote:
+        "Putting compute and AI on-site changed everything. Our lines keep running whether the internet is up or not, and decisions happen in milliseconds instead of seconds.",
+      author: "Director of Operations",
+      role: "Multi-site industrial operator",
+    },
+    relatedServices: ["infrastructure-cloud", "ai-automation"],
+    gradient: "linear-gradient(135deg, #00c2a8 0%, #0891b2 100%)",
+  },
+  {
+    slug: "ts-edge-nest-cloud-platform",
+    industry: "SaaS",
+    title: "TS Edge Nest: AI & VM Cloud Platform",
+    subtitle:
+      "A self-service control plane to provision VMs, Kubernetes and AI model deployments in seconds",
+    clientType: "Enterprise cloud platform provider",
+    challenge:
+      "Teams needed to spin up compute, networking and AI inference environments fast, but were blocked by slow manual provisioning, inconsistent environments, and no single control plane spanning virtual machines, containers and model deployment.",
+    solution:
+      "We built TS Edge Nest, an enterprise cloud infrastructure platform with one control plane for virtual machines, Kubernetes clusters, storage, networking and managed databases — plus one-click AI model deployment. Sub-30-second VM provisioning, auto-scaling, role-based access via Microsoft Entra ID, and 256-bit end-to-end encryption, multi-tenant by design.",
+    outcomes: [
+      { metric: "<30 sec", description: "VM provisioning time" },
+      { metric: "99.9%", description: "Platform uptime SLA" },
+      { metric: "8x", description: "Faster environment setup vs the prior workflow" },
+      { metric: "Multi-tenant", description: "Isolated, secure tenancy at scale" },
+    ],
+    technologies: [
+      "Next.js",
+      "Go",
+      "Kubernetes",
+      "KVM/QEMU",
+      "PostgreSQL",
+      "Redis",
+      "MongoDB",
+      "Microsoft Entra ID",
+    ],
+    timeline: "9 months",
+    testimonial: {
+      quote:
+        "We went from filing tickets and waiting hours to provisioning a full environment in under a minute. It's the control plane our engineers always wanted.",
+      author: "VP of Platform Engineering",
+      role: "Enterprise cloud provider",
+    },
+    relatedServices: ["infrastructure-cloud", "ai-automation"],
+    gradient: "linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)",
+  },
+  {
+    slug: "microdatacluster-sandbox-platform",
+    industry: "Developer Tools",
+    title: "MicroDataCluster: On-Demand Sandbox Environments",
+    subtitle:
+      "Disposable, production-like sandboxes so users can safely test products before they buy",
+    clientType: "B2B software vendor",
+    challenge:
+      "Prospects and users wanted to try the client's software hands-on, but spinning up safe, isolated, production-like environments was slow and costly — creating friction in the sales funnel and forcing risky shared demo environments.",
+    solution:
+      "We built MicroDataCluster: a platform that provisions disposable, fully isolated sandbox clusters on demand. Each user gets a clean, production-like environment seeded with sample data to test products, then it tears down automatically. Per-tenant resource quotas and network isolation keep users safe, while orchestration keeps the cost per sandbox low.",
+    outcomes: [
+      { metric: "Minutes", description: "To a ready, isolated sandbox (was hours)" },
+      { metric: "100%", description: "Tenant isolation between sandbox users" },
+      { metric: "35%", description: "Lift in trial-to-paid conversion from hands-on testing" },
+      { metric: "Auto", description: "Teardown — no idle environments draining cost" },
+    ],
+    technologies: [
+      "Kubernetes",
+      "Docker",
+      "Go",
+      "Next.js",
+      "Terraform",
+      "PostgreSQL",
+      "Cilium",
+    ],
+    timeline: "5 months",
+    testimonial: {
+      quote:
+        "Letting prospects actually test in a real, isolated environment — in minutes — turned our demos into closes.",
+      author: "Head of Product",
+      role: "B2B software vendor",
+    },
+    relatedServices: ["infrastructure-cloud", "enterprise-platforms"],
+    gradient: "linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%)",
+  },
 ];
 
 // Homepage content

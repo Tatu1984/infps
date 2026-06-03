@@ -31,6 +31,36 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.infinititechpartners.com/case-studies/healthcare-infrastructure</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/case-studies/logistics-platform</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/case-studies/smart-city</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/case-studies/ten-sparrows-edge-computing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/case-studies/ts-edge-nest-cloud-platform</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/case-studies/microdatacluster-sandbox-platform</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.infinititechpartners.com/team</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { caseStudies, serviceBuckets } from "@/data/services-restructured";
-import { ArrowRight, Building2, Truck, MapPin, Clock, Users } from "lucide-react";
+import { ArrowRight, Building2, Truck, MapPin, Clock, Users, Factory, Server, FlaskConical } from "lucide-react";
 import { ParallaxLayer } from "@/components/ui";
 import { usePageMeta } from "@/hooks";
 
@@ -8,6 +8,9 @@ const industryIcons: Record<string, React.ReactNode> = {
   Healthcare: <Building2 size={24} />,
   Logistics: <Truck size={24} />,
   Government: <MapPin size={24} />,
+  Manufacturing: <Factory size={24} />,
+  SaaS: <Server size={24} />,
+  "Developer Tools": <FlaskConical size={24} />,
 };
 
 export const CaseStudiesPage = () => {
