@@ -518,6 +518,62 @@ export const caseStudies: CaseStudy[] = [
     relatedServices: ["ai-automation", "infrastructure-cloud"],
     gradient: "linear-gradient(135deg, #f59e0b 0%, #ec4899 100%)",
   },
+  {
+    slug: "climbkiddo-childcare-platform",
+    industry: "Early Childhood Education",
+    title: "ClimbKiddo: Daycare & Playschool Platform with Live Parent Updates",
+    subtitle:
+      "A digital home for an early-years childcare brand — programs, admissions, and daily parent communication",
+    clientType: "Early childhood education centre (multi-branch)",
+    challenge:
+      "A growing daycare and playschool brand was running admissions, parent updates and program information over phone calls, WhatsApp and paper. Parents wanted reassurance and visibility into their child's day, and the team needed a credible online presence to fill seats across multiple branches.",
+    solution:
+      "We built ClimbKiddo's digital platform: a warm, mobile-first website presenting their daycare, playschool and activity programs across branches, with online admission enquiries and a parent-communication experience that shares daily photos and activity logs. Safety is front and centre — CCTV monitoring and a low caregiver-to-child ratio are surfaced as trust signals for prospective parents.",
+    outcomes: [
+      { metric: "2", description: "Branches unified under one online presence" },
+      { metric: "Daily", description: "Photo and activity updates shared with parents" },
+      { metric: "24/7", description: "Online admission enquiries — no leads lost to missed calls" },
+      { metric: "1:8", description: "Caregiver-to-child ratio surfaced as a trust signal" },
+    ],
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    timeline: "3 months",
+    testimonial: {
+      quote:
+        "Parents finally see their child's day — the photos, the activities, the meals. And enquiries come through the website now instead of getting lost in WhatsApp.",
+      author: "Founder & Director",
+      role: "Early childhood education centre",
+    },
+    relatedServices: ["enterprise-platforms"],
+    gradient: "linear-gradient(135deg, #0ea5e9 0%, #22c55e 100%)",
+  },
+  {
+    slug: "lavanya-garments-ecommerce",
+    industry: "E-commerce",
+    title: "Lavanya: Garments E-Commerce Storefront & Back-Office",
+    subtitle:
+      "A full fashion e-commerce platform — from sarees to menswear — with a complete admin back-office",
+    clientType: "Fashion & apparel retailer",
+    challenge:
+      "An apparel brand wanted to sell its full range online — sarees, kurtis, lehengas, Western wear, menswear, kidswear and accessories — with proper inventory, variants, payments and order management. A basic template store would have been outgrown within months.",
+    solution:
+      "We built Lavanya: a production-grade garments e-commerce platform on Next.js with a polished, motion-rich storefront in a gold-and-cream brand identity, plus a complete admin back-office. The data model covers products and variants, inventory, orders, payments, shipments, coupons and a built-in CMS — backed by a Prisma schema with full audit trails. Built to scale from launch, not to be replaced after it.",
+    outcomes: [
+      { metric: "7+", description: "Product categories live from day one" },
+      { metric: "Full", description: "Variants, inventory, orders, payments and shipping" },
+      { metric: "1", description: "Unified storefront and admin back-office" },
+      { metric: "Launch-ready", description: "Built to scale, not a throwaway template" },
+    ],
+    technologies: ["Next.js", "Prisma", "PostgreSQL", "TypeScript", "shadcn/ui", "Tailwind CSS", "Stripe"],
+    timeline: "3 months",
+    testimonial: {
+      quote:
+        "We launched with a real store, not a template — full inventory, payments and an admin panel our team actually runs day to day.",
+      author: "Owner",
+      role: "Fashion & apparel retailer",
+    },
+    relatedServices: ["enterprise-platforms"],
+    gradient: "linear-gradient(135deg, #d4af37 0%, #b45309 100%)",
+  },
 ];
 
 // Homepage content
