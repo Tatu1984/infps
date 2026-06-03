@@ -302,6 +302,72 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "aws-cost-optimization-saas",
+    title: "AWS Cost Optimization: 12 Levers for SaaS at $5M–$50M ARR",
+    image: "/insights/aws-cost-optimization-saas.svg",
+    description:
+      "The 12 levers that cut a growth-stage SaaS company's AWS bill by 30–50% — from rightsizing and savings plans to data-transfer and architecture fixes — without slowing the team down.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-03",
+    category: "Cloud",
+    readMinutes: 10,
+    keywords:
+      "AWS cost optimization, reduce AWS bill, SaaS cloud cost optimization, AWS savings plans, EC2 rightsizing, data transfer costs, FinOps for SaaS, cloud cost reduction",
+    sections: [
+      {
+        body: "Somewhere between $5M and $50M ARR, the AWS bill stops being a rounding error and becomes one of your largest line items after payroll — often 8–15% of revenue. The good news: most growth-stage SaaS infrastructure carries 30–50% of waste that can be removed without re-architecting anything or slowing the team down. Here are the 12 levers we pull, roughly in order of return-on-effort.",
+      },
+      {
+        heading: "Start with visibility — you can't cut what you can't see",
+        body: [
+          "Turn on Cost Explorer and tag everything by team, service and environment. Untagged spend is unmanaged spend.",
+          "Set a monthly budget with alerts. The goal is to be surprised in week one, not at the invoice.",
+          "Find your top 5 cost drivers. In most SaaS the bill is 80% compute + storage + data transfer; optimize those before anything exotic.",
+        ],
+      },
+      {
+        heading: "Compute — usually the biggest win",
+        body: [
+          "1. Rightsize. Most instances run at 10–30% utilization. Drop over-provisioned EC2/RDS down a size (or two) using real CloudWatch data — often a 20–40% compute cut on its own.",
+          "2. Buy Savings Plans / Reserved Instances for your steady-state baseline. A 1-year Compute Savings Plan is ~30% off on-demand for workloads you know you'll run. Cover the floor, leave the spikes on-demand.",
+          "3. Use Spot for fault-tolerant work — batch jobs, CI runners, async workers, stateless background processing. Up to 70–90% off, as long as the workload tolerates interruption.",
+          "4. Schedule non-production. Dev, staging and QA do not need to run nights and weekends. An automated stop/start schedule cuts those environments ~65%.",
+        ],
+      },
+      {
+        heading: "Storage and data — the quiet bleed",
+        body: [
+          "5. Apply S3 lifecycle policies. Move infrequently accessed objects to Infrequent Access or Glacier, and expire what you don't need. Most buckets have years of logs and backups paying hot-storage prices.",
+          "6. Clean up orphaned resources: unattached EBS volumes, old snapshots, idle load balancers, unused elastic IPs. They bill quietly forever.",
+          "7. Right-tier EBS. gp3 is cheaper and faster than gp2 for most workloads — and you can tune IOPS independently.",
+        ],
+      },
+      {
+        heading: "Data transfer — the line nobody reads",
+        body: [
+          "8. Kill cross-AZ chatter. Inter-AZ traffic is billed both ways and adds up fast in chatty microservices. Co-locate services that talk constantly, and keep databases in the same AZ as their primary consumers where HA allows.",
+          "9. Put CloudFront in front of egress. Serving assets and API responses through the CDN is cheaper than raw data-out from EC2/S3 — and faster for users.",
+          "10. Use VPC endpoints for AWS-service traffic (S3, DynamoDB) so it doesn't route through a NAT gateway, which charges per-GB on top of hourly.",
+        ],
+      },
+      {
+        heading: "Architecture and managed services",
+        body: [
+          "11. Question always-on for spiky workloads. If traffic is bursty, serverless (Lambda, Fargate) or autoscaling can beat a fleet sized for peak that idles the rest of the day.",
+          "12. Audit managed-service tiers. Over-provisioned RDS, idle Elasticsearch/OpenSearch domains, and forgotten dev databases are common five-figure-a-year leaks.",
+        ],
+      },
+      {
+        heading: "Where to start (the 80/20)",
+        body: "If you only do three things this quarter: rightsize compute, buy a Savings Plan for your baseline, and schedule non-production environments to shut off out of hours. Those three alone typically recover 25–35% with low risk and no architectural change. The data-transfer and architecture levers come next, once you have visibility and the easy wins banked.",
+      },
+      {
+        heading: "How Infiniti Tech Partners helps",
+        body: "We run a fixed-scope cloud cost audit: we instrument your account, find the waste, and hand you a prioritized plan with the dollar impact and risk of each lever — then implement the ones you want, from rightsizing to architecture changes. Most engagements pay for themselves inside the first month's savings. If your AWS bill is growing faster than your revenue, start a conversation and we'll find out why.",
+      },
+    ],
+  },
 ];
 
 export const getInsight = (slug: string): Insight | undefined =>

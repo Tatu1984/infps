@@ -126,6 +126,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.infinititechpartners.com/insights/aws-cost-optimization-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.infinititechpartners.com/resources/soc-2-readiness-checklist</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
