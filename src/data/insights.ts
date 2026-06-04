@@ -368,6 +368,75 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "rag-vs-fine-tuning-vs-agents-2026",
+    title: "RAG vs Fine-Tuning vs Agents: Choosing the Right LLM Pattern in 2026",
+    image: "/insights/rag-vs-fine-tuning-vs-agents-2026.svg",
+    description:
+      "How to choose between RAG, fine-tuning, and agents for an enterprise AI system — with a decision tree, cost benchmarks, and the mistakes that cost teams 3–6 months.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-04",
+    category: "AI",
+    readMinutes: 9,
+    keywords:
+      "RAG vs fine tuning 2026, RAG vs agents, LLM patterns enterprise, when to use RAG, fine tuning vs RAG, enterprise AI architecture, LLM application development services",
+    sections: [
+      {
+        body: "The three patterns — RAG, fine-tuning, and agents — are now the default vocabulary of enterprise AI conversations. Most buyers recognise the terms; most vendors are content to let confusion persist, because complexity inflates proposals. The honest answer for the majority of enterprise use cases in 2026: start with RAG, because it is the only pattern that surfaces fresh data, delivers traceable answers, and lets you fix errors by updating content rather than retraining a model. But 'majority' is not 'all.' Picking the wrong pattern costs three to six months of rework and $40–120K in engineering time. Here is how to tell them apart — and choose correctly before any code is written.",
+      },
+      {
+        heading: "What each pattern actually does",
+        body: [
+          "RAG (Retrieval-Augmented Generation): at query time, retrieve relevant documents from a vector store or search index, inject them into the model's context window, generate a grounded answer. The model weights are unchanged — your documents are the knowledge layer. Errors are fixed by updating the corpus.",
+          "Fine-tuning: update the model's weights on your own dataset. The model learns your style, task format, or domain vocabulary — but not your current data, because training is a point-in-time operation. It cannot update what it knows by reading new documents after training.",
+          "Agents: an orchestration pattern where the model calls tools (APIs, search, calculators, code runners) and makes multi-step decisions across multiple LLM calls. Agents are built on top of a base model or a RAG pipeline — they are not a third knowledge layer, and they are the answer to 'the task requires actions and intermediate reasoning, not just a single answer.'",
+        ],
+      },
+      {
+        heading: "RAG: the right default for most enterprise use cases",
+        body: "RAG is the correct starting point when your knowledge base changes at least weekly — documents, policies, product specs, case history, pricing — and when you need traceable answers that point to a source. It is also the most debuggable pattern: if the model says something wrong, the cause is usually a retrieval miss or a poorly chunked document, both of which are fixable without touching the model. At 10,000 queries per day using Claude Sonnet or GPT-4o, a well-built RAG pipeline costs roughly $400–900 per month in inference plus $50–200 per month for a vector database — a manageable operating expense. The failure mode to watch: retrieval quality. If your retrieval recall at K=10 is below 80%, generation quality will follow. Budget as much engineering attention for the retrieval layer as for the prompt.",
+      },
+      {
+        heading: "Fine-tuning: when it actually earns its cost",
+        body: [
+          "Style and format conformance: you need every output in a specific JSON schema, tone, or language register, and prompt engineering cannot reliably enforce it across thousands of daily queries.",
+          "Narrow, high-volume structured tasks: classification, named-entity extraction, code completion in a proprietary syntax — tasks with labeled training data and a measurable label to optimize against.",
+          "Cost reduction at extreme scale: fine-tuning a smaller open-weights model (Llama 3.1 8B, Mistral 7B) on a task a frontier model handles well can cut per-query cost by 60–80% at throughputs above 500,000 queries per day. Below that volume, the training-pipeline overhead rarely amortises.",
+          "What fine-tuning is not: a knowledge-update mechanism. A fine-tuned model does not learn about events after its training cutoff. Teams that fine-tune to 'teach the model about our company' and then ask it real-time questions about current inventory or recent tickets are using the wrong tool.",
+        ],
+      },
+      {
+        heading: "Agents: orchestration, not a knowledge layer",
+        body: "Agents are the right pattern when a task cannot be answered from a single context window — it requires calling an API, running code, retrieving information from multiple sources, or making decisions based on intermediate results. Common production use cases: a customer-service resolver that looks up account status, reads policy documents, and drafts a resolution; a security triage agent that fetches alert context, queries threat intelligence, and files a ticket; a research assistant that searches, summarises, and drafts a briefing. The production risks are underappreciated: agents introduce latency (each tool call is an LLM round-trip), cost (each step is billed separately), and compounding failure modes (a wrong tool path can cascade). Production agents need a tight task scope, deterministic fallbacks, and human-in-the-loop checkpoints for any action with financial or reputational consequence.",
+      },
+      {
+        heading: "The decision tree — four questions",
+        body: [
+          "Does the task require fresh, proprietary, or frequently changing knowledge (documents, records, policies)? → RAG.",
+          "Is the task narrow and structured, with thousands of labeled examples, and is prompt engineering failing to enforce accuracy or output format reliably at scale? → Fine-tuning.",
+          "Does the task require multi-step reasoning, tool calls, or actions that depend on intermediate results? → Agents (usually built on top of RAG or a base model).",
+          "Unsure? → RAG first. It is the fastest to ship, the easiest to debug, the cheapest to update, and the pattern most enterprise applications actually need most of the time.",
+        ],
+      },
+      {
+        heading: "The hybrid most production systems end up at",
+        body: "The realistic architecture at 12 months for a production enterprise AI system: RAG for knowledge grounding, fine-tuning (optional, on a smaller open-weights model) for cost reduction at high throughput, and agents where multi-step orchestration is genuinely required. The order matters. Build RAG first, measure retrieval quality and end-to-end accuracy, then fine-tune if cost or format conformance is the specific bottleneck, then add agents if the task is genuinely multi-step. Building all three simultaneously — before you have measured anything — is the fastest path to an unmaintainable system that serves no one well.",
+      },
+      {
+        heading: "Cost benchmarks for each pattern",
+        body: [
+          "RAG pipeline: $15–40K in engineering time to build and evaluate properly; $500–1,500 per month in infrastructure at moderate query volume.",
+          "Fine-tuning pipeline: $20–60K in data preparation, training runs, and evaluation harness; plus $5–15K per retraining cycle, which for most production systems runs quarterly.",
+          "Agent system: $30–80K in engineering time for a production-grade implementation with proper guardrails, observability, and fallbacks; higher marginal per-query cost than pure RAG due to multi-step LLM calls.",
+          "The most expensive outcome: building a fine-tuning pipeline or a multi-agent system for a task that a well-built RAG pipeline would have solved at a fraction of the cost — a mistake visible in roughly one in three enterprise AI RFPs we review.",
+        ],
+      },
+      {
+        heading: "How Infiniti Tech Partners helps",
+        body: "We build and ship RAG pipelines, fine-tuned task models, and production agent systems. Every engagement starts by picking the pattern that fits the task before writing code — and ends with a system your team can operate and improve without us in the room. If you are scoping an enterprise AI initiative and want a team that will tell you the cheapest pattern that works, not the most impressive architecture, that is the conversation to start.",
+      },
+    ],
+  },
 ];
 
 export const getInsight = (slug: string): Insight | undefined =>
