@@ -1,8 +1,14 @@
 import { PageLayout } from "@/components/common/PageLayout";
+import { usePageMeta } from "@/hooks";
 
 const lastUpdated = "May 9, 2026";
 
 export const RefundPolicyPage = () => {
+  usePageMeta({
+    title: "Refund Policy | Infiniti Tech Partners",
+    description: `How refunds are handled for Infiniti Tech Partners' services and products. Last updated ${lastUpdated}.`,
+    canonical: "/refund-policy",
+  });
   return (
     <PageLayout
       tag="Legal"

@@ -1,8 +1,14 @@
 import { PageLayout } from "@/components/common/PageLayout";
+import { usePageMeta } from "@/hooks";
 
 const lastUpdated = "May 9, 2026";
 
 export const TermsAndConditionsPage = () => {
+  usePageMeta({
+    title: "Terms & Conditions | Infiniti Tech Partners",
+    description: `The agreement governing your use of Infiniti Tech Partners' website and services. Last updated ${lastUpdated}.`,
+    canonical: "/terms",
+  });
   return (
     <PageLayout
       tag="Legal"

@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { caseStudies, serviceBuckets } from "@/data/services-restructured";
+import { usePageMeta } from "@/hooks";
 import {
   ArrowRight,
   ArrowLeft,
@@ -21,6 +22,20 @@ const industryIcons: Record<string, React.ReactNode> = {
 export const CaseStudyDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const study = caseStudies.find((s) => s.slug === slug);
+
+  usePageMeta(
+    study
+      ? {
+          title: `${study.title} | Case Study | Infiniti Tech Partners`,
+          description: study.subtitle,
+          canonical: `/case-studies/${study.slug}`,
+        }
+      : {
+          title: "Case study not found | Infiniti Tech Partners",
+          description: "We couldn't find that case study.",
+          canonical: "/case-studies",
+        }
+  );
 
   if (!study) {
     return <Navigate to="/case-studies" replace />;

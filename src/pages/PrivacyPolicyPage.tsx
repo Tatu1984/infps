@@ -1,8 +1,14 @@
 import { PageLayout } from "@/components/common/PageLayout";
+import { usePageMeta } from "@/hooks";
 
 const lastUpdated = "May 9, 2026";
 
 export const PrivacyPolicyPage = () => {
+  usePageMeta({
+    title: "Privacy Policy | Infiniti Tech Partners",
+    description: `How Infiniti Tech Partners collects, uses, and protects your personal data. Last updated ${lastUpdated}.`,
+    canonical: "/privacy-policy",
+  });
   return (
     <PageLayout
       tag="Legal"
