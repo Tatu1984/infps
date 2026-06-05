@@ -437,6 +437,78 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "kubernetes-vs-serverless-2026",
+    title: "Kubernetes or Serverless? The 2026 Decision Tree for Growth-Stage CTOs",
+    image: "/insights/kubernetes-vs-serverless-2026.svg",
+    description:
+      "When to run Kubernetes, when serverless cuts cost, and how most growth-stage companies use both — with a four-factor decision framework and cost benchmarks.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-05",
+    category: "Cloud",
+    readMinutes: 10,
+    keywords:
+      "kubernetes vs serverless 2026, kubernetes vs serverless, when to use kubernetes, serverless vs containers, EKS vs Lambda, kubernetes platform engineering consulting, cloud architecture decision",
+    sections: [
+      {
+        body: "The honest answer to 'Kubernetes or serverless?' is that the question is wrong. They are not substitutes — Kubernetes is a platform for running long-lived, stateful, configurable workloads; serverless is an execution model for event-driven, stateless functions that run on demand and idle at zero cost. Growth-stage companies in 2026 run both in the same stack. The decision is never 'which one wins' — it is 'which layer goes where,' and getting it wrong in either direction costs six to twelve months of refactoring or unexpectedly high infrastructure bills.",
+      },
+      {
+        heading: "What Kubernetes actually gives you",
+        body: "Kubernetes — EKS on AWS, GKE on Google Cloud, AKS on Azure in managed form — schedules and manages containerised workloads across a cluster: health checks, rolling deployments, horizontal scaling, service discovery, resource limits, and namespace isolation. The managed services abstract the control plane, but not the operational surface. Cluster networking, ingress configuration, pod resource requests, RBAC, persistent storage, and the interaction between your workloads and the underlying cloud all require engineers who understand what they are doing. A three-node EKS cluster in us-east-1 runs roughly $380–450 per month in compute plus $73 per month for the managed control plane — a fixed cost whether you serve one request or a million. Kubernetes earns that overhead when your services run continuously, at predictable volume, with complex routing, state, or GPU requirements that serverless cannot satisfy.",
+      },
+      {
+        heading: "What serverless actually gives you",
+        body: "AWS Lambda, Google Cloud Functions, and Azure Functions charge per invocation and per GB-second of execution. When idle, they cost nothing. At 10 million requests per month (512 MB memory, 500 ms average duration), Lambda charges roughly $42 in us-east-1. At 100 million requests: roughly $85. The economics story breaks down at sustained high throughput — where per-invocation charges compound past what a shared Kubernetes cluster would cost — and for workloads with strict latency requirements. Cold starts introduce 50 ms to 3 s of added latency depending on runtime and package size. Eliminating that variance with provisioned concurrency reintroduces a fixed cost, narrowing the gap with a Kubernetes deployment considerably.",
+      },
+      {
+        heading: "The four-factor decision framework",
+        body: [
+          "Traffic profile: Is demand flat and predictable, or spiky and event-driven? Serverless wins for bursty, episodic workloads where idle cost is significant; Kubernetes wins for steady-state services running around the clock.",
+          "Latency sensitivity: Does a 200 ms cold start violate your p99 SLA? If so, provisioned concurrency on Lambda or an always-running Kubernetes deployment removes the variance — but each at a different price point and operational complexity.",
+          "Execution duration: Lambda's maximum is 15 minutes. Workloads longer than a few minutes — ML training jobs, video processing, bulk data migrations — belong on Kubernetes or Fargate, not Lambda.",
+          "Team expertise: A cluster you do not know how to debug is more expensive than a higher per-request price. Honest capability assessment belongs in this decision as much as cost modelling.",
+        ],
+      },
+      {
+        heading: "Where Kubernetes wins decisively",
+        body: [
+          "Core API layer: REST or GraphQL APIs serving consistent traffic benefit from always-warm pods, predictable p99 latency, and fine-grained resource controls. Kubernetes horizontal pod autoscaling handles growth without a cold-start floor.",
+          "Stateful workloads: databases, cache clusters, message brokers, or any service writing to local disk or requiring sticky sessions. Serverless invocations are ephemeral and cannot hold state between calls.",
+          "ML inference serving: GPU node pools on EKS or GKE support real-time inference at throughputs and latency budgets that Lambda cannot reach. Model loading time alone makes cold starts prohibitive for production inference endpoints.",
+          "High-throughput steady-state compute: once per-invocation Lambda charges exceed the amortised cost of a shared cluster node, moving the workload to Kubernetes saves money. In us-east-1 the crossover for most workloads is roughly 40–60 million Lambda invocations per month.",
+          "Complex service routing: Kubernetes ingress controllers and service-mesh options (Istio, Linkerd) provide traffic splitting, mTLS, observability, and circuit-breaking that serverless platforms lack natively.",
+        ],
+      },
+      {
+        heading: "Where serverless wins decisively",
+        body: [
+          "Event-driven pipelines: S3 event triggers, SQS and SNS consumers, Kinesis stream processors — serverless is the idiomatic pattern here. Cost is near zero between data bursts, and the platform handles concurrency automatically.",
+          "Webhooks and async callbacks: traffic that arrives in unpredictable bursts, often idle for hours then spiking to thousands of concurrent events. Lambda scales to thousands of concurrent invocations in seconds — faster than Kubernetes HPA.",
+          "Scheduled background jobs: nightly reports, hourly data syncs, weekly cleanup tasks. No warm concurrency required; Lambda's per-invocation billing means paying only for the minutes the job actually runs.",
+          "Rapid prototyping: a new integration can be live in hours with serverless tooling (AWS SAM, Serverless Framework, CDK). The equivalent on Kubernetes requires Dockerfiles, Helm charts, registry access, and namespace permissions.",
+          "Teams without Kubernetes expertise: the operational overhead of a misconfigured cluster costs more than any per-invocation premium. Start serverless, measure your growth, and migrate to Kubernetes when you have the volume and the expertise to justify it.",
+        ],
+      },
+      {
+        heading: "The hybrid architecture most teams reach",
+        body: "The realistic production stack at Series B scale is a Kubernetes cluster for the core API layer, stateful services, and GPU workloads — and Lambda or Cloud Functions for event-driven consumers, webhooks, async jobs, and pipeline steps. Fargate handles bursty batch jobs that exceed Lambda's time limit but run too infrequently to justify always-on nodes. A common real-world split: EKS runs four microservices across three m5.large nodes; Lambda handles inbound webhooks from Stripe, GitHub, and third-party integrations; SQS consumers process async work; and a nightly Fargate task runs billing aggregation. The engineering team manages one cluster and a set of Lambda functions, each in the environment it is suited to. The mistake to avoid is forcing one model everywhere for operational simplicity. Managing cold starts and VPC configuration for steady-state APIs on Lambda costs more in engineering hours than running a small cluster. Running a Kubernetes cluster for three background jobs that fire twice a day costs more in fixed infrastructure than the Lambda bill for those same jobs.",
+      },
+      {
+        heading: "Cost benchmarks for 2026 planning",
+        body: [
+          "Small EKS cluster (3x m5.xlarge, us-east-1): ~$73/month control plane + ~$380–450/month compute = $453–523/month fixed, regardless of traffic volume. This cost spreads across every service running on the cluster.",
+          "Lambda at 10 million requests/month (512 MB, 500 ms avg): ~$42/month. At 100 million requests: ~$85/month. At 1 billion: ~$208/month — where the comparison to a fixed cluster node becomes directly meaningful.",
+          "Fargate for bursty batch (2 vCPU / 4 GB, 2 hours/day): ~$60/month. Cheaper than a dedicated always-on node for infrequent jobs; more expensive than Lambda for sub-minute tasks.",
+          "Break-even rule of thumb: if a single workload generates more than 40–50 million Lambda invocations per month at 500 ms average duration, model the cost of a dedicated Kubernetes deployment. The fixed cluster overhead spreads across all co-located services, so the actual crossover is workload-specific — run the numbers for your traffic profile before optimising.",
+        ],
+      },
+      {
+        heading: "How Infiniti Tech Partners helps",
+        body: "We design and build cloud architecture for growth-stage SaaS companies — which execution model fits each workload, how to size it, and how to avoid the infrastructure decisions that show up as six-figure AWS bills at $20M ARR. Whether you are designing a greenfield product, re-architecting a monolith, or trying to understand why your cloud bill is growing faster than your revenue, the conversation starts with your workload profile before any tooling is chosen. We build on Kubernetes, serverless, and the hybrid patterns that most production systems actually need — and we hand over infrastructure your team can understand and operate without us in the room.",
+      },
+    ],
+  },
 ];
 
 export const getInsight = (slug: string): Insight | undefined =>
