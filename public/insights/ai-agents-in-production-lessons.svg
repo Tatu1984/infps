@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#070b13"/><stop offset="0.55" stop-color="#0a1120"/><stop offset="1" stop-color="#0c1426"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+    <radialGradient id="g1" cx="0.80" cy="0.22" r="0.6"><stop stop-color="#818cf8" stop-opacity="0.28"/><stop offset="1" stop-color="#818cf8" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="0.10" cy="0.95" r="0.7"><stop stop-color="#22d3ee" stop-opacity="0.16"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+    <radialGradient id="panelGlow" cx="0.5" cy="0.3" r="0.8"><stop stop-color="#818cf8" stop-opacity="0.14"/><stop offset="1" stop-color="#818cf8" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#ffffff" fill-opacity="0.05"/></pattern>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.07"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.012"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <circle cx="930" cy="150" r="430" fill="none" stroke="#818cf8" stroke-opacity="0.10" stroke-width="1.5"/>
+  <circle cx="930" cy="150" r="300" fill="none" stroke="#818cf8" stroke-opacity="0.07" stroke-width="1.5"/>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+
+  <!-- glass illustration panel -->
+  <g transform="translate(716 119)">
+    <rect x="0" y="0" width="404" height="392" rx="30" fill="url(#glass)" stroke="#818cf8" stroke-width="1.5" stroke-opacity="0.45"/>
+    <rect x="0" y="0" width="404" height="392" rx="30" fill="url(#panelGlow)"/>
+    <g transform="translate(202 196)"><circle cx="0" cy="0" r="120" fill="none" stroke="url(#acc)" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="4 9"/><line x1="0" y1="0" x2="0.0" y2="-50.4" stroke="url(#acc)" stroke-width="2.5" stroke-opacity="0.7"/><line x1="0" y1="0" x2="47.9" y2="-15.6" stroke="url(#acc)" stroke-width="2.5" stroke-opacity="0.7"/><line x1="0" y1="0" x2="29.6" y2="40.8" stroke="url(#acc)" stroke-width="2.5" stroke-opacity="0.7"/><line x1="0" y1="0" x2="-29.6" y2="40.8" stroke="url(#acc)" stroke-width="2.5" stroke-opacity="0.7"/><line x1="0" y1="0" x2="-47.9" y2="-15.6" stroke="url(#acc)" stroke-width="2.5" stroke-opacity="0.7"/><g transform="translate(0.0 -120.0)"><circle r="30" fill="#0c1526" stroke="url(#acc)" stroke-width="2.2"/><g transform="translate(-13 -12)" stroke="url(#acc)" stroke-width="2" fill="none"><ellipse cx="13" cy="4" rx="13" ry="5"/><path d="M 0 4 v 16 c 0 4 26 4 26 0 v -16"/></g></g><g transform="translate(114.1 -37.1)"><circle r="30" fill="#0c1526" stroke="url(#acc)" stroke-width="2.2"/><g transform="translate(-10 -13)" stroke="url(#acc)" stroke-width="2" fill="none"><rect x="0" y="0" width="20" height="26" rx="3"/><line x1="5" y1="8" x2="15" y2="8"/><line x1="5" y1="14" x2="15" y2="14"/></g></g><g transform="translate(70.5 97.1)"><circle r="30" fill="#0c1526" stroke="url(#acc)" stroke-width="2.2"/><text x="0" y="6" text-anchor="middle" fill="url(#acc)" font-size="18" font-weight="700" font-family="monospace">{}</text></g><g transform="translate(-70.5 97.1)"><circle r="30" fill="#0c1526" stroke="url(#acc)" stroke-width="2.2"/><path d="M -6 -14 l -8 14 h 7 l -3 12 l 12 -16 h -7 z" fill="url(#acc)"/></g><g transform="translate(-114.1 -37.1)"><circle r="30" fill="#0c1526" stroke="url(#acc)" stroke-width="2.2"/><g stroke="url(#acc)" stroke-width="2.2" fill="none"><path d="M -14 0 C -7 -10 7 -10 14 0 C 7 10 -7 10 -14 0 Z"/><circle cx="0" cy="0" r="4" fill="url(#acc)"/></g></g><circle cx="0" cy="0" r="44" fill="url(#acc)" fill-opacity="0.16" stroke="url(#acc)" stroke-width="2.5"/><g stroke="#ffffff" stroke-opacity="0.92" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="0" cy="-8" r="11"/><path d="M -15 22 C -15 4 15 4 15 22"/></g></g>
+  </g>
+
+  <!-- category pill -->
+  <g transform="translate(80 96)">
+    <rect x="0" y="0" width="58" height="40" rx="20" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" stroke-opacity="0.5" stroke-width="1.2"/>
+    <circle cx="22" cy="20" r="4.5" fill="url(#acc)"/>
+    <text x="38" y="27" fill="#818cf8" font-size="19" font-weight="700" letter-spacing="2.5" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">AI</text>
+  </g>
+
+  <text x="80" y="196" fill="#ffffff" font-size="52" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">AI Agents in</text><text x="80" y="260" fill="#ffffff" font-size="52" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Production</text>
+  <rect x="80" y="288" width="92" height="6" rx="3" fill="url(#acc)"/>
+  <text x="80" y="358" fill="#ffffff" fill-opacity="0.7" font-size="25" font-weight="500" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Lessons from 10 enterprise rollouts.</text>
+
+  <line x1="80" y1="556" x2="1120" y2="556" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <text x="80" y="592" fill="#ffffff" fill-opacity="0.5" font-size="21" font-weight="700" letter-spacing="2.5" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">INFINITI TECH PARTNERS</text>
+  <text x="1120" y="592" text-anchor="end" fill="#818cf8" fill-opacity="0.7" font-size="19" font-weight="600" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">infinititechpartners.com</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#070b13"/><stop offset="0.55" stop-color="#0a1120"/><stop offset="1" stop-color="#0c1426"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2dd4bf"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+    <radialGradient id="g1" cx="0.80" cy="0.22" r="0.6"><stop stop-color="#2dd4bf" stop-opacity="0.28"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="0.10" cy="0.95" r="0.7"><stop stop-color="#6366f1" stop-opacity="0.16"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></radialGradient>
+    <radialGradient id="panelGlow" cx="0.5" cy="0.3" r="0.8"><stop stop-color="#2dd4bf" stop-opacity="0.14"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#ffffff" fill-opacity="0.05"/></pattern>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.07"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.012"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <circle cx="930" cy="150" r="430" fill="none" stroke="#2dd4bf" stroke-opacity="0.10" stroke-width="1.5"/>
+  <circle cx="930" cy="150" r="300" fill="none" stroke="#2dd4bf" stroke-opacity="0.07" stroke-width="1.5"/>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+
+  <!-- glass illustration panel -->
+  <g transform="translate(716 119)">
+    <rect x="0" y="0" width="404" height="392" rx="30" fill="url(#glass)" stroke="#2dd4bf" stroke-width="1.5" stroke-opacity="0.45"/>
+    <rect x="0" y="0" width="404" height="392" rx="30" fill="url(#panelGlow)"/>
+    <g transform="translate(202 196)"><path d="M 0 -140 L 120 -98 V 6 C 120 92 64 132 0 156 C -64 132 -120 92 -120 6 V -98 Z" fill="#0c1526" stroke="url(#acc)" stroke-width="2.5"/><path d="M 0 -140 L 120 -98 V 6 C 120 92 64 132 0 156 Z" fill="url(#acc)" fill-opacity="0.06"/><rect x="-78" y="-70" width="156" height="28" rx="8" fill="url(#acc)" fill-opacity="0.22" stroke="url(#acc)" stroke-width="1.6"/><rect x="-66" y="-60" width="96" height="7" rx="3.5" fill="#ffffff" fill-opacity="0.5"/><rect x="-78" y="-28" width="156" height="28" rx="8" fill="url(#acc)" fill-opacity="0.16999999999999998" stroke="url(#acc)" stroke-width="1.6"/><rect x="-66" y="-18" width="74" height="7" rx="3.5" fill="#ffffff" fill-opacity="0.5"/><rect x="-78" y="14" width="156" height="28" rx="8" fill="url(#acc)" fill-opacity="0.12" stroke="url(#acc)" stroke-width="1.6"/><rect x="-66" y="24" width="52" height="7" rx="3.5" fill="#ffffff" fill-opacity="0.5"/><g transform="translate(-30 58)"><path d="M 8 0 a 22 22 0 0 1 44 0 v 14" fill="none" stroke="url(#acc)" stroke-width="6" stroke-linecap="round"/><rect x="-2" y="14" width="64" height="48" rx="10" fill="url(#acc)" fill-opacity="0.16" stroke="url(#acc)" stroke-width="2.5"/><circle cx="30" cy="36" r="6" fill="url(#acc)"/><rect x="27" y="38" width="6" height="14" rx="3" fill="url(#acc)"/></g><path d="M -96 -104 h 30 l 10 -22 l 14 44 l 12 -22 h 34" stroke="url(#acc)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/></g>
+  </g>
+
+  <!-- category pill -->
+  <g transform="translate(80 96)">
+    <rect x="0" y="0" width="148" height="40" rx="20" fill="#2dd4bf" fill-opacity="0.12" stroke="#2dd4bf" stroke-opacity="0.5" stroke-width="1.2"/>
+    <circle cx="22" cy="20" r="4.5" fill="url(#acc)"/>
+    <text x="38" y="27" fill="#2dd4bf" font-size="19" font-weight="700" letter-spacing="2.5" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">SECURITY</text>
+  </g>
+
+  <text x="80" y="178" fill="#ffffff" font-size="52" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">HIPAA-Compliant</text><text x="80" y="242" fill="#ffffff" font-size="52" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Architecture</text><text x="80" y="306" fill="#ffffff" font-size="52" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Patterns</text>
+  <rect x="80" y="334" width="92" height="6" rx="3" fill="url(#acc)"/>
+  <text x="80" y="404" fill="#ffffff" fill-opacity="0.7" font-size="25" font-weight="500" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Patterns that actually hold up in an audit.</text>
+
+  <line x1="80" y1="556" x2="1120" y2="556" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <text x="80" y="592" fill="#ffffff" fill-opacity="0.5" font-size="21" font-weight="700" letter-spacing="2.5" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">INFINITI TECH PARTNERS</text>
+  <text x="1120" y="592" text-anchor="end" fill="#2dd4bf" fill-opacity="0.7" font-size="19" font-weight="600" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">infinititechpartners.com</text>
+</svg>

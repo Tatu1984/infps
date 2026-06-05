@@ -509,6 +509,159 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "what-production-ready-actually-means",
+    title: 'What "Production-Ready" Actually Means (and Why Most MVPs Aren\'t)',
+    image: "/insights/what-production-ready-actually-means.svg",
+    description:
+      "A concrete definition of production-ready software — the checklist a growth-stage team should clear before calling an MVP done, and where most fall short.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-04",
+    category: "Engineering",
+    readMinutes: 9,
+    keywords:
+      "production ready software checklist, production readiness review, mvp to production, what does production ready mean, ship to production, software reliability checklist",
+    sections: [
+      {
+        body: "\"It works on my machine\" and \"it's in production\" are separated by a gap that sinks more growth-stage companies than any missing feature. An MVP that demos beautifully can still be nowhere near production-ready — and the difference is rarely visible in the UI. Production-ready is not a feeling; it is a checklist. Here is the bar we hold our own work to, and the one we recommend any CTO adopt before telling the board a system is done.",
+      },
+      {
+        heading: "Production-ready is about the bad day, not the good one",
+        body: "Any competent developer can build software that works when the database is up, the network is fast, the input is well-formed, and one user is clicking. Production-ready means the system behaves predictably when none of that is true — when a dependency times out, a deploy goes wrong at 2am, traffic spikes 10x, or a malformed payload arrives. The MVP optimizes for the happy path. Production-readiness is entirely about the unhappy ones.",
+      },
+      {
+        heading: "The seven gates",
+        body: [
+          "Observability: structured logs, metrics, and traces wired up before launch — not after the first incident. If you cannot answer 'is it down, and why' in under five minutes, it is not ready.",
+          "Error handling and recovery: every external call has a timeout, a retry policy, and a defined behaviour on failure. No unhandled promise rejections, no silent catches.",
+          "Automated deploys and rollback: one-command deploy, one-command rollback, and a CI pipeline that blocks broken builds. Manual SSH-and-pull is not a deploy strategy.",
+          "Security baseline: secrets in a manager not the repo, dependencies scanned, auth enforced server-side, and least-privilege IAM. The MVP shortcuts here become the breach later.",
+          "Data safety: automated backups that are actually restore-tested, migrations that are reversible, and no destructive operation without a guardrail.",
+          "Performance under load: a load test that proves the system holds at projected peak, plus defined autoscaling or capacity headroom.",
+          "On-call and runbooks: someone owns production, alerts route to a human, and the three most likely failures have written runbooks.",
+        ],
+      },
+      {
+        heading: "Why most MVPs aren't (and that's sometimes fine)",
+        body: "MVPs are built to validate a hypothesis quickly, so they trade away exactly these properties — that is the point. The danger is forgetting the debt was taken on. The failure pattern we see repeatedly: an MVP gets traction, the team bolts on features instead of hardening, and twelve months later they have a revenue-bearing system with no backups, no rollback, and one person who understands the deploy. The fix is cheap at month two and brutal at month eighteen.",
+      },
+      {
+        heading: "The 'definition of done' that prevents this",
+        body: "Add a production-readiness checklist to your definition of done and make it a release gate, not an aspiration. Before a system carries real users or money, it clears the seven gates above — or leadership signs off explicitly on which ones it is deferring and why. The act of writing down 'we are shipping without restore-tested backups' is usually enough to stop someone from doing it.",
+      },
+      {
+        heading: "How Infiniti Tech Partners approaches this",
+        body: "We treat production-readiness as a first-class deliverable, not a phase that gets cut when the timeline slips. New systems ship with observability, CI/CD, backups, and runbooks from day one; when we inherit an MVP that outgrew its foundations, we run a readiness review against this checklist and hand back a prioritized hardening plan with the risk of each gap spelled out. If you have a system carrying real users that has never had a readiness review, that is the place to start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "hipaa-compliant-software-architecture",
+    title: "HIPAA-Compliant Software Architecture: Patterns That Hold Up",
+    image: "/insights/hipaa-compliant-software-architecture.svg",
+    description:
+      "The architecture patterns that make healthtech software genuinely HIPAA-compliant — encryption, access control, audit logging, and PHI isolation that survive an audit.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-06",
+    category: "Security",
+    readMinutes: 10,
+    keywords:
+      "HIPAA software architecture, HIPAA compliant application, PHI encryption, healthtech software development, HIPAA technical safeguards, audit logging PHI, BAA cloud",
+    sections: [
+      {
+        body: "HIPAA compliance is not a feature you add before launch — it is an architecture you commit to from the first schema. Healthtech teams that treat it as a checklist to satisfy at the end end up re-platforming, because the cheap mistakes (PHI in logs, shared databases, no audit trail) are baked into the foundation. Here are the patterns that genuinely hold up when an auditor or a breach tests them, framed for engineers building software that touches protected health information (PHI).",
+      },
+      {
+        heading: "Start with a signed BAA and a clear PHI boundary",
+        body: "Every vendor that stores, processes, or transmits PHI on your behalf must sign a Business Associate Agreement — your cloud provider, your logging service, your email sender, your analytics. If a service touches PHI without a BAA, you are non-compliant by definition, regardless of how good your code is. Equally important: draw an explicit boundary around where PHI lives. The fewer systems inside that boundary, the smaller your audit scope and your breach surface.",
+      },
+      {
+        heading: "Encryption everywhere — and key management that proves it",
+        body: "Encrypt PHI at rest (database, object storage, backups, snapshots) and in transit (TLS 1.2+ on every hop, including service-to-service inside the VPC). That part is table stakes. The part that fails audits is key management: keys in a managed KMS with rotation, access to the keys logged and least-privilege, and no plaintext PHI in places encryption doesn't reach — caches, message queues, search indexes, and especially logs.",
+      },
+      {
+        heading: "Access control: least privilege, enforced server-side",
+        body: [
+          "Role-based access tied to job function, reviewed on a defined cadence, with onboarding/offboarding automated so access dies with the account.",
+          "Enforcement server-side, never in the client. A hidden UI button is not access control.",
+          "Break-glass access for emergencies that is logged, alerted, and reviewed after the fact.",
+          "Unique user identity for every human and every service — no shared accounts, ever, because shared accounts destroy your audit trail.",
+        ],
+      },
+      {
+        heading: "Audit logging is the control auditors actually test",
+        body: "HIPAA requires that you can answer 'who accessed which patient's PHI, when, and what did they do.' That means an immutable, tamper-evident audit log capturing every read and write of PHI — append-only storage, separate from application logs, retained per your policy (typically six years). Crucially, the audit log itself must contain no PHI in a way that widens exposure, and it must be queryable, because the first thing a breach investigation needs is that trail.",
+      },
+      {
+        heading: "Isolate PHI and minimize what you keep",
+        body: "Separate PHI from non-PHI at the data layer — a dedicated, tightly-scoped datastore beats PHI sprinkled across every table. Tokenize or pseudonymize where the full record isn't needed (analytics, non-clinical features). Apply data minimization: don't collect or retain PHI you don't need, and define retention and secure-deletion policies. The PHI you never stored can never be breached, and the PHI you isolated keeps your audit scope small.",
+      },
+      {
+        heading: "Patterns that quietly cause breaches",
+        body: [
+          "PHI in application logs or error trackers (Sentry, CloudWatch) — the single most common real-world HIPAA leak.",
+          "Non-production environments seeded with real patient data instead of synthetic data.",
+          "Third-party scripts or analytics on pages that render PHI, shipping it to vendors with no BAA.",
+          "Backups and database snapshots that are encrypted but world-readable to too-broad IAM roles.",
+        ],
+      },
+      {
+        heading: "How Infiniti Tech Partners builds healthtech",
+        body: "We architect PHI boundaries, encryption, access control, and audit logging in from the first commit, deploy into BAA-covered infrastructure in your own accounts, and hand over the documentation an auditor will ask for — not a binder written after the fact. If you're building healthtech and want the compliance baked into the architecture rather than bolted on before launch, start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "ai-agents-in-production-lessons",
+    title: "AI Agents in Production: Lessons from 10 Enterprise Rollouts",
+    image: "/insights/ai-agents-in-production-lessons.svg",
+    description:
+      "What separates AI agent projects that reach production from the ones that stall in demo — evaluation, scope, guardrails, and human oversight, drawn from real enterprise rollouts.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-07",
+    category: "AI",
+    readMinutes: 10,
+    keywords:
+      "AI agents in production, enterprise AI agents, LLM agents reliability, AI agent evaluation, production AI agents lessons, agentic AI deployment",
+    sections: [
+      {
+        body: "Almost everyone has an AI agent demo. Far fewer have one in production carrying real work. The gap between the two is not model quality — frontier models are more than capable. It is everything around the model: evaluation, scope, guardrails, and the operational discipline to run a non-deterministic system safely. These are the lessons that consistently separate the rollouts that ship from the ones that loop forever in 'almost ready.'",
+      },
+      {
+        heading: "1. Narrow scope beats broad ambition, every time",
+        body: "The agents that reach production do one job well — triage a support ticket, reconcile an invoice, draft a first-pass response. The ones that stall try to be a do-anything assistant. A narrow agent has a measurable success criterion, a small surface to test, and a clear fallback. 'Handle customer emails' fails; 'classify and route inbound emails into these eight categories, escalate anything below 90% confidence' ships.",
+      },
+      {
+        heading: "2. Build the evaluation harness before the agent",
+        body: "You cannot improve what you can't measure, and you can't safely deploy a non-deterministic system you can't score. The teams that succeed build an eval suite first — a representative set of inputs with known-good outcomes — and run every prompt or model change against it. Without this, every change is a vibe-check and every deploy is a gamble. The eval harness is the single highest-leverage artifact in an agent project, and it's the one most teams skip.",
+      },
+      {
+        heading: "3. Guardrails are not optional",
+        body: [
+          "Bound the action space: an agent that can take destructive actions (send money, delete records, email customers) needs hard limits, not just a good prompt.",
+          "Validate every tool output before the agent acts on it — models hallucinate tool results and arguments.",
+          "Cap iterations and cost per task so a confused agent can't loop into a five-figure bill.",
+          "Require human approval for high-stakes or low-confidence actions — confidence thresholds that route to a person are a feature, not a failure.",
+        ],
+      },
+      {
+        heading: "4. Keep a human in the loop where it counts",
+        body: "The successful pattern in 2026 is rarely full autonomy; it's the agent doing 80% of the work and a human approving or correcting the consequential 20%. This isn't a transitional crutch — it's the design. It builds trust, produces labelled data to improve the system, and contains the blast radius of mistakes. Agents that quietly take irreversible actions with no oversight are the ones that produce the incident that gets the whole program shut down.",
+      },
+      {
+        heading: "5. Observability and cost control from day one",
+        body: "A production agent needs full traces of its reasoning, tool calls, and decisions — when it does something wrong, you must be able to see why. You also need per-task cost and latency tracking, because agent costs are non-linear and a small prompt change can double token usage. The teams that get burned are the ones who discover both the bad behaviour and the bill after the fact.",
+      },
+      {
+        heading: "6. Most 'agent' problems don't need an agent",
+        body: "The most valuable lesson from ten rollouts: the highest-ROI 'agent' projects often shipped as a deterministic pipeline with one or two LLM calls inside it — not an autonomous loop. Reserve true agentic behaviour for tasks that genuinely require dynamic, branching, multi-step tool use. For everything else, scripted control flow is cheaper, faster, more reliable, and infinitely easier to debug. Starting with the simplest thing that works is the discipline that gets systems to production.",
+      },
+      {
+        heading: "How Infiniti Tech Partners ships agents",
+        body: "We build the eval harness first, scope tightly, wrap every consequential action in guardrails and human approval, and instrument cost and traces from the start — and we'll tell you when the right answer is a pipeline, not an agent. You get a system your team can run and trust, with the evaluation suite and operational runbooks handed over. If you have an agent stuck in demo and want it to actually reach production, start a conversation.",
+      },
+    ],
+  },
 ];
 
 export const getInsight = (slug: string): Insight | undefined =>
