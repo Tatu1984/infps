@@ -121,14 +121,32 @@ async function main() {
   const routes = await getRoutes();
   console.log(`[prerender] ${routes.length} routes from sitemap.xml`);
 
+  // Headless Chromium can't launch in some build containers (Vercel/Lambda)
+  // because system libraries are missing. On those hosts use @sparticuz/chromium,
+  // a Chromium binary built to run there; locally use puppeteer's bundled one.
+  let launchOpts = {
+    headless: "new",
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
+  };
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_VERSION || process.env.AWS_EXECUTION_ENV) {
+    try {
+      const chromium = (await import("@sparticuz/chromium")).default;
+      launchOpts = {
+        args: [...chromium.args, "--disable-dev-shm-usage"],
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+      };
+      console.log("[prerender] using @sparticuz/chromium for this build host");
+    } catch (err) {
+      warn("@sparticuz/chromium unavailable — trying bundled Chromium.", err);
+    }
+  }
+
   const server = await startServer(shellHtml);
   let browser;
   let ok = 0;
   try {
-    browser = await puppeteer.launch({
-      headless: "new",
-      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
-    });
+    browser = await puppeteer.launch(launchOpts);
 
     const renderRoute = async (route) => {
       const expected = ORIGIN + (route === "/" ? "/" : route);
