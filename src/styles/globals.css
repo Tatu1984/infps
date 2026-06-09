@@ -936,6 +936,10 @@ a {
   width: auto;
 }
 
+.ip-logo {
+  height: 44px;
+}
+
 .proxmox-badge span {
   font-size: 0.95rem;
   color: #fff;
