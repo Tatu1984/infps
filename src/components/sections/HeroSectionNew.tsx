@@ -1,6 +1,5 @@
 import { AuroraBackground } from "@/components/effects";
 import { ParallaxLayer, SplitText, BlurText, MagneticButton } from "@/components/ui";
-import proxmoxLogo from "@/assets/proxmox.webp";
 import { heroContent } from "@/data/services-restructured";
 
 export const HeroSectionNew = () => (
@@ -30,8 +29,8 @@ export const HeroSectionNew = () => (
         {/* Proxmox Partnership */}
         <div className="proxmox-badge">
           <span>AUTHORIZED</span>
-          <img src={proxmoxLogo} alt="Proxmox" className="proxmox-logo" loading="lazy" decoding="async" />
-          <span>PROXMOX RESELLER</span>
+          <img src="/Proxmox_logos_full_lockup_SVG/proxmox-full-lockup-color.svg" alt="Proxmox" className="proxmox-logo" loading="lazy" decoding="async" />
+          <span>RESELLER</span>
         </div>
 
         {/* CTAs - Primary leads to consultation, Secondary to social proof */}
