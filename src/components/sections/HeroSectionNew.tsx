@@ -30,9 +30,9 @@ export const HeroSectionNew = () => (
         <div className="proxmox-badge">
           <span>AUTHORIZED</span>
           <img src="/Proxmox_logos_full_lockup_SVG/proxmox-full-lockup-inverted-color.svg" alt="Proxmox" className="proxmox-logo" loading="lazy" decoding="async" />
+          <span>RESELLER</span>
           <span>&</span>
           <img src="/ip-badge-hotizontal-digital/ip-badge-horizontal-3000.png" alt="Infiniti Tech Partners" className="proxmox-logo ip-logo" loading="lazy" decoding="async" />
-          <span>RESELLER</span>
         </div>
 
         {/* CTAs - Primary leads to consultation, Secondary to social proof */}
