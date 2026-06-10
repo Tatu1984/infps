@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#070b13"/><stop offset="0.55" stop-color="#0f0d12"/><stop offset="1" stop-color="#170f0b"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff8f5e"/><stop offset="1" stop-color="#ff6b35"/></linearGradient>
+    <radialGradient id="g1" cx="0.80" cy="0.22" r="0.6"><stop stop-color="#ff6b35" stop-opacity="0.26"/><stop offset="1" stop-color="#ff6b35" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="0.10" cy="0.95" r="0.7"><stop stop-color="#ff8f5e" stop-opacity="0.14"/><stop offset="1" stop-color="#ff8f5e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="panelGlow" cx="0.5" cy="0.3" r="0.8"><stop stop-color="#ff6b35" stop-opacity="0.14"/><stop offset="1" stop-color="#ff6b35" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#ffffff" fill-opacity="0.05"/></pattern>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.07"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.012"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <circle cx="930" cy="150" r="430" fill="none" stroke="#ff6b35" stroke-opacity="0.10" stroke-width="1.5"/>
+  <circle cx="930" cy="150" r="300" fill="none" stroke="#ff6b35" stroke-opacity="0.07" stroke-width="1.5"/>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+
+  <!-- glass illustration panel: monolith block -> microservices -->
+  <g transform="translate(716 119)">
+    <rect x="0" y="0" width="404" height="392" rx="30" fill="url(#glass)" stroke="#ff6b35" stroke-width="1.5" stroke-opacity="0.45"/>
+    <rect x="0" y="0" width="404" height="392" rx="30" fill="url(#panelGlow)"/>
+    <g transform="translate(202 196)">
+      <!-- monolith on the left -->
+      <g transform="translate(-118 0)">
+        <rect x="-40" y="-96" width="80" height="192" rx="12" fill="#140d0a" stroke="url(#acc)" stroke-width="2.6"/>
+        <rect x="-40" y="-96" width="80" height="192" rx="12" fill="url(#acc)" fill-opacity="0.07"/>
+        <line x1="-40" y1="-40" x2="40" y2="-40" stroke="url(#acc)" stroke-opacity="0.4" stroke-width="1.6"/>
+        <line x1="-40" y1="16" x2="40" y2="16" stroke="url(#acc)" stroke-opacity="0.4" stroke-width="1.6"/>
+        <text x="0" y="116" text-anchor="middle" fill="#ffffff" fill-opacity="0.45" font-size="15" font-weight="600" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">MONOLITH</text>
+      </g>
+      <!-- arrow -->
+      <g transform="translate(-20 0)">
+        <line x1="-22" y1="0" x2="34" y2="0" stroke="url(#acc)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M 30 -9 l 14 9 l -14 9" fill="none" stroke="url(#acc)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <!-- microservices on the right -->
+      <g transform="translate(108 0)">
+        <g stroke="url(#acc)" stroke-width="1.6" stroke-opacity="0.45">
+          <line x1="-18" y1="-66" x2="18" y2="-66"/>
+          <line x1="-18" y1="-66" x2="-18" y2="0"/>
+          <line x1="18" y1="-66" x2="18" y2="0"/>
+          <line x1="0" y1="0" x2="0" y2="66"/>
+          <line x1="-18" y1="66" x2="18" y2="66"/>
+        </g>
+        <g transform="translate(-18 -66)"><rect x="-26" y="-22" width="52" height="44" rx="9" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/><circle r="7" fill="url(#acc)"/></g>
+        <g transform="translate(18 -66)"><rect x="-26" y="-22" width="52" height="44" rx="9" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/><circle r="7" fill="url(#acc)" fill-opacity="0.7"/></g>
+        <g transform="translate(0 0)"><rect x="-26" y="-22" width="52" height="44" rx="9" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/><circle r="7" fill="url(#acc)"/></g>
+        <g transform="translate(-18 66)"><rect x="-26" y="-22" width="52" height="44" rx="9" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/><circle r="7" fill="url(#acc)" fill-opacity="0.7"/></g>
+        <g transform="translate(18 66)"><rect x="-26" y="-22" width="52" height="44" rx="9" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/><circle r="7" fill="url(#acc)"/></g>
+        <text x="0" y="116" text-anchor="middle" fill="#ffffff" fill-opacity="0.45" font-size="15" font-weight="600" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">SERVICES</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- category pill -->
+  <g transform="translate(80 96)">
+    <rect x="0" y="0" width="186" height="40" rx="20" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-opacity="0.5" stroke-width="1.2"/>
+    <circle cx="22" cy="20" r="4.5" fill="url(#acc)"/>
+    <text x="38" y="27" fill="#ff8f5e" font-size="19" font-weight="700" letter-spacing="2.5" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">ENGINEERING</text>
+  </g>
+
+  <text x="80" y="206" fill="#ffffff" font-size="50" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Monolith to</text>
+  <text x="80" y="266" fill="#ffffff" font-size="50" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Microservices,</text>
+  <text x="80" y="326" fill="#ffffff" font-size="50" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">No Freeze</text>
+  <rect x="80" y="352" width="92" height="6" rx="3" fill="url(#acc)"/>
+  <text x="80" y="416" fill="#ffffff" fill-opacity="0.7" font-size="24" font-weight="500" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Migrate without freezing the roadmap.</text>
+
+  <line x1="80" y1="556" x2="1120" y2="556" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <g transform="translate(98 584)">
+    <path d="M -18 0 C -18 -11 -6 -11 0 0 C 6 11 18 11 18 0 C 18 -11 6 -11 0 0 C -6 11 -18 11 -18 0 Z" fill="none" stroke="url(#acc)" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="128" y="592" fill="#ffffff" fill-opacity="0.6" font-size="21" font-weight="700" letter-spacing="2.5" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">INFINITI TECH PARTNERS</text>
+  <text x="1120" y="592" text-anchor="end" fill="#ff6b35" fill-opacity="0.8" font-size="19" font-weight="600" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">infinititechpartners.com</text>
+</svg>

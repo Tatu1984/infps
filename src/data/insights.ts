@@ -662,6 +662,239 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "technical-due-diligence-series-b",
+    title: "Technical Due Diligence for a Series B Raise: The CTO's Checklist",
+    image: "/insights/technical-due-diligence-series-b.svg",
+    description:
+      "What investors' technical diligence teams actually inspect before a Series B — architecture, security, delivery, and team risk — and how a growth-stage CTO gets ahead of it.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-11",
+    category: "Hiring",
+    readMinutes: 9,
+    keywords:
+      "technical due diligence, Series B technical diligence, CTO fundraising checklist, technical due diligence checklist, investor technical review, software audit for funding, code quality due diligence",
+    sections: [
+      {
+        body: "Term sheets get signed on traction, but they get withdrawn — or repriced — on diligence. By Series B, the investor's technical diligence is no longer a casual call with your CTO; it's a structured review run by a partner firm or an in-house principal engineer who has seen a hundred codebases and knows exactly where growth-stage teams cut corners. The good news: technical diligence is predictable. The teams that sail through aren't the ones with perfect code — they're the ones who can show they know where their risks are and have a credible plan for each. Here is what gets inspected, and how to be ready before the data room opens.",
+      },
+      {
+        heading: "1. Architecture that matches the next 18 months, not the last 18",
+        body: "Diligence teams aren't grading elegance; they're pricing risk. They want to see that your architecture can absorb the growth your raise is predicated on. Expect questions on single points of failure, data model decisions that are expensive to reverse, and any component that only one person understands. A monolith is not a red flag — an undocumented monolith with no path to decompose under load is. Have a one-page architecture diagram, a written list of your top five scaling risks, and a sentence on the mitigation for each. That single artifact does more to build confidence than a week of code reading.",
+      },
+      {
+        heading: "2. Security and compliance posture",
+        body: [
+          "A current SOC 2 Type II (or ISO 27001) report, or a credible, dated roadmap to one if you're pre-audit.",
+          "Evidence of the basics: SSO/MFA enforced, secrets in a manager (not in code or env files in the repo), encrypted data at rest and in transit, least-privilege access to production.",
+          "A vulnerability and dependency story — automated scanning, a patching cadence, and no critical CVEs sitting open for months.",
+          "Incident history told honestly: what happened, what you changed. A handled incident reads as maturity; a hidden one reads as risk.",
+        ],
+      },
+      {
+        heading: "3. Delivery: can the team ship predictably?",
+        body: "Investors are buying your future roadmap, so they probe how reliably you turn money into shipped software. They'll look at deployment frequency, lead time for changes, how often deploys cause incidents, and whether you have CI/CD or hand-rolled releases. You don't need elite DORA metrics — you need to know your numbers and show they're trending the right way. A team that deploys daily behind feature flags with automated tests is worth a materially higher multiple than one that ships monthly and prays.",
+      },
+      {
+        heading: "4. Key-person and team risk",
+        body: "The fastest way to spook a diligence team is the discovery that one engineer holds the entire system in their head with nothing written down. Bus factor is a real line item. Show documented runbooks, an onboarding doc that actually works, code ownership spread across the team, and a hiring plan that the raise funds. If you have concentration risk — and most growth-stage teams do — name it and show how the capital reduces it. Naming a risk you've already planned around is a strength; being surprised by it on a call is not.",
+      },
+      {
+        heading: "5. The data room artifacts that save you weeks",
+        body: "Prepare these before you need them: an architecture overview, a security policy summary, your SDLC and release process, a dependency and license inventory, test coverage and CI status, an infrastructure cost breakdown, and a register of known technical debt with prioritization. The register is the counterintuitive one — voluntarily disclosing your debt with a plan reads as control, not weakness. Diligence teams trust the founder who shows them the map of the problems far more than the one who insists there are none.",
+      },
+      {
+        heading: "How Infiniti Tech Partners prepares CTOs for diligence",
+        body: "We run a pre-diligence readiness review the way an investor's team would — architecture, security, delivery, and key-person risk — and hand you the prioritized remediation list plus the data-room artifacts that diligence asks for. Where there's real work to do before the round, we can do it with you: shore up the security posture, document the system, and close the highest-risk gaps. If you're raising in the next two quarters and want to walk into diligence already knowing what they'll find, start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "private-ai-assistant-own-data",
+    title: "Building a Private AI Assistant on Your Own Data: Architecture & Pitfalls",
+    image: "/insights/private-ai-assistant-own-data.svg",
+    description:
+      "How to build a private, secure AI assistant grounded in your company's own data — the retrieval architecture, access control, and the pitfalls that sink most internal LLM projects.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-12",
+    category: "AI",
+    readMinutes: 10,
+    keywords:
+      "private AI assistant, AI assistant on your own data, enterprise RAG, private LLM, secure AI assistant, retrieval augmented generation, internal AI knowledge assistant, AI data privacy",
+    sections: [
+      {
+        body: "Almost every company we talk to wants the same thing: a private AI assistant that knows their internal knowledge — docs, tickets, contracts, code, policies — and answers staff questions without that data leaking into a public model or to other tenants. The demand is obvious; the discipline is not. A weekend prototype that pipes documents into an LLM is easy. A production assistant that is accurate, access-aware, and trusted by a security team is a real system. Here is the architecture that holds up, and the pitfalls that quietly sink most internal LLM projects before they earn anyone's trust.",
+      },
+      {
+        heading: "The core pattern: retrieval, not training",
+        body: "You almost never want to fine-tune a model on your company data for a knowledge assistant — it's expensive, it goes stale the moment a document changes, and it bakes data into weights you can't easily redact. The right default is retrieval-augmented generation: keep your data in a search index, retrieve the most relevant passages at query time, and pass them to the model as context. Your knowledge stays in a system you control and can update instantly, the model stays swappable, and every answer can cite its sources. Reserve fine-tuning for changing tone or output format, not for teaching facts.",
+      },
+      {
+        heading: "Architecture that survives contact with real users",
+        body: [
+          "Ingestion: connectors that pull from your sources (Confluence, Drive, Slack, ticketing, repos) and normalize them — with a re-sync schedule so the index doesn't rot.",
+          "Chunking + embeddings: split documents thoughtfully (by structure, not blind character counts) and embed them into a vector store; quality here drives answer quality more than the model choice.",
+          "Retrieval: hybrid search (keyword + vector) plus a reranker beats naive vector similarity on real corpora, especially for acronyms, IDs, and exact phrases.",
+          "Generation: a grounded prompt that instructs the model to answer only from retrieved context and say 'I don't know' when the context is thin.",
+          "Citations + feedback: every answer links its sources, and a thumbs up/down loop feeds your evaluation set.",
+        ],
+      },
+      {
+        heading: "Access control is the part that gets people fired",
+        body: "The single most dangerous pitfall: an assistant that retrieves across all indexed documents regardless of who's asking. The moment it surfaces a salary spreadsheet or an unreleased deal to someone who shouldn't see it, the project is dead and so is trust in your team. Permissions must be enforced at retrieval time — the index has to know each document's access rules and filter results to what the asking user is actually allowed to read. Bolting authorization on after the fact never works. Design it in from the first chunk you ingest.",
+      },
+      {
+        heading: "Privacy, tenancy, and where the data goes",
+        body: "Decide deliberately where inference runs. Major model providers offer enterprise tiers with zero data retention and no training on your inputs — for many companies that's sufficient and far cheaper than self-hosting. If you have regulatory or contractual constraints, a self-hosted open-weight model in your own VPC keeps everything inside your boundary at the cost of more ops. Either way: no customer data in prompts without a data processing agreement that covers it, and a clear, written answer to 'where does our data go when someone asks a question?' before you launch.",
+      },
+      {
+        heading: "Why most internal assistants quietly fail",
+        body: "They ship without evaluation. The demo dazzles, the assistant goes wide, and three weeks later it confidently gives a wrong answer about a refund policy — and adoption collapses, because trust is the whole product. The teams that succeed build an evaluation set of real questions with known-good answers, measure retrieval and answer quality on every change, and roll out to one team before the whole company. Accuracy you can measure is the difference between a tool people rely on and a toy they abandon.",
+      },
+      {
+        heading: "How Infiniti Tech Partners builds private AI assistants",
+        body: "We design the retrieval architecture, enforce permissions at retrieval time, choose the deployment model that fits your privacy constraints, and stand up the evaluation harness before we go wide — so the assistant is accurate, access-aware, and trusted from day one. It's the same approach behind Tribe, our private AI assistant work. If you want an assistant grounded in your own data without the data risk, start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "iso-27001-vs-soc-2-saas",
+    title: "ISO 27001 vs SOC 2: Which Compliance Path for US & UK SaaS in 2026",
+    image: "/insights/iso-27001-vs-soc-2-saas.svg",
+    description:
+      "SOC 2 or ISO 27001 — or both? A practical 2026 guide for US and UK SaaS founders on which security certification your buyers actually want, what each costs, and how to sequence them.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-15",
+    category: "Security",
+    readMinutes: 9,
+    keywords:
+      "ISO 27001 vs SOC 2, SOC 2 or ISO 27001, security compliance for SaaS, ISO 27001 certification, SOC 2 Type II, compliance for UK SaaS, compliance for US SaaS, which security certification",
+    sections: [
+      {
+        body: "Once a SaaS company starts selling to mid-market and enterprise buyers, a security questionnaire arrives, and the question becomes unavoidable: SOC 2, ISO 27001, or both? They overlap heavily — same underlying controls, same goal of proving you manage information security responsibly — but they are not interchangeable, and picking the wrong one first can cost you a deal or a wasted audit cycle. Here's how to choose based on who you sell to, not on which acronym sounds more impressive.",
+      },
+      {
+        heading: "What each one actually is",
+        body: "SOC 2 is an attestation report produced by a US CPA firm against the AICPA's Trust Services Criteria. There's no 'pass/fail certificate' — buyers read the auditor's report. A Type I snapshots your controls at a point in time; a Type II tests that they operated over a period (usually 3–12 months), and Type II is what enterprise buyers want. ISO 27001 is an international standard: you build an Information Security Management System (ISMS), an accredited body audits it, and you receive a certificate valid for three years with annual surveillance audits. SOC 2 produces a detailed report; ISO 27001 produces a recognized certificate.",
+      },
+      {
+        heading: "Who asks for which",
+        body: [
+          "Selling primarily to US companies, especially tech and SaaS buyers: SOC 2 Type II is the default expectation and usually the faster route to unblocking deals.",
+          "Selling into the UK, EU, the Middle East, or APAC, or to large enterprises and the public sector: ISO 27001 is the more universally recognized credential.",
+          "Selling to regulated industries or global enterprises: you'll eventually be asked for both, because procurement teams in different regions trust different artifacts.",
+          "Early and capital-constrained: lead with the one your current and next ten target buyers actually request — ask your sales team, not the internet.",
+        ],
+      },
+      {
+        heading: "Cost, time, and effort in 2026",
+        body: "A first SOC 2 Type II typically runs a 3–6 month observation window after readiness, with audit fees commonly in the $15–40K range plus tooling and internal time. ISO 27001 certification often runs 4–9 months end to end, with certification-body fees in a similar-to-higher band and a heavier documentation load up front because the ISMS is more prescriptive. The dominant cost in both is rarely the auditor — it's the engineering and operational time to implement and evidence the controls. Compliance automation platforms have compressed that materially, but they don't eliminate it.",
+      },
+      {
+        heading: "The 80% overlap — and how to sequence",
+        body: "The encouraging reality: the two share most of their substance. Access control, encryption, change management, vulnerability management, vendor risk, logging, incident response, and HR security underpin both. If you implement controls cleanly for one, you've done roughly 70–80% of the work for the other. The efficient sequence for most growth-stage SaaS: implement the control set once with both frameworks in mind, certify first to whichever your buyers demand now, then add the second as a delta when a region or deal requires it — rather than running two disconnected programs.",
+      },
+      {
+        heading: "The mistake that wastes a year",
+        body: "Treating compliance as a paperwork exercise owned by a consultant, divorced from engineering. The result is a binder of policies nobody follows, controls that exist on paper but not in production, and an audit that surfaces the gap at the worst possible moment. Compliance that lasts is built into how engineering already works — enforced SSO, peer-reviewed changes, automated evidence collection, infrastructure as code. Done that way, the certificate is a byproduct of good engineering, and re-certifying each year is routine instead of a fire drill.",
+      },
+      {
+        heading: "How Infiniti Tech Partners runs compliance",
+        body: "We help you pick the right framework for the buyers you're actually chasing, implement the controls inside your engineering workflow (not as a parallel paper trail), wire up automated evidence collection, and get you audit-ready — then make the second certification a low-cost delta when you need it. It's the same engineering-led approach behind our SOC 2 work. If a security questionnaire is blocking a deal, start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "edge-computing-for-saas",
+    title: "Edge Computing for SaaS: When the Latency Is Worth the Complexity",
+    image: "/insights/edge-computing-for-saas.svg",
+    description:
+      "Edge computing promises lower latency and resilience, but adds real operational cost. A pragmatic 2026 guide for SaaS CTOs on when the edge pays off — and when a good CDN is enough.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-16",
+    category: "Cloud",
+    readMinutes: 8,
+    keywords:
+      "edge computing for SaaS, edge computing 2026, when to use edge computing, edge vs cloud, edge functions, low latency architecture, distributed edge architecture, CDN vs edge computing",
+    sections: [
+      {
+        body: "Edge computing has graduated from buzzword to a real architectural option — edge functions, distributed databases, and CDNs that run your code in dozens of locations are all a few clicks away. The pitch is seductive: code that runs milliseconds from every user, resilient to regional outages, cheaper on egress. But the edge also fragments your system across many locations, complicates data consistency, and makes debugging harder. For most SaaS, the honest answer is 'not yet, and maybe never.' Here's how to tell whether you're the exception.",
+      },
+      {
+        heading: "What 'the edge' actually buys you",
+        body: "Three things, concretely. Latency: running compute physically close to users cuts round-trip time, which matters when a request would otherwise cross oceans. Resilience: distributing across many locations means no single region takes you down. Cost at scale: serving and caching close to users can cut bandwidth and origin load. The catch is that each benefit only matters above a threshold — and below it, you're paying the complexity tax for advantages your users will never perceive.",
+      },
+      {
+        heading: "When the edge genuinely pays off",
+        body: [
+          "A globally distributed user base where a single-region origin adds hundreds of milliseconds for users on the far side of the world.",
+          "Latency-sensitive interactions — real-time collaboration, gaming, live personalization, ad bidding — where tens of milliseconds change the product.",
+          "Read-heavy, cacheable workloads where pushing content and computed responses to the edge slashes origin load and egress.",
+          "Compliance-driven data residency, where processing must physically happen within a specific region or country.",
+          "High-volume static and API traffic where edge caching meaningfully reduces both cost and tail latency.",
+        ],
+      },
+      {
+        heading: "When a CDN is all you need",
+        body: "Most SaaS latency complaints aren't solved by edge compute — they're solved by a properly configured CDN in front of a well-tuned single-region (or few-region) origin, plus caching and a faster database. If your users are concentrated in one or two regions, if your app is write-heavy and transactional, or if your real bottleneck is an N+1 query rather than the speed of light, the edge adds cost and operational surface without moving the metric your users care about. Profile first. The slowest thing in most apps is the database, not the distance to it.",
+      },
+      {
+        heading: "The hidden costs nobody budgets for",
+        body: "Edge architectures shift complexity onto your team. State and data consistency get genuinely hard — your fast edge code still needs data, and replicating or reaching back to an origin reintroduces the latency you tried to remove. Debugging a problem that only happens in one of forty locations is its own discipline. Cold starts, per-location quotas, and runtime limits constrain what edge functions can do. And observability across a distributed fleet costs more to build and run. None of this is disqualifying — but it's real work that has to be staffed, and it's why 'add the edge' is a decision, not a default.",
+      },
+      {
+        heading: "How Infiniti Tech Partners approaches the edge",
+        body: "We start by profiling where your latency and cost actually come from, then right-size the architecture — often that's a sharper CDN and caching strategy, and sometimes it's genuine edge compute for the workloads that warrant it. Where the edge fits, we design for the data-consistency and observability realities up front. It's the same edge and distributed-systems work behind Ten Sparrows and TS Edge Nest. If you're weighing an edge move, start a conversation before you commit the quarter to it.",
+      },
+    ],
+  },
+  {
+    slug: "monolith-to-microservices-migration",
+    title: "Monolith to Microservices Without Freezing the Roadmap",
+    image: "/insights/monolith-to-microservices-migration.svg",
+    description:
+      "How to migrate a monolith to microservices incrementally — using the strangler pattern — without a risky big-bang rewrite or a multi-quarter feature freeze that stalls the business.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-17",
+    category: "Engineering",
+    readMinutes: 9,
+    keywords:
+      "monolith to microservices, microservices migration, strangler fig pattern, incremental migration, decompose monolith, microservices migration strategy, avoid big bang rewrite, service extraction",
+    sections: [
+      {
+        body: "Every growing engineering team eventually hits the wall: the monolith that shipped the company to its first ten million in revenue is now the thing slowing every deploy, coupling every team, and turning a one-line change into a full-system regression risk. The instinct is to rewrite it as microservices. The graveyard of failed rewrites should give you pause. The big-bang rewrite — freeze features, rebuild for a year, cut over — fails so reliably it has its own folklore. There is a better way, and it doesn't require stopping the business to do it.",
+      },
+      {
+        heading: "Why the big-bang rewrite fails",
+        body: "It fails for the same reasons every time. The business won't actually freeze for a year, so you end up maintaining two systems while feature requests pile up against the old one. The new system has to reach full parity before it delivers any value, so you carry all the risk and cost with zero return until the very end. And the old system's behavior is only fully documented in its code — every quirk you don't replicate is a production incident on cutover day. Rewrites concentrate all the risk into one terrifying moment. Incremental migration spreads it out so each step is small and reversible.",
+      },
+      {
+        heading: "The strangler pattern: migrate in place",
+        body: "Named after the strangler fig that grows around a tree and gradually replaces it, this is the proven approach. You put a routing layer in front of the monolith, then extract one capability at a time into a new service. Route that capability's traffic to the new service, leave everything else hitting the monolith, and repeat. The monolith shrinks gradually as functionality moves out, until what remains is small enough to retire or keep. At every point you have a working, shippable system — and you can stop, pause for a quarter of feature work, and resume without penalty.",
+      },
+      {
+        heading: "Choosing what to extract first",
+        body: [
+          "Start at a natural seam — a bounded context with clear inputs and outputs, not a tangle wired into everything.",
+          "Pick something with real pain or value: a component that needs to scale independently, changes often, or is owned by a team that wants autonomy.",
+          "Avoid the shared core database tables on day one — the data is the hardest part, so begin with capabilities that own their data cleanly.",
+          "Prefer a slice you can fully route and roll back, so the first extraction proves the pattern with low blast radius.",
+        ],
+      },
+      {
+        heading: "Data is the hard part, not the code",
+        body: "Splitting code is straightforward; splitting a database that everything reads and writes is where migrations stall. Plan for it explicitly. Identify which data each new service truly owns, and resist the urge to let services reach into each other's tables — that just rebuilds the monolith over the network, with worse latency. Use techniques like change data capture, dual writes during transition, and a deliberate plan for the queries that used to be a simple JOIN and now cross a service boundary. If you only plan one thing carefully in the whole migration, plan the data.",
+      },
+      {
+        heading: "Don't over-correct into a distributed monolith",
+        body: "The opposite failure mode is just as expensive: shattering the system into dozens of tiny services that are so chatty and interdependent you've built a distributed monolith — all the operational pain of microservices with none of the independence. Microservices are an organizational tool as much as a technical one; the right boundaries usually mirror your team boundaries. Extract services because a capability genuinely needs to deploy, scale, or be owned independently — not because microservices are the fashion. Sometimes the right answer is a well-modularized monolith, and that's a legitimate destination.",
+      },
+      {
+        heading: "How Infiniti Tech Partners runs migrations",
+        body: "We map the seams, sequence the extractions by risk and value, stand up the routing and observability so every step is safe and reversible, and handle the data split that stalls most migrations — all while your team keeps shipping features. No freeze, no big-bang cutover, no distributed monolith. If your architecture is slowing the business down and a rewrite feels too risky to attempt, start a conversation.",
+      },
+    ],
+  },
 ];
 
 export const getInsight = (slug: string): Insight | undefined =>

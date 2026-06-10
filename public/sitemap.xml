@@ -156,6 +156,31 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.infinititechpartners.com/insights/technical-due-diligence-series-b</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/private-ai-assistant-own-data</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/iso-27001-vs-soc-2-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/edge-computing-for-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/monolith-to-microservices-migration</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.infinititechpartners.com/resources/soc-2-readiness-checklist</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

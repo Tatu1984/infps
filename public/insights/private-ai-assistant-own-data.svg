@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#070b13"/><stop offset="0.55" stop-color="#0f0d12"/><stop offset="1" stop-color="#170f0b"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff8f5e"/><stop offset="1" stop-color="#ff6b35"/></linearGradient>
+    <radialGradient id="g1" cx="0.80" cy="0.22" r="0.6"><stop stop-color="#ff6b35" stop-opacity="0.26"/><stop offset="1" stop-color="#ff6b35" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="0.10" cy="0.95" r="0.7"><stop stop-color="#ff8f5e" stop-opacity="0.14"/><stop offset="1" stop-color="#ff8f5e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="panelGlow" cx="0.5" cy="0.3" r="0.8"><stop stop-color="#ff6b35" stop-opacity="0.14"/><stop offset="1" stop-color="#ff6b35" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#ffffff" fill-opacity="0.05"/></pattern>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.07"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.012"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <circle cx="930" cy="150" r="430" fill="none" stroke="#ff6b35" stroke-opacity="0.10" stroke-width="1.5"/>
+  <circle cx="930" cy="150" r="300" fill="none" stroke="#ff6b35" stroke-opacity="0.07" stroke-width="1.5"/>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+
+  <!-- glass illustration panel: chat bubble + shield over data store -->
+  <g transform="translate(716 119)">
+    <rect x="0" y="0" width="404" height="392" rx="30" fill="url(#glass)" stroke="#ff6b35" stroke-width="1.5" stroke-opacity="0.45"/>
+    <rect x="0" y="0" width="404" height="392" rx="30" fill="url(#panelGlow)"/>
+    <g transform="translate(202 196)">
+      <!-- data store cylinder -->
+      <g transform="translate(0 70)">
+        <path d="M -84 -34 a 84 22 0 0 0 168 0 v 58 a 84 22 0 0 1 -168 0 z" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/>
+        <ellipse cx="0" cy="-34" rx="84" ry="22" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/>
+        <ellipse cx="0" cy="-34" rx="84" ry="22" fill="url(#acc)" fill-opacity="0.08"/>
+        <path d="M -84 -6 a 84 22 0 0 0 168 0" fill="none" stroke="url(#acc)" stroke-width="1.6" stroke-opacity="0.5"/>
+      </g>
+      <!-- shield over data -->
+      <g transform="translate(0 64)">
+        <path d="M 0 -40 l 40 16 v 26 c 0 26 -20 42 -40 50 c -20 -8 -40 -24 -40 -50 v -26 z" fill="#140d0a" stroke="url(#acc)" stroke-width="2.6"/>
+        <path d="M 0 -40 l 40 16 v 26 c 0 26 -20 42 -40 50 c -20 -8 -40 -24 -40 -50 v -26 z" fill="url(#acc)" fill-opacity="0.10"/>
+        <rect x="-13" y="-4" width="26" height="22" rx="4" fill="none" stroke="url(#acc)" stroke-width="2.6"/>
+        <path d="M -8 -4 v -7 a 8 8 0 0 1 16 0 v 7" fill="none" stroke="url(#acc)" stroke-width="2.6"/>
+      </g>
+      <!-- chat bubble (query) -->
+      <g transform="translate(-2 -120)">
+        <rect x="-96" y="-30" width="196" height="74" rx="18" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/>
+        <path d="M -34 44 l 0 26 l 30 -26 z" fill="#140d0a" stroke="url(#acc)" stroke-width="2.4"/>
+        <circle cx="-58" cy="7" r="6" fill="url(#acc)"/>
+        <circle cx="-30" cy="7" r="6" fill="url(#acc)" fill-opacity="0.6"/>
+        <circle cx="-2" cy="7" r="6" fill="url(#acc)" fill-opacity="0.3"/>
+        <rect x="20" y="1" width="72" height="12" rx="6" fill="#ffffff" fill-opacity="0.28"/>
+      </g>
+      <line x1="0" y1="-46" x2="0" y2="22" stroke="url(#acc)" stroke-width="1.6" stroke-opacity="0.45" stroke-dasharray="5 7"/>
+    </g>
+  </g>
+
+  <!-- category pill -->
+  <g transform="translate(80 96)">
+    <rect x="0" y="0" width="158" height="40" rx="20" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-opacity="0.5" stroke-width="1.2"/>
+    <circle cx="22" cy="20" r="4.5" fill="url(#acc)"/>
+    <text x="38" y="27" fill="#ff8f5e" font-size="19" font-weight="700" letter-spacing="2.5" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">PRIVATE AI</text>
+  </g>
+
+  <text x="80" y="206" fill="#ffffff" font-size="50" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">A Private AI</text>
+  <text x="80" y="266" fill="#ffffff" font-size="50" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Assistant on</text>
+  <text x="80" y="326" fill="#ffffff" font-size="50" font-weight="700" letter-spacing="-1" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Your Own Data</text>
+  <rect x="80" y="352" width="92" height="6" rx="3" fill="url(#acc)"/>
+  <text x="80" y="416" fill="#ffffff" fill-opacity="0.7" font-size="24" font-weight="500" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">Architecture, security &amp; the pitfalls.</text>
+
+  <line x1="80" y1="556" x2="1120" y2="556" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <g transform="translate(98 584)">
+    <path d="M -18 0 C -18 -11 -6 -11 0 0 C 6 11 18 11 18 0 C 18 -11 6 -11 0 0 C -6 11 -18 11 -18 0 Z" fill="none" stroke="url(#acc)" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="128" y="592" fill="#ffffff" fill-opacity="0.6" font-size="21" font-weight="700" letter-spacing="2.5" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">INFINITI TECH PARTNERS</text>
+  <text x="1120" y="592" text-anchor="end" fill="#ff6b35" fill-opacity="0.8" font-size="19" font-weight="600" font-family="Space Grotesk, Segoe UI, Arial, sans-serif">infinititechpartners.com</text>
+</svg>
