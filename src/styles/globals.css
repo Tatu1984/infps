@@ -924,11 +924,20 @@ a {
 
 .proxmox-badge {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
   margin-bottom: 40px;
   animation: fade-up 1s var(--ease-out-expo) 1.3s both;
+}
+
+.proxmox-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .proxmox-logo {
@@ -937,7 +946,7 @@ a {
 }
 
 .ip-logo {
-  height: 44px;
+  height: 64px;
 }
 
 .proxmox-badge span {
