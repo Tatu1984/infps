@@ -924,7 +924,7 @@ a {
 
 .proxmox-badge {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 12px;
@@ -940,20 +940,18 @@ a {
   gap: 8px;
 }
 
-.proxmox-logo {
-  height: 28px;
+.proxmox-logo, .ip-logo {
+  height: 110px;
   width: auto;
-}
-
-.ip-logo {
-  height: 64px;
+  margin:0px 32px
 }
 
 .proxmox-badge span {
-  font-size: 0.95rem;
+  font-size: 70px;
   color: #fff;
   font-weight: 500;
   letter-spacing: 0.1em;
+  margin: 0px 20px
 }
 
 .hero-ctas {
