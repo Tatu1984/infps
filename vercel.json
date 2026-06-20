@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/services/mobile-application-development",
+      "destination": "/services",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/((?!api/|.*\\..*).*)", "destination": "/" }
   ]
