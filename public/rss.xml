@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Infiniti Tech Partners — Insights</title>
+    <link>https://www.infinititechpartners.com/insights</link>
+    <description>Engineering, cloud, security and AI insights for growth-stage CTOs in the US and UK.</description>
+    <language>en-us</language>
+    <atom:link href="https://www.infinititechpartners.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Fri, 26 Jun 2026 09:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Disaster Recovery for SaaS: Setting RTO/RPO You Can Actually Hit</title>
+      <link>https://www.infinititechpartners.com/insights/disaster-recovery-rto-rpo-saas</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/disaster-recovery-rto-rpo-saas</guid>
+      <pubDate>Fri, 26 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Cloud</category>
+      <description>How to build a disaster recovery plan for SaaS around honest RTO and RPO targets — backups you&apos;ve actually restored, tested failover, and a runbook that works at 3am.</description>
+    </item>
+    <item>
+      <title>LLM Cost Control: Cut Your AI Bill Without Cutting Quality</title>
+      <link>https://www.infinititechpartners.com/insights/llm-cost-control</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/llm-cost-control</guid>
+      <pubDate>Thu, 25 Jun 2026 09:00:00 GMT</pubDate>
+      <category>AI</category>
+      <description>The levers that bring a runaway LLM bill under control — model routing, prompt caching, context discipline, and output limits — without users noticing a drop in quality.</description>
+    </item>
+    <item>
+      <title>GDPR for US SaaS Selling into the UK &amp; EU: A Practical Guide</title>
+      <link>https://www.infinititechpartners.com/insights/gdpr-for-us-saas-uk-eu</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/gdpr-for-us-saas-uk-eu</guid>
+      <pubDate>Wed, 24 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Security</category>
+      <description>What a US SaaS company actually has to do to sell into the UK and EU under GDPR — lawful basis, data transfers, DPAs, subject rights, and the engineering work behind compliance.</description>
+    </item>
+    <item>
+      <title>Zero-Downtime Database Migrations: No Maintenance Window Required</title>
+      <link>https://www.infinititechpartners.com/insights/zero-downtime-database-migrations</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/zero-downtime-database-migrations</guid>
+      <pubDate>Tue, 23 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Engineering</category>
+      <description>How to ship schema changes to a live production database with zero downtime — using the expand-and-contract pattern, backfills, and dual writes instead of a 2am maintenance window.</description>
+    </item>
+    <item>
+      <title>Multi-Tenant SaaS Architecture: Pooled, Siloed, or Bridge</title>
+      <link>https://www.infinititechpartners.com/insights/multi-tenant-saas-architecture</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/multi-tenant-saas-architecture</guid>
+      <pubDate>Mon, 22 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Engineering</category>
+      <description>The three multi-tenancy models for SaaS — pooled, siloed, and bridge — and how to pick the one that fits your security, cost, and scaling needs without painting yourself into a corner.</description>
+    </item>
+    <item>
+      <title>Monolith to Microservices Without Freezing the Roadmap</title>
+      <link>https://www.infinititechpartners.com/insights/monolith-to-microservices-migration</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/monolith-to-microservices-migration</guid>
+      <pubDate>Wed, 17 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Engineering</category>
+      <description>How to migrate a monolith to microservices incrementally — using the strangler pattern — without a risky big-bang rewrite or a multi-quarter feature freeze that stalls the business.</description>
+    </item>
+    <item>
+      <title>Edge Computing for SaaS: When the Latency Is Worth the Complexity</title>
+      <link>https://www.infinititechpartners.com/insights/edge-computing-for-saas</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/edge-computing-for-saas</guid>
+      <pubDate>Tue, 16 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Cloud</category>
+      <description>Edge computing promises lower latency and resilience, but adds real operational cost. A pragmatic 2026 guide for SaaS CTOs on when the edge pays off — and when a good CDN is enough.</description>
+    </item>
+    <item>
+      <title>ISO 27001 vs SOC 2: Which Compliance Path for US &amp; UK SaaS in 2026</title>
+      <link>https://www.infinititechpartners.com/insights/iso-27001-vs-soc-2-saas</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/iso-27001-vs-soc-2-saas</guid>
+      <pubDate>Mon, 15 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Security</category>
+      <description>SOC 2 or ISO 27001 — or both? A practical 2026 guide for US and UK SaaS founders on which security certification your buyers actually want, what each costs, and how to sequence them.</description>
+    </item>
+    <item>
+      <title>Building a Private AI Assistant on Your Own Data: Architecture &amp; Pitfalls</title>
+      <link>https://www.infinititechpartners.com/insights/private-ai-assistant-own-data</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/private-ai-assistant-own-data</guid>
+      <pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate>
+      <category>AI</category>
+      <description>How to build a private, secure AI assistant grounded in your company&apos;s own data — the retrieval architecture, access control, and the pitfalls that sink most internal LLM projects.</description>
+    </item>
+    <item>
+      <title>Technical Due Diligence for a Series B Raise: The CTO&apos;s Checklist</title>
+      <link>https://www.infinititechpartners.com/insights/technical-due-diligence-series-b</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/technical-due-diligence-series-b</guid>
+      <pubDate>Thu, 11 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Hiring</category>
+      <description>What investors&apos; technical diligence teams actually inspect before a Series B — architecture, security, delivery, and team risk — and how a growth-stage CTO gets ahead of it.</description>
+    </item>
+    <item>
+      <title>AI Agents in Production: Lessons from 10 Enterprise Rollouts</title>
+      <link>https://www.infinititechpartners.com/insights/ai-agents-in-production-lessons</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/ai-agents-in-production-lessons</guid>
+      <pubDate>Sun, 07 Jun 2026 09:00:00 GMT</pubDate>
+      <category>AI</category>
+      <description>What separates AI agent projects that reach production from the ones that stall in demo — evaluation, scope, guardrails, and human oversight, drawn from real enterprise rollouts.</description>
+    </item>
+    <item>
+      <title>HIPAA-Compliant Software Architecture: Patterns That Hold Up</title>
+      <link>https://www.infinititechpartners.com/insights/hipaa-compliant-software-architecture</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/hipaa-compliant-software-architecture</guid>
+      <pubDate>Sat, 06 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Security</category>
+      <description>The architecture patterns that make healthtech software genuinely HIPAA-compliant — encryption, access control, audit logging, and PHI isolation that survive an audit.</description>
+    </item>
+    <item>
+      <title>Kubernetes or Serverless? The 2026 Decision Tree for Growth-Stage CTOs</title>
+      <link>https://www.infinititechpartners.com/insights/kubernetes-vs-serverless-2026</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/kubernetes-vs-serverless-2026</guid>
+      <pubDate>Fri, 05 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Cloud</category>
+      <description>When to run Kubernetes, when serverless cuts cost, and how most growth-stage companies use both — with a four-factor decision framework and cost benchmarks.</description>
+    </item>
+    <item>
+      <title>RAG vs Fine-Tuning vs Agents: Choosing the Right LLM Pattern in 2026</title>
+      <link>https://www.infinititechpartners.com/insights/rag-vs-fine-tuning-vs-agents-2026</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/rag-vs-fine-tuning-vs-agents-2026</guid>
+      <pubDate>Thu, 04 Jun 2026 09:00:00 GMT</pubDate>
+      <category>AI</category>
+      <description>How to choose between RAG, fine-tuning, and agents for an enterprise AI system — with a decision tree, cost benchmarks, and the mistakes that cost teams 3–6 months.</description>
+    </item>
+    <item>
+      <title>What &quot;Production-Ready&quot; Actually Means (and Why Most MVPs Aren&apos;t)</title>
+      <link>https://www.infinititechpartners.com/insights/what-production-ready-actually-means</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/what-production-ready-actually-means</guid>
+      <pubDate>Thu, 04 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Engineering</category>
+      <description>A concrete definition of production-ready software — the checklist a growth-stage team should clear before calling an MVP done, and where most fall short.</description>
+    </item>
+    <item>
+      <title>AWS Cost Optimization: 12 Levers for SaaS at $5M–$50M ARR</title>
+      <link>https://www.infinititechpartners.com/insights/aws-cost-optimization-saas</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/aws-cost-optimization-saas</guid>
+      <pubDate>Wed, 03 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Cloud</category>
+      <description>The 12 levers that cut a growth-stage SaaS company&apos;s AWS bill by 30–50% — from rightsizing and savings plans to data-transfer and architecture fixes — without slowing the team down.</description>
+    </item>
+    <item>
+      <title>The Real Cost of an In-House Engineering Team: US vs UK</title>
+      <link>https://www.infinititechpartners.com/insights/cost-of-in-house-engineering-team-us-uk</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/cost-of-in-house-engineering-team-us-uk</guid>
+      <pubDate>Tue, 02 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Hiring</category>
+      <description>What a 6-person engineering team actually costs in New York and London once you add recruiting, ramp-up, management and attrition — and when that spend is worth it.</description>
+    </item>
+    <item>
+      <title>The 2026 Build vs Buy Decision Framework for Growth-Stage CTOs</title>
+      <link>https://www.infinititechpartners.com/insights/build-vs-buy-software-2026</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/build-vs-buy-software-2026</guid>
+      <pubDate>Tue, 02 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Engineering</category>
+      <description>A practical framework for deciding when to build custom software, when to buy off-the-shelf, and when to do both — with the hidden costs most teams miss on each side.</description>
+    </item>
+    <item>
+      <title>How to Hire an AI Consulting Partner: A Buyer&apos;s Guide for 2026</title>
+      <link>https://www.infinititechpartners.com/insights/how-to-hire-ai-consulting-partner</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/how-to-hire-ai-consulting-partner</guid>
+      <pubDate>Tue, 02 Jun 2026 09:00:00 GMT</pubDate>
+      <category>AI</category>
+      <description>What to look for, what to ask, and the red flags to avoid when choosing an enterprise AI consulting partner — from a team that ships LLM and agent systems to production.</description>
+    </item>
+    <item>
+      <title>SOC 2 in 90 Days: The Engineering-Led Playbook</title>
+      <link>https://www.infinititechpartners.com/insights/soc-2-in-90-days</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/soc-2-in-90-days</guid>
+      <pubDate>Mon, 25 May 2026 09:00:00 GMT</pubDate>
+      <category>Security</category>
+      <description>How a senior engineering team can take a growth-stage SaaS company from zero SOC 2 controls to a Type I attestation in 90 days — without buying a compliance platform.</description>
+    </item>
+    <item>
+      <title>Fractional Engineering Teams: A CTO&apos;s Guide for 2026</title>
+      <link>https://www.infinititechpartners.com/insights/fractional-engineering-teams-2026</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/fractional-engineering-teams-2026</guid>
+      <pubDate>Wed, 20 May 2026 09:00:00 GMT</pubDate>
+      <category>Hiring</category>
+      <description>When growth-stage CTOs in the US and UK choose a fractional engineering team over hiring, what they actually gain — and what tradeoffs to negotiate up front.</description>
+    </item>
+  </channel>
+</rss>

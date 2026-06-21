@@ -1,11 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { PageLayout } from "@/components/common/PageLayout";
 import { MagneticButton, ParallaxLayer } from "@/components/ui";
 import { usePageMeta, useBreadcrumb } from "@/hooks";
-import { getInsight, insights } from "@/data/insights";
+import { getInsight, getRelatedInsights } from "@/data/insights";
 
 const SCHEMA_NODE_ID = "insight-jsonld";
+
+/**
+ * Renders a body string with inline internal links written in a minimal
+ * markdown syntax: `[anchor text](/insights/other-slug)`. Internal paths (those
+ * starting with "/") become react-router <Link>s so cross-article navigation
+ * stays client-side; anything else is left as plain text. This is what powers
+ * contextual internal linking (topic clusters) without a heavy rich-text model.
+ */
+const LINK_RE = /\[([^\]]+)\]\((\/[^)]+)\)/g;
+
+const renderRichText = (text: string): ReactNode[] => {
+  const nodes: ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  LINK_RE.lastIndex = 0;
+  while ((m = LINK_RE.exec(text)) !== null) {
+    if (m.index > last) nodes.push(text.slice(last, m.index));
+    nodes.push(
+      <Link key={`${m.index}-${m[2]}`} to={m[2]} className="insight-inline-link">
+        {m[1]}
+      </Link>
+    );
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+};
+
+/** Strips inline-link markdown to plain text (for schema word count etc.). */
+const stripLinks = (text: string): string =>
+  text.replace(LINK_RE, "$1");
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", {
@@ -46,9 +77,11 @@ export const InsightDetailPage = () => {
   useEffect(() => {
     if (!insight) return;
     const url = `https://www.infinititechpartners.com/insights/${insight.slug}`;
-    const articleBody = insight.sections
-      .map((s) => (Array.isArray(s.body) ? s.body.join(" ") : s.body))
-      .join("\n\n");
+    const articleBody = stripLinks(
+      insight.sections
+        .map((s) => (Array.isArray(s.body) ? s.body.join(" ") : s.body))
+        .join("\n\n")
+    );
 
     const node = document.createElement("script");
     node.type = "application/ld+json";
@@ -77,7 +110,7 @@ export const InsightDetailPage = () => {
     return <Navigate to="/insights" replace />;
   }
 
-  const otherInsights = insights.filter((i) => i.slug !== insight.slug).slice(0, 2);
+  const otherInsights = getRelatedInsights(insight.slug, 3);
 
   return (
     <PageLayout
@@ -114,11 +147,13 @@ export const InsightDetailPage = () => {
                   {Array.isArray(section.body) ? (
                     <ul className="insight-section-list">
                       {section.body.map((item, j) => (
-                        <li key={j}>{item}</li>
+                        <li key={j}>{renderRichText(item)}</li>
                       ))}
                     </ul>
                   ) : (
-                    <p className="insight-section-paragraph">{section.body}</p>
+                    <p className="insight-section-paragraph">
+                      {renderRichText(section.body)}
+                    </p>
                   )}
                 </section>
               ))}
@@ -128,7 +163,7 @@ export const InsightDetailPage = () => {
 
         {otherInsights.length > 0 && (
           <div className="page-section">
-            <h2 className="section-title">More reading</h2>
+            <h2 className="section-title">Related reading</h2>
             <div className="insights-list insights-list-compact">
               {otherInsights.map((other) => (
                 <Link

@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/gen-rss.mjs",
     "build": "vite build",
     "postbuild": "node scripts/prerender.mjs",
     "prerender": "node scripts/prerender.mjs",
+    "gen-rss": "node scripts/gen-rss.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",

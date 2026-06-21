@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { PageLayout } from "@/components/common/PageLayout";
 import { TiltCard, MagneticButton, ParallaxLayer } from "@/components/ui";
 import { usePageMeta } from "@/hooks";
-import { insights } from "@/data/insights";
+import { getPublishedInsights } from "@/data/insights";
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", {
@@ -31,7 +31,7 @@ export const InsightsPage = () => {
       <div className="section-container">
         <div className="page-section">
           <div className="insights-list">
-            {insights.map((insight) => (
+            {getPublishedInsights().map((insight) => (
               <TiltCard key={insight.slug} className="insight-card">
                 <Link to={`/insights/${insight.slug}`} className="insight-card-link">
                   <img

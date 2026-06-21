@@ -10070,6 +10070,174 @@ html[data-visibility="hidden"] *::after {
   margin-bottom: 1rem;
 }
 
+.insight-inline-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 255, 204, 0.35);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.insight-inline-link:hover {
+  color: #fff;
+  border-bottom-color: var(--color-primary);
+}
+
+/* ---- Modernization ROI calculator ---- */
+.roi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .roi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.roi-card {
+  padding: 1.75rem;
+}
+
+.roi-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 1rem;
+}
+
+.roi-field-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.roi-field-head label {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.roi-field-value {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.roi-slider {
+  width: 100%;
+  accent-color: var(--color-primary);
+  margin: 0.55rem 0 0.3rem;
+  cursor: pointer;
+}
+
+.roi-field-hint {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.roi-reset {
+  margin-top: 1.5rem;
+}
+
+.roi-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.roi-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.6rem 1.75rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 255, 204, 0.12), rgba(102, 126, 234, 0.1));
+  border: 1px solid rgba(0, 255, 204, 0.25);
+}
+
+.roi-headline-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.roi-headline-value {
+  font-family: "Clash Display", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.roi-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.roi-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.roi-stat-value {
+  font-family: "Clash Display", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.roi-stat-label {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.roi-breakdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.roi-breakdown li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.roi-breakdown li:last-child {
+  border-bottom: none;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.roi-breakdown li span:last-child {
+  font-family: "JetBrains Mono", monospace;
+  white-space: nowrap;
+}
+
+.roi-disclaimer {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.45);
+}
+
 .insight-section-list {
   list-style: none;
   padding: 0;

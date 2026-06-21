@@ -24,6 +24,7 @@ const LocationPage = lazy(() => import("@/pages/LocationPage").then((m) => ({ de
 const InsightsPage = lazy(() => import("@/pages/InsightsPage").then((m) => ({ default: m.InsightsPage })));
 const InsightDetailPage = lazy(() => import("@/pages/InsightDetailPage").then((m) => ({ default: m.InsightDetailPage })));
 const Soc2ChecklistPage = lazy(() => import("@/pages/Soc2ChecklistPage").then((m) => ({ default: m.Soc2ChecklistPage })));
+const ModernizationRoiPage = lazy(() => import("@/pages/ModernizationRoiPage").then((m) => ({ default: m.ModernizationRoiPage })));
 
 const PageFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -63,6 +64,7 @@ const App = () => {
               <Route path="/insights" element={<InsightsPage />} />
               <Route path="/insights/:slug" element={<InsightDetailPage />} />
               <Route path="/resources/soc-2-readiness-checklist" element={<Soc2ChecklistPage />} />
+              <Route path="/resources/application-modernization-roi-calculator" element={<ModernizationRoiPage />} />
             </Routes>
           </Suspense>
         </main>
