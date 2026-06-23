@@ -1,13 +1,33 @@
 import { Link } from "react-router-dom";
 import { useInView } from "@/hooks";
 import { caseStudies } from "@/data/services-restructured";
-import { ArrowRight, Building2, Truck, MapPin } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  Truck,
+  MapPin,
+  Factory,
+  Cloud,
+  Code2,
+  Bot,
+  GraduationCap,
+  ShoppingBag,
+  Briefcase,
+} from "lucide-react";
 
 const industryIcons: Record<string, React.ReactNode> = {
   Healthcare: <Building2 size={24} />,
   Logistics: <Truck size={24} />,
   Government: <MapPin size={24} />,
+  Manufacturing: <Factory size={24} />,
+  SaaS: <Cloud size={24} />,
+  "Developer Tools": <Code2 size={24} />,
+  "AI Assistant": <Bot size={24} />,
+  "Early Childhood Education": <GraduationCap size={24} />,
+  "E-commerce": <ShoppingBag size={24} />,
 };
+
+const fallbackIcon = <Briefcase size={24} />;
 
 export const CaseStudiesSection = () => {
   const [ref, inView] = useInView(0.2);
@@ -42,7 +62,7 @@ export const CaseStudiesSection = () => {
               <div className="case-study-card-inner">
                 {/* Industry Badge */}
                 <div className="case-study-industry">
-                  {industryIcons[study.industry]}
+                  {industryIcons[study.industry] ?? fallbackIcon}
                   <span>{study.industry}</span>
                 </div>
 
