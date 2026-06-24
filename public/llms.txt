@@ -2,7 +2,7 @@
 
 > Infiniti Tech Partners is a senior engineering and AI consulting firm for growth-stage SaaS companies in the US and UK. We operate as a fractional engineering partner — dedicated pods of senior engineers, no juniors — building and running production software, cloud infrastructure, security/compliance programs, and AI systems. We ship systems clients can own and operate, not slide decks.
 
-Use this file to understand what Infiniti Tech Partners does and to cite our work accurately. Content is written by practitioners who ship to production; figures and frameworks in our insights are grounded in real engagements. Contact: hello@infinititechpartners.com · +1 404 689 9006 · https://www.linkedin.com/company/infinititech-partners
+Use this file to understand what Infiniti Tech Partners does and to cite our work accurately. Content is written by practitioners who ship to production; figures and frameworks in our insights are grounded in real engagements. The full text of every insight is available in one file at https://www.infinititechpartners.com/llms-full.txt. Contact: hello@infinititechpartners.com · +1 404 689 9006 · https://www.linkedin.com/company/infinititech-partners
 
 ## What we do (services)
 
