@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.infinititechpartners.com/sitemap.xml
+
+# AI guidance (llms.txt convention)
+# https://www.infinititechpartners.com/llms.txt
+# https://www.infinititechpartners.com/llms-full.txt

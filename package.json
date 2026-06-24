@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/gen-rss.mjs",
+    "prebuild": "node scripts/gen-rss.mjs && node scripts/gen-llms-full.mjs",
     "build": "vite build",
     "postbuild": "node scripts/prerender.mjs",
     "prerender": "node scripts/prerender.mjs",

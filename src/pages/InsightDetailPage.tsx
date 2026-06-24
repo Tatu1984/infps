@@ -4,6 +4,7 @@ import { PageLayout } from "@/components/common/PageLayout";
 import { MagneticButton, ParallaxLayer } from "@/components/ui";
 import { usePageMeta, useBreadcrumb } from "@/hooks";
 import { getInsight, getRelatedInsights } from "@/data/insights";
+import { getInsightFaqs } from "@/data/insight-faqs";
 
 const SCHEMA_NODE_ID = "insight-jsonld";
 
@@ -83,11 +84,7 @@ export const InsightDetailPage = () => {
         .join("\n\n")
     );
 
-    const node = document.createElement("script");
-    node.type = "application/ld+json";
-    node.id = SCHEMA_NODE_ID;
-    node.text = JSON.stringify({
-      "@context": "https://schema.org",
+    const blogPosting = {
       "@type": "BlogPosting",
       "headline": insight.title,
       "description": insight.description,
@@ -99,6 +96,31 @@ export const InsightDetailPage = () => {
       "articleSection": insight.category,
       "wordCount": articleBody.split(/\s+/).length,
       "keywords": insight.keywords,
+    };
+
+    // FAQPage maps Q→A pairs onto the prompts users actually type, which is what
+    // makes a post extractable by answer engines (ChatGPT, Perplexity, AI
+    // Overviews). Only emit it when the post has authored FAQs.
+    const faqs = getInsightFaqs(insight.slug);
+    const graph: object[] = [blogPosting];
+    if (faqs.length > 0) {
+      graph.push({
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        "mainEntity": faqs.map((entry) => ({
+          "@type": "Question",
+          "name": entry.question,
+          "acceptedAnswer": { "@type": "Answer", "text": entry.answer },
+        })),
+      });
+    }
+
+    const node = document.createElement("script");
+    node.type = "application/ld+json";
+    node.id = SCHEMA_NODE_ID;
+    node.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": graph,
     });
     document.head.appendChild(node);
     return () => {
@@ -111,6 +133,7 @@ export const InsightDetailPage = () => {
   }
 
   const otherInsights = getRelatedInsights(insight.slug, 3);
+  const faqs = getInsightFaqs(insight.slug);
 
   return (
     <PageLayout
@@ -160,6 +183,20 @@ export const InsightDetailPage = () => {
             </article>
           </ParallaxLayer>
         </div>
+
+        {faqs.length > 0 && (
+          <div className="page-section">
+            <h2 className="section-title">Frequently asked questions</h2>
+            <div className="insight-faq-list">
+              {faqs.map((faq, i) => (
+                <details key={i} className="insight-faq-item" open={i === 0}>
+                  <summary className="insight-faq-question">{faq.question}</summary>
+                  <p className="insight-faq-answer">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        )}
 
         {otherInsights.length > 0 && (
           <div className="page-section">
