@@ -946,6 +946,11 @@ a {
   margin:0px 32px
 }
 
+.proxmox-logo{
+  border: 5px solid black;
+  border-radius: 20px
+}
+
 .proxmox-badge span {
   font-size: 70px;
   color: #fff;
