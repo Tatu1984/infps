@@ -2983,13 +2983,6 @@ export const team: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/snehendu-roy-6ab419218",
   },
   {
-    name: "Mitali Giri",
-    role: "AI/ML Developer",
-    avatar: "MG",
-    bio: "Pioneering intelligent solutions with machine learning",
-    linkedin: "https://www.linkedin.com/in/mitali-giri-1033b6238",
-  },
-  {
     name: "Achyut Pal",
     role: "Sr Developer",
     avatar: "AP",

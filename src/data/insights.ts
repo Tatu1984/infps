@@ -123,7 +123,7 @@ export const insights: Insight[] = [
           "Trying to cover too many Trust Service Criteria. Start with Security. Add Confidentiality only if a buyer demands it.",
           "Buying a compliance platform before defining controls. The platform encodes your decisions; make the decisions first.",
           "Ignoring the build and deploy pipeline. Auditors care more about who can push to production than who can SSH to the database.",
-          "Treating vendors as out-of-scope. Sub-processor management is in scope. Get your DPA template ready and your vendor inventory current.",
+          "Treating vendors as out-of-scope. Sub-processor management is in scope. Get your [DPA template](/insights/gdpr-for-us-saas-uk-eu) ready and your vendor inventory current.",
         ],
       },
       {
@@ -339,7 +339,7 @@ export const insights: Insight[] = [
         heading: "Storage and data — the quiet bleed",
         body: [
           "5. Apply S3 lifecycle policies. Move infrequently accessed objects to Infrequent Access or Glacier, and expire what you don't need. Most buckets have years of logs and backups paying hot-storage prices.",
-          "6. Clean up orphaned resources: unattached EBS volumes, old snapshots, idle load balancers, unused elastic IPs. They bill quietly forever.",
+          "6. Clean up orphaned resources: unattached EBS volumes, [old snapshots](/insights/disaster-recovery-rto-rpo-saas), idle load balancers, unused elastic IPs. They bill quietly forever.",
           "7. Right-tier EBS. gp3 is cheaper and faster than gp2 for most workloads — and you can tune IOPS independently.",
         ],
       },
@@ -425,7 +425,7 @@ export const insights: Insight[] = [
       {
         heading: "Cost benchmarks for each pattern",
         body: [
-          "RAG pipeline: $15–40K in engineering time to build and evaluate properly; $500–1,500 per month in infrastructure at moderate query volume.",
+          "RAG pipeline: $15–40K in engineering time to build and evaluate properly; $500–1,500 per month in [infrastructure](/insights/llm-cost-control) at moderate query volume.",
           "Fine-tuning pipeline: $20–60K in data preparation, training runs, and evaluation harness; plus $5–15K per retraining cycle, which for most production systems runs quarterly.",
           "Agent system: $30–80K in engineering time for a production-grade implementation with proper guardrails, observability, and fallbacks; higher marginal per-query cost than pure RAG due to multi-step LLM calls.",
           "The most expensive outcome: building a fine-tuning pipeline or a multi-agent system for a task that a well-built RAG pipeline would have solved at a fraction of the cost — a mistake visible in roughly one in three enterprise AI RFPs we review.",
@@ -536,7 +536,7 @@ export const insights: Insight[] = [
           "Error handling and recovery: every external call has a timeout, a retry policy, and a defined behaviour on failure. No unhandled promise rejections, no silent catches.",
           "Automated deploys and rollback: one-command deploy, one-command rollback, and a CI pipeline that blocks broken builds. Manual SSH-and-pull is not a deploy strategy.",
           "Security baseline: secrets in a manager not the repo, dependencies scanned, auth enforced server-side, and least-privilege IAM. The MVP shortcuts here become the breach later.",
-          "Data safety: automated backups that are actually restore-tested, migrations that are reversible, and no destructive operation without a guardrail.",
+          "Data safety: automated backups that are actually [restore-tested](/insights/disaster-recovery-rto-rpo-saas), [migrations that are reversible](/insights/zero-downtime-database-migrations), and no destructive operation without a guardrail.",
           "Performance under load: a load test that proves the system holds at projected peak, plus defined autoscaling or capacity headroom.",
           "On-call and runbooks: someone owns production, alerts route to a human, and the three most likely failures have written runbooks.",
         ],
@@ -685,7 +685,7 @@ export const insights: Insight[] = [
       {
         heading: "2. Security and compliance posture",
         body: [
-          "A current SOC 2 Type II (or ISO 27001) report, or a credible, dated roadmap to one if you're pre-audit.",
+          "A current SOC 2 Type II (or [ISO 27001](/insights/iso-27001-vs-soc-2-saas)) report, or a credible, dated roadmap to one if you're pre-audit.",
           "Evidence of the basics: SSO/MFA enforced, secrets in a manager (not in code or env files in the repo), encrypted data at rest and in transit, least-privilege access to production.",
           "A vulnerability and dependency story — automated scanning, a patching cadence, and no critical CVEs sitting open for months.",
           "Incident history told honestly: what happened, what you changed. A handled incident reads as maturity; a hidden one reads as risk.",
@@ -877,7 +877,7 @@ export const insights: Insight[] = [
         body: [
           "Start at a natural seam — a bounded context with clear inputs and outputs, not a tangle wired into everything.",
           "Pick something with real pain or value: a component that needs to scale independently, changes often, or is owned by a team that wants autonomy.",
-          "Avoid the shared core database tables on day one — the data is the hardest part, so begin with capabilities that own their data cleanly.",
+          "Avoid the [shared core database tables](/insights/multi-tenant-saas-architecture) on day one — the data is the hardest part, so begin with capabilities that own their data cleanly.",
           "Prefer a slice you can fully route and roll back, so the first extraction proves the pattern with low blast radius.",
         ],
       },
@@ -895,7 +895,297 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "multi-tenant-saas-architecture",
+    title: "Multi-Tenant SaaS Architecture: Pooled, Siloed, or Bridge",
+    image: "/insights/multi-tenant-saas-architecture.png",
+    description:
+      "The three multi-tenancy models for SaaS — pooled, siloed, and bridge — and how to pick the one that fits your security, cost, and scaling needs without painting yourself into a corner.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-22",
+    category: "Engineering",
+    readMinutes: 9,
+    keywords:
+      "multi-tenant SaaS architecture, multi-tenancy, pooled vs siloed, tenant isolation, SaaS database design, row-level security, tenant per schema, noisy neighbor, SaaS scaling",
+    sections: [
+      {
+        body: "Multi-tenancy is the single architectural decision that shapes your SaaS more than any other — it touches security, cost, performance, compliance, and how hard your biggest customer is to onboard. Get it right and you serve thousands of tenants on infrastructure that scales cleanly. Get it wrong and you discover, around the time an enterprise prospect asks for a signed data-isolation guarantee, that ripping it out means a rewrite. There are three models in practice, and the honest answer is that most successful SaaS companies end up running more than one at once.",
+      },
+      {
+        heading: "Pooled: shared everything, isolate by key",
+        body: "In the pooled model, all tenants share the same database and tables, and every row carries a tenant_id. Isolation is enforced in code — and, far more safely, by the database itself via row-level security. This is the cheapest model to run and the easiest to operate: one schema to migrate, one connection pool, one set of dashboards. It is the right default for the long tail of small and mid-sized customers. The risks are real but manageable: a single missing tenant filter is a cross-tenant data leak, so isolation must live at the database layer, not rely on every developer remembering a WHERE clause. The other risk is the noisy neighbor — one heavy tenant degrading everyone — which you handle with query limits, connection quotas, and good indexing.",
+      },
+      {
+        heading: "Siloed: one stack per tenant",
+        body: "In the siloed model, each tenant gets its own database — sometimes its own entire stack. Isolation is physical and absolute, which is exactly what [regulated buyers](/insights/iso-27001-vs-soc-2-saas) and large enterprises want to hear: their data never shares a table with anyone else's, and a per-tenant encryption key or even a per-tenant region becomes trivial. The price is operational. A schema migration now runs across N databases instead of one. Cost scales close to linearly per tenant rather than amortizing. And you need automation to provision, monitor, back up, and patch every silo, or your ops burden grows with every deal you close. Siloed is the right answer for your handful of largest, most security-sensitive accounts — not for self-serve signups.",
+      },
+      {
+        heading: "Bridge: shared infrastructure, separated data",
+        body: "The bridge model sits in between: tenants share application infrastructure but get a separate schema or namespace per tenant inside a shared database cluster. You get stronger isolation than pooled — a tenant's data lives in its own schema, easy to export, back up, or delete on request — without paying for a full stack per customer. The trade-off is that [schema-per-tenant migrations](/insights/zero-downtime-database-migrations) and connection management get more complex as tenant count climbs into the thousands. Bridge works well for B2B SaaS with hundreds of mid-market tenants where pooled feels too loose for the security questionnaire but siloed is overkill.",
+      },
+      {
+        heading: "How to choose — and why it's usually 'all three'",
+        body: [
+          "Start pooled with row-level security. It is the cheapest to build and operate, and it carries the vast majority of customers indefinitely.",
+          "Offer siloed as a premium tier for the enterprise accounts whose contracts demand physical isolation, a dedicated region, or a customer-managed key.",
+          "Reach for bridge when you have a large middle band of tenants who need clean per-tenant export and deletion but not a dedicated stack.",
+          "Design the tenant abstraction once, early, so a tenant's 'home' is a config value — not hardcoded — and you can move an account between models without a rewrite.",
+        ],
+      },
+      {
+        heading: "The mistakes that hurt later",
+        body: "Two errors dominate. The first is enforcing isolation only in application code; the day someone writes a query that forgets the tenant filter, you have a breach. Push isolation down to row-level security or separate schemas so the database refuses to leak even when the code is wrong. The second is treating the choice as permanent and global. Hardwire 'pooled' into every query and migration and you cannot offer a siloed enterprise tier later without major surgery — which is precisely the deal you will most want to close. Build the seam now even if you only use one model today.",
+      },
+      {
+        heading: "How Infiniti Tech Partners designs multi-tenancy",
+        body: "We model your tenant boundaries against your real security, cost, and compliance requirements, then build the abstraction that lets pooled, bridge, and siloed coexist behind one clean interface — with isolation enforced at the database layer, not left to developer discipline. Whether you are designing this before your first enterprise deal or untangling a single hardcoded model that is now blocking one, we can help you get the foundation right. Start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "zero-downtime-database-migrations",
+    title: "Zero-Downtime Database Migrations: No Maintenance Window Required",
+    image: "/insights/zero-downtime-database-migrations.png",
+    description:
+      "How to ship schema changes to a live production database with zero downtime — using the expand-and-contract pattern, backfills, and dual writes instead of a 2am maintenance window.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-23",
+    category: "Engineering",
+    readMinutes: 8,
+    keywords:
+      "zero downtime database migration, expand and contract, schema migration, online migration, backfill, dual writes, database refactoring, rename column safely, postgres migration",
+    sections: [
+      {
+        body: "The 2am maintenance window is a confession that you can't change your database safely while it's running. For a modern SaaS with customers in every timezone, there is no 2am — someone is always working. The good news is that almost every schema change can be shipped to a live database with zero downtime, if you stop thinking of a migration as a single atomic event and start thinking of it as a sequence of individually-safe steps — the same incremental, reversible philosophy behind a [monolith-to-microservices migration](/insights/monolith-to-microservices-migration). The pattern that makes this work has a name: expand and contract.",
+      },
+      {
+        heading: "Why the naive migration breaks",
+        body: "The instinct is to bundle the schema change and the code change into one deploy: rename the column, ship the new code that uses it, done. But your application doesn't switch over instantly — during a rolling deploy, old and new code run side by side for minutes. The old code queries a column that no longer exists; the new code queries one the old schema doesn't have. Either way, requests fail. Worse, some operations take a lock: adding a NOT NULL column with a default, or an index without the CONCURRENTLY option, can lock the table long enough to stall every query behind it. The fix is to never require old and new to agree at the same instant.",
+      },
+      {
+        heading: "Expand and contract, step by step",
+        body: [
+          "Expand: make an additive, backward-compatible schema change. Add the new column or table; never drop or rename in this step. Old code keeps working untouched.",
+          "Dual-write: deploy code that writes to both the old and the new shape, while still reading from the old. Now both representations stay in sync going forward.",
+          "Backfill: copy historical data into the new shape in small batches, so the new column is fully populated without a single long-running, lock-holding UPDATE.",
+          "Switch reads: once the new column is verified complete and consistent, deploy code that reads from it. The old column is now write-only dead weight.",
+          "Contract: after a safe bake-in period with no rollbacks pending, stop writing the old column and drop it in a final, separate migration.",
+        ],
+      },
+      {
+        heading: "The rename that taught everyone this",
+        body: "Renaming a column is the canonical example because the naive version is guaranteed to break. You can't 'rename user_name to full_name' on a live system — there is always a moment when one half of your fleet expects each name. Instead you add full_name (expand), write both (dual-write), copy user_name into full_name (backfill), move reads to full_name (switch), and finally drop user_name (contract). Five boring, reversible steps replace one risky one. Every step is independently deployable and independently revertible, which is the whole point: at no moment is the system in a state it can't recover from.",
+      },
+      {
+        heading: "Locks, indexes, and the gotchas that bite",
+        body: "Even additive changes can hurt if you ignore locking behavior. On Postgres, build indexes with CREATE INDEX CONCURRENTLY so you don't block writes. Add a column without a volatile default on hot tables, then backfill, rather than forcing a full table rewrite. Set a short lock_timeout so a migration that can't acquire its lock fails fast instead of queuing every transaction behind it. Backfill in bounded batches with a pause between them so you don't saturate I/O or replication. And add the NOT NULL constraint as NOT VALID first, then VALIDATE separately — validation scans without holding the heavy lock.",
+      },
+      {
+        heading: "Make it the default, not the heroics",
+        body: "Zero-downtime migration shouldn't be a special project; it should be how every migration is written. That means a migration tool that runs changes in the right order, a CI check that flags dangerous operations (a bare rename, a non-concurrent index, a blocking default) before they merge, and a team habit of splitting one logical change across multiple deploys. The discipline feels slower for a week and then disappears into muscle memory — and you never schedule a maintenance window again.",
+      },
+      {
+        heading: "How Infiniti Tech Partners ships schema changes",
+        body: "We set up the migration tooling, CI guardrails, and expand-and-contract workflow that let your team evolve the database continuously without downtime or 2am windows — including the backfill and dual-write plumbing for the genuinely hard changes. If your deploys still depend on a quiet hour that no longer exists, let's fix the foundation. Start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "gdpr-for-us-saas-uk-eu",
+    title: "GDPR for US SaaS Selling into the UK & EU: A Practical Guide",
+    image: "/insights/gdpr-for-us-saas-uk-eu.png",
+    description:
+      "What a US SaaS company actually has to do to sell into the UK and EU under GDPR — lawful basis, data transfers, DPAs, subject rights, and the engineering work behind compliance.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-24",
+    category: "Security",
+    readMinutes: 9,
+    keywords:
+      "GDPR for US companies, GDPR SaaS, UK GDPR, data transfer SCCs, data processing agreement, data subject rights, lawful basis, EU US data privacy framework, privacy by design",
+    sections: [
+      {
+        body: "The first time GDPR becomes real for a US SaaS company is usually a sales call: a UK or EU buyer's procurement team sends a data-protection questionnaire, and suddenly 'we'll deal with privacy later' is the thing blocking a six-figure deal. GDPR applies to you the moment you process the personal data of people in the EU or UK — regardless of where your servers or your company sit. The reassuring part is that GDPR is less about lawyers and more about a handful of concrete engineering and process commitments. Here is what actually matters.",
+      },
+      {
+        heading: "Lawful basis: you need a reason to hold the data",
+        body: "GDPR's foundation is that you must have a lawful basis for every bit of personal data you process. For B2B SaaS the two that matter most are 'contract' (you need the data to deliver the service the customer signed up for) and 'legitimate interest' (a justifiable business reason that doesn't override the individual's rights). Consent is a third basis, but it's fragile — it must be freely given, specific, and as easy to withdraw as to give — so don't lean on it for core processing. The practical takeaway: be able to point at each category of data you store and name why you're allowed to have it. If you can't, you shouldn't be collecting it.",
+      },
+      {
+        heading: "Data transfers: the part US companies miss",
+        body: "Moving EU or UK personal data to the US is a regulated 'international transfer,' and it's where US SaaS most often trips. You have options. If you self-certify under the EU-US Data Privacy Framework (and its UK extension), transfers to your US entity are covered. If you don't, you fall back to Standard Contractual Clauses — the SCCs — in your contracts, ideally backed by a transfer impact assessment. Either way, this has to be real, not just a clause: your subprocessors (the cloud and SaaS vendors that touch the data) need to be covered too. Map where EU and UK data physically flows, and make sure every hop has a legal mechanism.",
+      },
+      {
+        heading: "The DPA and your subprocessor chain",
+        body: "When your customer is a 'controller' and you process data on their behalf, GDPR requires a Data Processing Agreement between you. Buyers will expect you to have one ready to sign — not to negotiate one from scratch. Your DPA names your subprocessors (AWS, your analytics, your email provider, your support tooling), commits you to notify customers of changes, and flows the same obligations down to those vendors. A clean, current subprocessor list and a standard DPA you can send within an hour of a request is a genuine sales accelerator. Scrambling to assemble one mid-deal signals you're not ready for enterprise.",
+      },
+      {
+        heading: "Subject rights are an engineering feature",
+        body: [
+          "Access and portability: a person can ask for a copy of their data, so you need a reliable way to find and export everything tied to an individual.",
+          "Erasure: the 'right to be forgotten' means you must be able to delete a person's data on request — including from backups and logs on a defined schedule, not just the primary database.",
+          "Rectification: let people correct inaccurate data about them.",
+          "These aren't legal abstractions — they're features. If deleting a user means hand-running SQL across six systems, you don't really have erasure. Build the tooling before a regulator or a deletion request forces you to.",
+        ],
+      },
+      {
+        heading: "Privacy by design, breach clocks, and records",
+        body: "Three more obligations round it out. Privacy by design means data minimization and sensible retention are defaults in how you build, not bolt-ons — collect less, keep it shorter. Breach notification is on a clock: a reportable personal-data breach generally must reach the relevant authority within 72 hours, so you need detection and an incident process that can actually move that fast. And you must keep records of processing activities — a living inventory of what data you hold, why, where it lives, and who you share it with. That inventory is also the artifact that makes every security questionnaire and [SOC 2 or ISO 27001 audit](/insights/iso-27001-vs-soc-2-saas) faster.",
+      },
+      {
+        heading: "How Infiniti Tech Partners operationalizes GDPR",
+        body: "We turn GDPR from a sales blocker into a checklist you've already cleared: data mapping and a records-of-processing inventory, transfer mechanisms and a subprocessor chain that hold up, deletion and export tooling wired into your systems, and a breach process that fits the 72-hour clock. [Compliance that's built into the architecture](/insights/soc-2-in-90-days), not stapled on by a consultant. If a UK or EU deal is waiting on your privacy posture, start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "llm-cost-control",
+    title: "LLM Cost Control: Cut Your AI Bill Without Cutting Quality",
+    image: "/insights/llm-cost-control.png",
+    description:
+      "The levers that bring a runaway LLM bill under control — model routing, prompt caching, context discipline, and output limits — without users noticing a drop in quality.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-25",
+    category: "AI",
+    readMinutes: 8,
+    keywords:
+      "LLM cost optimization, AI cost control, prompt caching, model routing, token budget, reduce LLM costs, inference cost, context window cost, AI bill, GenAI economics",
+    sections: [
+      {
+        body: "The AI feature ships, usage grows, and then the bill arrives — and it's growing faster than revenue. This is the moment a lot of GenAI products quietly stall: the unit economics don't work because the team optimized for 'does it work' and never for 'what does each call cost.' The encouraging news is that most LLM bills are full of waste, and the biggest savings come without touching quality. You don't need a cheaper model so much as a smarter system around the model.",
+      },
+      {
+        heading: "Tokens are the meter — and you're overpaying on input",
+        body: "You pay per token, in and out, and the asymmetry surprises people: for most real applications the input dominates. Every call drags along a long system prompt, retrieved documents, and a growing conversation history, and you pay for all of it on every single turn. Teams obsess over the model's price-per-token and ignore that they're sending ten thousand tokens of context to answer a question that needed five hundred. The first place to look for savings is almost never the model — it's how much you're stuffing into each request.",
+      },
+      {
+        heading: "Prompt caching: stop paying for the same prefix",
+        body: "If every request begins with the same large, static block — your system instructions, tool definitions, few-shot examples, a fixed knowledge base — prompt caching lets the provider charge a fraction of the price for that repeated prefix. The structural trick is ordering: put everything stable at the front of the prompt and everything variable (the user's actual message) at the end, so the cacheable prefix is as long as possible. For chat and [agent workloads](/insights/ai-agents-in-production-lessons) that replay a big system prompt thousands of times an hour, this one change can cut input costs dramatically with zero quality impact and almost no engineering.",
+      },
+      {
+        heading: "Model routing: right-size each request",
+        body: "Not every request needs your most capable, most expensive model. A huge share of real traffic — classification, extraction, short factual answers, routing decisions — is handled perfectly by a smaller, cheaper, faster model. The pattern is a tiered cascade: send each request to the cheapest model that can do the job, and escalate to a bigger model only for the genuinely hard ones (or when a quick confidence check on the cheap model's answer says to). Done well, the user never notices, latency improves, and a large fraction of volume moves off your premium model. Routing is usually the single biggest lever after caching.",
+      },
+      {
+        heading: "Context discipline and output limits",
+        body: [
+          "Retrieve less, but better. Stuffing 20 documents into context 'to be safe' is expensive and often worsens answers; tighten [retrieval](/insights/rag-vs-fine-tuning-vs-agents-2026) to the few chunks that matter.",
+          "Trim conversation history. Summarize or window long chats instead of replaying the entire transcript every turn.",
+          "Cap output length. Open-ended generations drift long; set sensible max-output limits and ask for concise answers.",
+          "Cache full responses for repeated identical questions — an FAQ-style hit shouldn't reach the model at all.",
+        ],
+      },
+      {
+        heading: "Measure per-feature, then set a budget",
+        body: "You can't control what you don't attribute. Tag every LLM call with the feature, the model, and the tenant, and put cost-per-request on a dashboard next to usage. Almost always a few features or a few heavy tenants drive the majority of spend — and once you can see that, the optimization work targets itself. Then set a token budget per feature as a guardrail, so a runaway loop or an abusive tenant trips an alert instead of a five-figure surprise at month-end. Cost observability is what turns one-off cleanups into spend that stays under control as you scale.",
+      },
+      {
+        heading: "How Infiniti Tech Partners controls AI spend",
+        body: "We instrument your AI stack for per-feature cost visibility, then apply the levers in order of impact — prompt caching, model routing, retrieval and context discipline, output caps — so the bill drops without users noticing. The goal is GenAI features whose unit economics actually work at scale, not a demo that's quietly bleeding margin. If your AI costs are outrunning your revenue, start a conversation.",
+      },
+    ],
+  },
+  {
+    slug: "disaster-recovery-rto-rpo-saas",
+    title: "Disaster Recovery for SaaS: Setting RTO/RPO You Can Actually Hit",
+    image: "/insights/disaster-recovery-rto-rpo-saas.png",
+    description:
+      "How to build a disaster recovery plan for SaaS around honest RTO and RPO targets — backups you've actually restored, tested failover, and a runbook that works at 3am.",
+    author: "Infiniti Tech Partners",
+    publishedAt: "2026-06-26",
+    category: "Cloud",
+    readMinutes: 8,
+    keywords:
+      "disaster recovery SaaS, RTO RPO, business continuity, backup strategy, failover, disaster recovery plan, restore testing, multi-region, high availability vs disaster recovery",
+    sections: [
+      {
+        body: "Most SaaS disaster recovery plans share one fatal trait: they have never been tested. There's a backup job, a wiki page, and a comforting assumption that if the worst happens, it'll all work out. Then a region goes down or someone drops a production table, and the team discovers the backups are corrupt, the restore takes nine hours, or nobody knows who has the access to run it. A real DR plan starts with two honest numbers — RTO and RPO — and then proves, on a schedule, that you can actually hit them.",
+      },
+      {
+        heading: "RTO and RPO: the two numbers that drive everything",
+        body: "Recovery Time Objective (RTO) is how long you can be down before it's unacceptable. Recovery Point Objective (RPO) is how much data you can afford to lose, measured in time. If your RPO is five minutes, you need replication or backups at least that frequent; if your RTO is one hour, a restore process that takes six is a failure no matter how good the backup is. These targets aren't an engineering preference — they're a business decision, and different data deserves different numbers. Your core transactional database might warrant minutes; a regenerable analytics cache might tolerate a day. Set them deliberately, write them down, and design backward from them.",
+      },
+      {
+        heading: "Backups you haven't restored are not backups",
+        body: "The most dangerous phrase in operations is 'we have backups.' A backup is a hypothesis until you've restored it. Backups silently corrupt, exclude a critical volume, encrypt with a key nobody can find, or take far longer to restore than anyone estimated. The only way to know your RPO and RTO are real is to perform actual restores on a schedule — into a clean environment, timed, verified for data integrity. A quarterly restore drill that produces a working system and a stopwatch number is worth more than a year of green backup-job dashboards. Test the restore, not the backup.",
+      },
+      {
+        heading: "High availability is not disaster recovery",
+        body: "Teams often conflate the two and end up protected against the wrong failure. High availability — [multi-AZ databases](/insights/kubernetes-vs-serverless-2026), redundant instances, load balancers — keeps you running through routine hardware and instance failures, and you should have it. But HA replicates your current state, including mistakes: a [bad migration](/insights/zero-downtime-database-migrations), a malicious actor, or an accidental mass-delete propagates to every replica instantly. Disaster recovery is what saves you from those — point-in-time backups you can roll back to, copies in a separate region or account that a compromise of your primary can't reach. You need both, and you need to be clear about which threat each one actually addresses.",
+      },
+      {
+        heading: "The runbook has to work at 3am",
+        body: [
+          "Write the recovery procedure as a step-by-step runbook a stressed on-call engineer can follow — not tribal knowledge in one person's head.",
+          "Ensure access works during the disaster: if recovery needs credentials that live only in the system that's down, you have a deadlock. Keep break-glass access out-of-band.",
+          "Define who decides to invoke DR, and how you communicate to customers and status page while it's underway.",
+          "Store backups and the runbook in a blast radius separate from production — a different region or account — so the failure can't take out your recovery path too.",
+        ],
+      },
+      {
+        heading: "Practice the disaster before it practices on you",
+        body: "The teams that recover calmly are the ones who've rehearsed. Run a game day: deliberately fail over to your secondary, or restore production into a fresh environment, with the people who'd actually be on call, using only the runbook. You'll find the gaps — a missing permission, a step that's out of date, an RTO that's twice your target — while it's a drill and not an outage. Then fix them and do it again. DR is not a document you write once; it's a capability you maintain, and the only proof it works is that you've recently watched it work.",
+      },
+      {
+        heading: "How Infiniti Tech Partners builds resilience",
+        body: "We set RTO and RPO targets against your real business risk, build the backup, replication, and cross-region recovery to meet them, and then prove it with scheduled restore drills and game days — plus a runbook your on-call can actually execute under pressure. Resilience you've tested, not resilience you're hoping for. If your DR plan has never survived a real rehearsal, start a conversation.",
+      },
+    ],
+  },
 ];
 
 export const getInsight = (slug: string): Insight | undefined =>
   insights.find((i) => i.slug === slug);
+
+/** Local YYYY-MM-DD. Evaluated at call time so scheduled posts reveal on their date. */
+const todayISO = (): string => {
+  const d = new Date();
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+};
+
+/**
+ * Date-gating for scheduled posts: a post is "live" only once its publishedAt
+ * date has arrived. publishedAt is "YYYY-MM-DD", so a string compare is correct.
+ * Direct article URLs still resolve (the detail page renders any slug) — only
+ * the public listing and related-post links wait for the date.
+ */
+export const isPublished = (insight: Insight): boolean =>
+  insight.publishedAt <= todayISO();
+
+/** Insights whose publish date has arrived, for public listing (array order preserved). */
+export const getPublishedInsights = (): Insight[] => insights.filter(isPublished);
+
+/**
+ * Topically-related posts for internal linking. Same category scores highest,
+ * then each shared keyword adds to the score, with the newest post breaking
+ * ties. Used to cross-link articles so crawlers discover every post and link
+ * equity flows between related content (better than linking arbitrary posts).
+ */
+export const getRelatedInsights = (slug: string, count = 3): Insight[] => {
+  const current = getInsight(slug);
+  if (!current) return insights.slice(0, count);
+  const toKeywords = (s: string) =>
+    new Set(
+      s
+        .split(",")
+        .map((k) => k.trim().toLowerCase())
+        .filter(Boolean)
+    );
+  const currentKeywords = toKeywords(current.keywords);
+  return insights
+    .filter((i) => i.slug !== slug && isPublished(i))
+    .map((i) => {
+      let score = i.category === current.category ? 3 : 0;
+      for (const k of toKeywords(i.keywords)) {
+        if (currentKeywords.has(k)) score += 1;
+      }
+      return { insight: i, score };
+    })
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        b.insight.publishedAt.localeCompare(a.insight.publishedAt)
+    )
+    .slice(0, count)
+    .map((x) => x.insight);
+};

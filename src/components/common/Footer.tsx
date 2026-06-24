@@ -80,6 +80,22 @@ export const Footer = () => {
           </div>
         </div>
 
+        <div className="footer-credentials">
+          <span className="credential-badge">Registered MSME</span>
+          <span className="credential-item">
+            Udyam:{" "}
+            <a
+              href="https://udyamregistration.gov.in/Udyam_Verify.aspx"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              UDYAM-WB-10-0173118
+            </a>
+          </span>
+          <span className="credential-sep">·</span>
+          <span className="credential-item">GSTIN: 19AALFI6029A1ZH</span>
+        </div>
+
         <div className="footer-bottom">
           <p>&copy; 2025 Infinititech Partners. All rights reserved.</p>
           <div className="footer-legal">
