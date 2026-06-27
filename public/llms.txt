@@ -31,6 +31,8 @@ AI & LLM engineering:
 - [Lessons from Shipping AI Agents to Production](https://www.infinititechpartners.com/insights/ai-agents-in-production-lessons)
 - [Building a Private AI Assistant on Your Own Data](https://www.infinititechpartners.com/insights/private-ai-assistant-own-data)
 - [LLM Cost Control: Cutting Your AI Bill Without Losing Quality](https://www.infinititechpartners.com/insights/llm-cost-control)
+- [Securing LLM Applications: Prompt Injection and the OWASP LLM Top 10](https://www.infinititechpartners.com/insights/securing-llm-applications-prompt-injection)
+- [The EU AI Act for US and UK SaaS: A Practical Compliance Guide](https://www.infinititechpartners.com/insights/eu-ai-act-for-saas)
 
 Cloud & architecture:
 - [AWS Cost Optimization: 12 Levers for SaaS at $5M–$50M ARR](https://www.infinititechpartners.com/insights/aws-cost-optimization-saas)
@@ -39,6 +41,8 @@ Cloud & architecture:
 - [Monolith to Microservices: The Strangler Migration](https://www.infinititechpartners.com/insights/monolith-to-microservices-migration)
 - [Multi-Tenant SaaS Architecture: Pooled, Siloed, and Bridge](https://www.infinititechpartners.com/insights/multi-tenant-saas-architecture)
 - [Zero-Downtime Database Migrations](https://www.infinititechpartners.com/insights/zero-downtime-database-migrations)
+- [Scaling PostgreSQL: When to Tune, Replicate, and Shard](https://www.infinititechpartners.com/insights/scaling-postgresql-saas)
+- [Observability for Growth-Stage SaaS: Logs, Metrics, Traces, and On-Call](https://www.infinititechpartners.com/insights/observability-for-saas)
 - [What "Production-Ready" Actually Means](https://www.infinititechpartners.com/insights/what-production-ready-actually-means)
 - [Disaster Recovery: Setting RTO and RPO for SaaS](https://www.infinititechpartners.com/insights/disaster-recovery-rto-rpo-saas)
 
@@ -47,6 +51,7 @@ Security & compliance:
 - [ISO 27001 vs SOC 2 for SaaS: Which to Get First](https://www.infinititechpartners.com/insights/iso-27001-vs-soc-2-saas)
 - [HIPAA-Compliant Software Architecture](https://www.infinititechpartners.com/insights/hipaa-compliant-software-architecture)
 - [GDPR for US SaaS Selling into the UK and EU](https://www.infinititechpartners.com/insights/gdpr-for-us-saas-uk-eu)
+- [PCI DSS for SaaS: What You Actually Need to Handle Card Payments](https://www.infinititechpartners.com/insights/pci-dss-for-saas)
 
 ## Proof of work (case studies)
 

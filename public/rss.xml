@@ -6,7 +6,47 @@
     <description>Engineering, cloud, security and AI insights for growth-stage CTOs in the US and UK.</description>
     <language>en-us</language>
     <atom:link href="https://www.infinititechpartners.com/rss.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Fri, 26 Jun 2026 09:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 09:00:00 GMT</lastBuildDate>
+    <item>
+      <title>PCI DSS for SaaS: What You Actually Need to Handle Card Payments</title>
+      <link>https://www.infinititechpartners.com/insights/pci-dss-for-saas</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/pci-dss-for-saas</guid>
+      <pubDate>Mon, 06 Jul 2026 09:00:00 GMT</pubDate>
+      <category>Security</category>
+      <description>What PCI DSS actually requires of a SaaS company taking card payments — how to slash your scope, which SAQ applies, the merchant levels, and the obligations you keep even with Stripe.</description>
+    </item>
+    <item>
+      <title>Scaling PostgreSQL: When to Tune, When to Replicate, When to Shard</title>
+      <link>https://www.infinititechpartners.com/insights/scaling-postgresql-saas</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/scaling-postgresql-saas</guid>
+      <pubDate>Fri, 03 Jul 2026 09:00:00 GMT</pubDate>
+      <category>Engineering</category>
+      <description>A practical order of operations for scaling PostgreSQL under a growing SaaS — indexing and tuning, connection pooling, read replicas, partitioning, and when sharding is finally worth it.</description>
+    </item>
+    <item>
+      <title>Observability for Growth-Stage SaaS: Logs, Metrics, Traces, and On-Call</title>
+      <link>https://www.infinititechpartners.com/insights/observability-for-saas</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/observability-for-saas</guid>
+      <pubDate>Thu, 02 Jul 2026 09:00:00 GMT</pubDate>
+      <category>Engineering</category>
+      <description>How to build observability for a growth-stage SaaS — the three pillars, what to instrument first, SLO-based alerting, and an on-call rotation that doesn&apos;t burn your team out.</description>
+    </item>
+    <item>
+      <title>The EU AI Act for US and UK SaaS: A Practical Compliance Guide</title>
+      <link>https://www.infinititechpartners.com/insights/eu-ai-act-for-saas</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/eu-ai-act-for-saas</guid>
+      <pubDate>Wed, 01 Jul 2026 09:00:00 GMT</pubDate>
+      <category>AI</category>
+      <description>What the EU AI Act actually requires of US and UK SaaS companies that ship AI features — the risk tiers, the obligations that apply to most products, and the timeline.</description>
+    </item>
+    <item>
+      <title>Securing LLM Applications: Prompt Injection and the OWASP LLM Top 10</title>
+      <link>https://www.infinititechpartners.com/insights/securing-llm-applications-prompt-injection</link>
+      <guid isPermaLink="true">https://www.infinititechpartners.com/insights/securing-llm-applications-prompt-injection</guid>
+      <pubDate>Tue, 30 Jun 2026 09:00:00 GMT</pubDate>
+      <category>AI</category>
+      <description>How to secure a production LLM application against prompt injection, data leakage, and the OWASP LLM Top 10 — the threat model, the defenses that work, and the ones that don&apos;t.</description>
+    </item>
     <item>
       <title>Disaster Recovery for SaaS: Setting RTO/RPO You Can Actually Hit</title>
       <link>https://www.infinititechpartners.com/insights/disaster-recovery-rto-rpo-saas</link>

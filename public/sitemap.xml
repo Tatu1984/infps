@@ -247,6 +247,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.infinititechpartners.com/insights/securing-llm-applications-prompt-injection</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/eu-ai-act-for-saas</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/observability-for-saas</loc>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/scaling-postgresql-saas</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.infinititechpartners.com/insights/pci-dss-for-saas</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.infinititechpartners.com/resources/soc-2-readiness-checklist</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
